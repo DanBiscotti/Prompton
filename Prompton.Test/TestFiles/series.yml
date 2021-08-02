@@ -1,0 +1,11 @@
+﻿---
+!main
+steps:
+  - !series
+    steps:
+      - !ref test-step1
+      - !ref test-step2
+  - !choice
+    choices:
+      - test-step3
+      - !ref test-step4
