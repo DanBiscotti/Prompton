@@ -1,0 +1,7 @@
+﻿---
+!choice
+choices:
+  - !choice
+    id: test
+    choices: []
+  - !ref test-step2

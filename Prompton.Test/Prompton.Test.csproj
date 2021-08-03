@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestFiles\choice.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\series.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

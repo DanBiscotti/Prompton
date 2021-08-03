@@ -8,6 +8,8 @@ namespace Prompton.Test
     public class DeserializationTests
     {
         private const string SeriesFilePath = "TestFiles/series.yml";
+        private const string ChoiceFilePath = "TestFiles/choice.yml";
+
         private string yaml;
         private IDeserializer deserializer;
 
@@ -32,6 +34,18 @@ namespace Prompton.Test
             Assert.IsType<Series>(data);
             Assert.IsType<Series>(((Series)data).Steps[0]);
             Assert.IsType<StepReference>(((Series)data).Steps[1]);
+        }
+
+        [Fact]
+        public void ChoiceDeserializes()
+        {
+            yaml = File.ReadAllText(ChoiceFilePath);
+            var reader = new StringReader(yaml);
+            var data = deserializer.Deserialize(reader);
+
+            Assert.IsType<Choice>(data);
+            Assert.IsType<Choice>(((Choice)data).Choices[0]);
+            Assert.IsType<StepReference>(((Choice)data).Choices[1]);
         }
     }
 }
