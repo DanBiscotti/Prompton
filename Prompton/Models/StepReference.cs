@@ -1,7 +1,7 @@
 ﻿namespace Prompton.Models
 {
-    public class StepReference
+    public class StepReference : Step
     {
-
+        public Step Step { get; set; }
     }
 }

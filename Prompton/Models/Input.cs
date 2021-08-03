@@ -1,6 +1,6 @@
 ﻿namespace Prompton.Models
 {
-    class Input : Step
+    public class Input : Step
     {
     }
 }

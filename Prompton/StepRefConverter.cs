@@ -16,7 +16,7 @@ namespace Prompton
         public object ReadYaml(IParser parser, Type type)
         {
             parser.MoveNext();
-            return new Step();
+            return new StepReference();
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)
