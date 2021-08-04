@@ -1,7 +1,6 @@
 ﻿---
-!series
+!main
 steps:
   - !series
     id: test
     steps: []
-  - !ref test-step2

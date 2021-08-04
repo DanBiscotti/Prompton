@@ -1,6 +1,10 @@
-﻿namespace Prompton.Models
+﻿using System;
+
+namespace Prompton.Models
 {
-    class Timer : Step
+    public class Timer : Step
     {
+        public bool Countdown { get; set; }
+        public TimeSpan Limit { get; set; }
     }
 }

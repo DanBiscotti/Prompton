@@ -2,11 +2,13 @@
 
 namespace Prompton.Models
 {
-    public class Step
+    public abstract class Step
     {
         [YamlMember(Alias = "id")]
         public string Id { get; set; }
         [YamlMember(Alias = "name")]
         public string Name { get; set; }
+
+        public abstract void Result();
     }
 }

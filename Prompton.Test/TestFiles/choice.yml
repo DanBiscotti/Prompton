@@ -1,6 +1,6 @@
 ﻿---
-!choice
-choices:
+!main
+steps:
   - !choice
     id: test
     choices: []

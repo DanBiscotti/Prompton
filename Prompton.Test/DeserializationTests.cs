@@ -11,41 +11,51 @@ namespace Prompton.Test
         private const string ChoiceFilePath = "TestFiles/choice.yml";
 
         private string yaml;
-        private IDeserializer deserializer;
+        private YamlDeserializer deserializer;
 
         public DeserializationTests()
         {
-            deserializer = new DeserializerBuilder()
-                .WithTypeConverter(new StepRefConverter())
-                .WithTagMapping("!main", typeof(Main))
-                .WithTagMapping("!series", typeof(Series))
-                .WithTagMapping("!choice", typeof(Choice))
-                .WithTagMapping("!ref", typeof(StepReference))
-                .Build();
-        }
-
-        [Fact]
-        public void SeriesDeserializes()
-        {
-            yaml = File.ReadAllText(SeriesFilePath);
-            var reader = new StringReader(yaml);
-            var data = deserializer.Deserialize(reader);
-
-            Assert.IsType<Series>(data);
-            Assert.IsType<Series>(((Series)data).Steps[0]);
-            Assert.IsType<StepReference>(((Series)data).Steps[1]);
+            deserializer = new YamlDeserializer();
         }
 
         [Fact]
         public void ChoiceDeserializes()
         {
-            yaml = File.ReadAllText(ChoiceFilePath);
-            var reader = new StringReader(yaml);
-            var data = deserializer.Deserialize(reader);
+            var data = deserializer.Deserialize(ChoiceFilePath);
 
             Assert.IsType<Choice>(data);
-            Assert.IsType<Choice>(((Choice)data).Choices[0]);
-            Assert.IsType<StepReference>(((Choice)data).Choices[1]);
+        }
+
+        [Fact]
+        public void InputDeserializes()
+        {
+            var data = deserializer.Deserialize(ChoiceFilePath);
+
+            Assert.IsType<Input>(data);
+        }
+
+        [Fact]
+        public void MainDeserializes()
+        {
+            var data = deserializer.Deserialize(ChoiceFilePath);
+
+            Assert.IsType<Main>(data);
+        }
+
+        [Fact]
+        public void SeriesDeserializes()
+        {
+            var data = deserializer.Deserialize(SeriesFilePath);
+
+            Assert.IsType<Series>(data);
+        }
+
+        [Fact]
+        public void TimerDeserializes()
+        {
+            var data = deserializer.Deserialize(ChoiceFilePath);
+
+            Assert.IsType<Timer>(data);
         }
     }
 }
