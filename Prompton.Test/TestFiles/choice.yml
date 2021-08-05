@@ -1,7 +1,6 @@
 ﻿---
-!main
-steps:
-  - !choice
-    id: test
-    choices: []
-  - !ref test-step2
+!choice
+id: test
+choices: 
+  - "yes"
+  - "no"

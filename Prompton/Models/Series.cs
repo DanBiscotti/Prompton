@@ -6,5 +6,7 @@ namespace Prompton.Models
     {
         [YamlMember(Alias = "steps")]
         public Step[] Steps { get; set; }
+        [YamlMember(Alias = "repeats")]
+        public int  Repeats { get; set; } = 1;
     }
 }

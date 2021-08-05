@@ -3,6 +3,7 @@ using Prompton.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
 namespace Prompton
@@ -14,11 +15,14 @@ namespace Prompton
         private static Dictionary<string, Type> TagMappings = new()
         {
             { "!main", typeof(Main) },
-            { "!ref", typeof(StepReference) },
             { "!choice", typeof(Choice) },
             { "!input", typeof(Input) },
             { "!series", typeof(Series) },
             { "!timer", typeof(Timer) },
+
+            { "!stepref", typeof(StepReference) },
+            { "!regex", typeof(Regex)},
+            { "!timespan", typeof(TimeSpan) }
         };
 
         public YamlDeserializer()
@@ -47,12 +51,12 @@ namespace Prompton
             return Array.Empty<ValidationError>();
         }
 
-        public Step Deserialize(params string[] filepaths)
+        public Step Deserialize(string filepath)
         {
-            //Todo
-            return new Main();
+            var yaml = File.ReadAllText(filepath);
+            var reader = new StringReader(yaml);
+            return deserializer.Deserialize<Step>(reader);
         }
-
         private IDeserializer BuildValidator()
         {
             var builder = new DeserializerBuilder();

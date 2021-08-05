@@ -1,21 +1,21 @@
-﻿using Prompton.Models;
-using System;
+﻿using System;
+using System.Text.RegularExpressions;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
 namespace Prompton.Converters
 {
-    public class StepRefConverter : IYamlTypeConverter
+    public class RegexConverter : IYamlTypeConverter
     {
         public bool Accepts(Type type)
         {
-            return type == typeof(StepReference);
+            return type == typeof(Regex);
         }
 
         public object ReadYaml(IParser parser, Type type)
         {
             parser.MoveNext();
-            return new StepReference();
+            return new Regex(""); // TODO parse
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)

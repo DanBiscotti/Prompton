@@ -1,11 +1,9 @@
 ﻿---
-!main
-steps:
-  - !input
-    id: test
-    prompt: ""
-    validate: true
-    regex: ""
-    validationMessage: ""
-    textarea: false
-  - !ref test-step2
+!input
+id: test-id
+name: test-input
+prompt: "test-prompt"
+textarea: true
+validate: true
+validationRegex: "test-regex"
+validationMessage: "test-validation-message"

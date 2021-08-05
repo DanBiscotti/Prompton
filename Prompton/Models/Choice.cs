@@ -12,10 +12,10 @@ namespace Prompton.Models
             string[] result = new string[Choices.Length];
             for (int i = 0; i < Choices.Length; i++)
             {
-                if (Choices[i - 1].GetType() == typeof(string))
-                    result[i - 1] = (string)Choices[i - 1];
+                if (Choices[i].GetType() == typeof(string))
+                    result[i] = (string)Choices[i];
                 else
-                    result[i] = ((Step)Choices[i - 1]).Name;
+                    result[i] = ((Step)Choices[i]).Name;
             }
             return result;
         }

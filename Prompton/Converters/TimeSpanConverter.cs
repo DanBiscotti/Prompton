@@ -1,21 +1,20 @@
-﻿using Prompton.Models;
-using System;
+﻿using System;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
 namespace Prompton.Converters
 {
-    public class StepRefConverter : IYamlTypeConverter
+    public class TimeSpanConverter : IYamlTypeConverter
     {
         public bool Accepts(Type type)
         {
-            return type == typeof(StepReference);
+            return type == typeof(TimeSpan);
         }
 
         public object ReadYaml(IParser parser, Type type)
         {
             parser.MoveNext();
-            return new StepReference();
+            return new TimeSpan(); // TODO parse
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)
