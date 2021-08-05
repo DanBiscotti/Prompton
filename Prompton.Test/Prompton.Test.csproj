@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="TestFiles\timer.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\input.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\choice.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

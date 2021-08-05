@@ -1,0 +1,11 @@
+﻿---
+!main
+steps:
+  - !input
+    id: test
+    prompt: ""
+    validate: true
+    regex: ""
+    validationMessage: ""
+    textarea: false
+  - !ref test-step2
