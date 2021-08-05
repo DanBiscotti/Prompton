@@ -8,7 +8,5 @@ namespace Prompton.Models
         public string Id { get; set; }
         [YamlMember(Alias = "name")]
         public string Name { get; set; }
-
-        public abstract void Result();
     }
 }

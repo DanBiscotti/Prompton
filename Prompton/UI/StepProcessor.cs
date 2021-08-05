@@ -17,7 +17,9 @@ namespace Prompton.UI
                     }
                     return current.Next; }
                 },
+                // add in choice and others
             };
+            return b[current.Value.GetType()]();
         }
     }
 }

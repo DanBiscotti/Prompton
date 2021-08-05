@@ -4,7 +4,6 @@ using Terminal.Gui;
 
 Application.Init();
 
-
 var colorScheme = new ColorScheme()
 {
     Normal = Attribute.Make(Color.DarkGray, Color.Black),
@@ -36,7 +35,6 @@ var listview = new ListView(items)
     Width = Dim.Fill(2),
 };
 win.Add(listview);
-
 
 top.Add(win);
 
