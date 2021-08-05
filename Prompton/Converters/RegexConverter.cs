@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
 namespace Prompton.Converters
@@ -14,8 +15,9 @@ namespace Prompton.Converters
 
         public object ReadYaml(IParser parser, Type type)
         {
+            var regexString = parser.Current as Scalar;
             parser.MoveNext();
-            return new Regex(""); // TODO parse
+            return new Regex(regexString.Value);
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)

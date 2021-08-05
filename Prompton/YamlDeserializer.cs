@@ -70,7 +70,9 @@ namespace Prompton
         private IDeserializer BuildDeserializer()
         {
             var builder = new DeserializerBuilder()
-                .WithTypeConverter(new StepRefConverter());
+                .WithTypeConverter(new RegexConverter())
+                .WithTypeConverter(new StepRefConverter())
+                .WithTypeConverter(new TimeSpanConverter());
             foreach (var mapping in TagMappings)
             {
                 builder = builder.WithTagMapping(mapping.Key, mapping.Value);

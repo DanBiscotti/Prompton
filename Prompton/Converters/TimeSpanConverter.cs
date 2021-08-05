@@ -1,5 +1,6 @@
 ﻿using System;
 using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
 namespace Prompton.Converters
@@ -13,8 +14,9 @@ namespace Prompton.Converters
 
         public object ReadYaml(IParser parser, Type type)
         {
+            var timespanString = parser.Current as Scalar;
             parser.MoveNext();
-            return new TimeSpan(); // TODO parse
+            return TimeSpan.Parse(timespanString.Value);
         }
 
         public void WriteYaml(IEmitter emitter, object value, Type type)
