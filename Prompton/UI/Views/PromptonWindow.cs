@@ -48,7 +48,7 @@ namespace Prompton.UI.Views
                     HandleStep(current.Next);
                     break;
                 case Choice choice:
-                    var list = new ListView(choice.GetDisplayNames);
+                    var list = new ListView(choice.GetDisplayNames());
                     // get users choice
                     // add after
                     // return

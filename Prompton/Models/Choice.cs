@@ -16,17 +16,19 @@ namespace Prompton.Models
             {
                 switch (Choices[i])
                 {
-                    case string s:
-                        result.Add(s);
+                    case string str:
+                        result.Add(str);
                         break;
                     case StepReference step:
-                        result.Add(step.Name);
+                        result.Add(step.Step.Name);
                         break;
                     case Step step:
                         result.Add(step.Name);
                         break;
                     default:
-                        throw new ArgumentException();
+                        throw new ArgumentException(
+                            $"unsupported choice type: {Choices[i].GetType()} in choice step id: {Id}"
+                        );
                 }
             }
             return result;
