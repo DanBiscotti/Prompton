@@ -1,11 +1,12 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Collections.Generic;
+using YamlDotNet.Serialization;
 
 namespace Prompton.Models
 {
     public class Series : Step
     {
         [YamlMember(Alias = "steps")]
-        public Step[] Steps { get; set; }
+        public List<Step> Steps { get; set; }
         [YamlMember(Alias = "repeats")]
         public int  Repeats { get; set; } = 1;
     }
