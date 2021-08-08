@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using YamlDotNet.Serialization;
+using System;
 
 namespace Prompton.Models
 {
@@ -8,15 +9,25 @@ namespace Prompton.Models
         [YamlMember(Alias = "choices")]
         public List<object> Choices;
 
-        public string[] GetDisplayNames()
+        public List<string> GetDisplayNames()
         {
-            string[] result = new string[Choices.Length];
-            for (int i = 0; i < Choices.Length; i++)
+            var result = new List<string>();
+            for (int i = 0; i < Choices.Count; i++)
             {
-                if (Choices[i].GetType() == typeof(string))
-                    result[i] = (string)Choices[i];
-                else
-                    result[i] = ((Step)Choices[i]).Name;
+                switch (Choices[i])
+                {
+                    case string s:
+                        result.Add(s);
+                        break;
+                    case StepReference step:
+                        result.Add(step.Name);
+                        break;
+                    case Step step:
+                        result.Add(step.Name);
+                        break;
+                    default:
+                        throw new ArgumentException();
+                }
             }
             return result;
         }

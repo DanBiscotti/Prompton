@@ -1,5 +1,4 @@
 ﻿using System;
-using Terminal.Gui.Graphs;
 using YamlDotNet.Serialization;
 
 namespace Prompton.Models

@@ -8,22 +8,28 @@ using YamlDotNet.Serialization;
 
 namespace Prompton
 {
-    public class YamlDeserializer
+    public interface IYamlDeserializer
+    {
+        Dictionary<string, Step> GetStepDictionary(params string[] filepaths);
+        Main GetMain(params string[] filepaths);
+    }
+
+    public class YamlDeserializer : IYamlDeserializer
     {
         private IDeserializer validator;
         private IDeserializer deserializer;
-        private static Dictionary<string, Type> TagMappings = new()
-        {
-            { "!main", typeof(Main) },
-            { "!choice", typeof(Choice) },
-            { "!input", typeof(Input) },
-            { "!series", typeof(Series) },
-            { "!timer", typeof(Timer) },
-
-            { "!stepref", typeof(StepReference) },
-            { "!regex", typeof(Regex)},
-            { "!timespan", typeof(TimeSpan) }
-        };
+        private static Dictionary<string, Type> TagMappings =
+            new()
+            {
+                { "!main", typeof(Main) },
+                { "!choice", typeof(Choice) },
+                { "!input", typeof(Input) },
+                { "!series", typeof(Series) },
+                { "!timer", typeof(Timer) },
+                { "!stepref", typeof(StepReference) },
+                { "!regex", typeof(Regex) },
+                { "!timespan", typeof(TimeSpan) }
+            };
 
         public YamlDeserializer()
         {
@@ -51,6 +57,16 @@ namespace Prompton
             return Array.Empty<ValidationError>();
         }
 
+        public Dictionary<string, Step> GetStepDictionary(params string[] filepaths)
+        {
+            return new Dictionary<string, Step>();
+        }
+
+        public Main GetMain(params string[] filepaths)
+        {
+            return new Main();
+        }
+
         public Step Deserialize(string filepath)
         {
             var yaml = File.ReadAllText(filepath);
@@ -69,8 +85,7 @@ namespace Prompton
 
         private IDeserializer BuildDeserializer()
         {
-            var builder = new DeserializerBuilder()
-                .WithTypeConverter(new RegexConverter())
+            var builder = new DeserializerBuilder().WithTypeConverter(new RegexConverter())
                 .WithTypeConverter(new StepRefConverter())
                 .WithTypeConverter(new TimeSpanConverter());
             foreach (var mapping in TagMappings)
@@ -85,5 +100,5 @@ namespace Prompton
     {
         public string Message { get; set; }
         public string Location { get; set; }
-    } 
+    }
 }

@@ -9,15 +9,17 @@ namespace Prompton.UI.Views
 {
     public class PromptonWindow : Window
     {
-        public LinkedList<Step> OrderedSteps;
-        public Dictionary<string, Step> LinkedSteps;
+        private readonly Main main;
+        private readonly Dictionary<string, Step> stepDict;
 
-        public ColorScheme colorScheme;
+        private LinkedList<Step> orderedSteps;
 
-        public PromptonWindow(LinkedList<Step> orderedSteps, Dictionary<string, Step> linkedSteps)
+        private ColorScheme colorScheme;
+
+        public PromptonWindow(Main main, Dictionary<string, Step> stepDict)
         {
-            OrderedSteps = orderedSteps;
-            LinkedSteps = linkedSteps;
+            this.main = main;
+            this.stepDict = stepDict;
             colorScheme = new ColorScheme()
             {
                 Normal = Attribute.Make(Color.DarkGray, Color.Black),
@@ -25,21 +27,33 @@ namespace Prompton.UI.Views
                 HotNormal = Attribute.Make(Color.BrightBlue, Color.Black),
                 HotFocus = Attribute.Make(Color.Blue, Color.Black)
             };
+            X = 0;
+            Y = 0;
+            Width = Dim.Fill();
+            Height = Dim.Fill();
+
+            orderedSteps = new LinkedList<Step>();
+            orderedSteps.AddFirst(main);
         }
 
-        public LinkedListNode<Step> ProcessStep(LinkedList<Step> steps, LinkedListNode<Step> current)
+        private void HandleStep(LinkedListNode<Step> current)
         {
-            var switcher = new Dictionary<Type, Func<LinkedListNode<Step>>>()
+            switch (current.Value)
             {
-                { typeof(Series), () => {
-                    foreach(Step s in ((Series)current.Value).Steps.Reverse<Step>()) {
-                        steps.AddAfter(current, s);
+                case Series series:
+                    foreach (Step s in series.Steps.Reverse<Step>())
+                    {
+                        orderedSteps.AddAfter(current, s);
                     }
-                    return current.Next; }
-                },
-                // add in choice and others
-            };
-            return switcher[current.Value.GetType()]();
+                    HandleStep(current.Next);
+                    break;
+                case Choice choice:
+                    var list = new ListView(choice.GetDisplayNames);
+                    // get users choice
+                    // add after
+                    // return
+                    break;
+            }
         }
     }
 }
