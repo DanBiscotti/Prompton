@@ -23,7 +23,7 @@ var choice = new Choice
     Prompt = "Make a choice:",
     Choices = new() { "choice 1", "choice 2" }
 };
-main.Steps = new List<Step> { series, choice };
+main.Steps = new List<Step> { choice };
 var dict = new Dictionary<string, Step>()
 {
     { main.Id, main },
