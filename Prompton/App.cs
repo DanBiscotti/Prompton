@@ -1,6 +1,4 @@
-﻿using Prompton.Models;
-using Prompton.UI.Views;
-using System.Collections.Generic;
+﻿using Prompton.UI.Views;
 using Terminal.Gui;
 
 namespace Prompton
@@ -18,11 +16,12 @@ namespace Prompton
         {
             var stepsWithIds = deserializer.GetStepDictionary();
             var main = deserializer.GetMain();
-            var window = new PromptonWindow(baseLinkedList, stepsWithIds);
 
             Application.Init();
             var top = Application.Top;
+            var window = new PromptonWindow(main, stepsWithIds);
             top.Add(window);
+            Application.Run();
         }
     }
 }

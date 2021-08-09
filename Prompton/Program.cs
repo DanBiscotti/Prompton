@@ -18,7 +18,7 @@ var series = new Series
 };
 var choice = new Choice
 {
-    Id = "test-series",
+    Id = "test-choice",
     Name = "Test Choice",
     Prompt = "Make a choice:",
     Choices = new() { "choice 1", "choice 2" }
@@ -36,3 +36,4 @@ var deserializer = new MockDeserializer(dict, main);
 
 
 App app = new App(deserializer);
+app.Start();

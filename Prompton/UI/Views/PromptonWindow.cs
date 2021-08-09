@@ -14,13 +14,11 @@ namespace Prompton.UI.Views
 
         private LinkedList<Step> orderedSteps;
 
-        private ColorScheme colorScheme;
-
         public PromptonWindow(Main main, Dictionary<string, Step> stepDict)
         {
             this.main = main;
             this.stepDict = stepDict;
-            colorScheme = new ColorScheme()
+            ColorScheme = new ColorScheme()
             {
                 Normal = Attribute.Make(Color.DarkGray, Color.Black),
                 Focus = Attribute.Make(Color.White, Color.Black),
@@ -34,6 +32,16 @@ namespace Prompton.UI.Views
 
             orderedSteps = new LinkedList<Step>();
             orderedSteps.AddFirst(main);
+
+            Add(new TextView()
+            {
+                X = Pos.Center(),
+                Y = Pos.Center(),
+                Height = 5,
+                Width = Dim.Fill(),
+                Text = Figgle.FiggleFonts.Standard.Render(main.Name),
+                TextAlignment = TextAlignment.Centered
+            });
         }
 
         private void HandleStep(LinkedListNode<Step> current)
