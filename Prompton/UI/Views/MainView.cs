@@ -1,5 +1,7 @@
-﻿using ConsoleGUI.UserDefined;
+﻿using ConsoleGUI.Controls;
+using ConsoleGUI.UserDefined;
 using Prompton.Models;
+using System;
 
 namespace Prompton.UI.Views
 {
@@ -10,6 +12,12 @@ namespace Prompton.UI.Views
         public MainView(Main main)
         {
             this.main = main;
+            Content = new Border { Content = new TextBlock() { Text = main.Name } };
+        }
+
+        public void ChangeView(SimpleControl view)
+        {
+            Content = view;
         }
     }
 }

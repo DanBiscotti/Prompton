@@ -5,37 +5,41 @@ using Prompton.Models;
 using Prompton.UI.Views;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 
 namespace Prompton
 {
     public class App
     {
         private IYamlDeserializer deserializer;
+        private ViewProvider viewProvider;
+        private ListenerProvider listenerProvider;
 
         public App(IYamlDeserializer deserializer)
         {
             this.deserializer = deserializer;
+            viewProvider = new ViewProvider();
+            listenerProvider = new ListenerProvider();
         }
 
         public void Start(params string[] files)
         {
-            var stepsWithIds = deserializer.GetStepDictionary();
+            var stepDict = deserializer.GetStepDictionary();
             var main = deserializer.GetMain();
 
             var orderedSteps = new LinkedList<Step>();
             orderedSteps.AddFirst(main);
             var currentStep = orderedSteps.First;
 
-            var exit = false;
+
             var flag = new NextFlag();
-            ConsoleManager.Setup();
-            ConsoleManager.Content = new MainView(main);
-            var inputListeners = new List<IInputListener>();
-
             var resultMap = new object();
-            var viewProvider = new ViewProvider();
-            var listenerProvider = new ListenerProvider();
+            ConsoleManager.Setup();
+            var mainView = new MainView(main);
+            ConsoleManager.Content = mainView;
+            var inputListeners = listenerProvider.GetListeners(mainView, currentStep, flag);
 
+            var exit = false;
             while (!exit)
             {
                 Thread.Sleep(10);
@@ -46,8 +50,9 @@ namespace Prompton
                     {
                         currentStep = currentStep.Next;
                         var view = viewProvider.GetView(currentStep.Value);
-                        ConsoleManager.Content = view;
-                        inputListeners = listenerProvider.GetListeners(view, currentStep, flag, resultMap);
+                        mainView.ChangeView(view);
+                        inputListeners = listenerProvider.GetListeners(view, currentStep, flag);
+                        flag.MoveNext = false;
                     }
                     else
                     {
@@ -59,6 +64,11 @@ namespace Prompton
             // do final stuff
             // write result map to yaml file
         }
+
+        public void Run()
+        {
+
+        }
     }
 
     public class ListenerProvider
@@ -67,11 +77,16 @@ namespace Prompton
         {
         }
 
-        public List<IInputListener> GetListeners(SimpleControl view, LinkedListNode<Step> currentStep, NextFlag flag, object resultMap)
+        public List<IInputListener> GetListeners(SimpleControl view, LinkedListNode<Step> currentStep, NextFlag flag)
         {
-            //switch on currentStep.Value.GetType
-            //instantiate appropriate listener
-            throw new System.NotImplementedException();
+            var result = new List<IInputListener>();
+            //result.Add(new QuitListener());
+            //switch(view)
+            //{
+            //    case ChoiceView choiceView:
+
+            //}
+            return result;
         }
     }
 
@@ -83,12 +98,19 @@ namespace Prompton
 
         public SimpleControl GetView(Step value)
         {
-            throw new System.NotImplementedException();
+            switch (value)
+            {
+                case Choice choice:
+                    return new ChoiceView(choice);
+                case Series series:
+                    return new SeriesView(series);
+                default: throw new System.NotImplementedException();
+            }
         }
     }
 
     public class NextFlag
     {
-        public bool MoveNext { get; set; } = false;
+        public bool MoveNext { get; set; } = true;
     }
 }
