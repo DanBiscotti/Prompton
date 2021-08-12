@@ -19,13 +19,13 @@ namespace Testing
         {
             if (inputEvent.Key.Key == System.ConsoleKey.Enter)
             {
-                ConsoleManager.Content = new TestView(i);
+                ConsoleManager.Content = new Border { Content = new TestView(i) };
                 var listener = new TestListener(i + 1, flag);
                 while (!flag.Exit)
                 {
-                    inputEvent.Handled = true;
                     ConsoleManager.ReadInput(new[] { listener });
                 }
+                inputEvent.Handled = true;
             }
             else if(inputEvent.Key.Key == System.ConsoleKey.Q)
             {
