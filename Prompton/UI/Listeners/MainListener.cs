@@ -1,14 +1,14 @@
-﻿using ConsoleGUI.Input;
+using ConsoleGUI.Input;
 using Prompton.UI.Views;
 using System;
 
 namespace Prompton.UI.Listeners;
 
-public class ChoiceListener : IInputListener
+public class MainListener : IInputListener
 {
-    private readonly ChoiceView view;
+    private readonly MainView view;
 
-    public ChoiceListener(ChoiceView view)
+    public MainListener(MainView view)
     {
         this.view = view;
     }

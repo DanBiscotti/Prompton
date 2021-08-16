@@ -1,23 +1,21 @@
 ﻿using ConsoleGUI.Controls;
 using ConsoleGUI.UserDefined;
 using Prompton.Models;
-using System;
 
-namespace Prompton.UI.Views
+namespace Prompton.UI.Views;
+
+public class MainView : SimpleControl
 {
-    public class MainView : SimpleControl
+    private MainStep main;
+
+    public MainView(MainStep main)
     {
-        private Main main;
+        this.main = main;
+        Content = new Border { Content = new TextBlock() { Text = main.Name } };
+    }
 
-        public MainView(Main main)
-        {
-            this.main = main;
-            Content = new Border { Content = new TextBlock() { Text = main.Name } };
-        }
-
-        public void ChangeView(SimpleControl view)
-        {
-            Content = view;
-        }
+    public void ChangeView(SimpleControl view)
+    {
+        Content = view;
     }
 }

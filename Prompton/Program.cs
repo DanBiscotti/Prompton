@@ -30,8 +30,6 @@ var dict = new Dictionary<string, Step>()
     { series.Id, series },
     { choice.Id, choice }
 };
-
-
 var deserializer = new MockDeserializer(dict, main);
 
 

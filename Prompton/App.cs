@@ -3,114 +3,68 @@ using ConsoleGUI.Input;
 using ConsoleGUI.UserDefined;
 using Prompton.Models;
 using Prompton.UI.Views;
+using Prompton.UI.Listeners;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Linq;
 
-namespace Prompton
+namespace Prompton;
+
+public class App
 {
-    public class App
+    private IYamlDeserializer deserializer;
+
+    public App(IYamlDeserializer deserializer)
     {
-        private IYamlDeserializer deserializer;
-        private ViewProvider viewProvider;
-        private ListenerProvider listenerProvider;
-
-        public App(IYamlDeserializer deserializer)
-        {
-            this.deserializer = deserializer;
-            viewProvider = new ViewProvider();
-            listenerProvider = new ListenerProvider();
-        }
-
-        public void Start(params string[] files)
-        {
-            var stepDict = deserializer.GetStepDictionary();
-            var main = deserializer.GetMain();
-
-            var orderedSteps = new LinkedList<Step>();
-            orderedSteps.AddFirst(main);
-            var currentStep = orderedSteps.First;
-
-
-            var flag = new NextFlag();
-            var resultMap = new object();
-            ConsoleManager.Setup();
-            var mainView = new MainView(main);
-            ConsoleManager.Content = mainView;
-            var inputListeners = listenerProvider.GetListeners(mainView, currentStep, flag);
-
-            var exit = false;
-            while (!exit)
-            {
-                Thread.Sleep(10);
-                ConsoleManager.ReadInput(inputListeners);
-                if (flag.MoveNext)
-                {
-                    if (currentStep.Next is not null)
-                    {
-                        currentStep = currentStep.Next;
-                        var view = viewProvider.GetView(currentStep.Value);
-                        mainView.ChangeView(view);
-                        inputListeners = listenerProvider.GetListeners(view, currentStep, flag);
-                        flag.MoveNext = false;
-                    }
-                    else
-                    {
-                        exit = true;
-                    }
-                }
-            }
-
-            // do final stuff
-            // write result map to yaml file
-        }
-
-        public void Run()
-        {
-
-        }
+        this.deserializer = deserializer;
     }
 
-    public class ListenerProvider
+    public void Start(params string[] files)
     {
-        public ListenerProvider()
-        {
-        }
+        var stepDict = deserializer.GetStepDictionary();
+        var main = deserializer.GetMain();
 
-        public List<IInputListener> GetListeners(SimpleControl view, LinkedListNode<Step> currentStep, NextFlag flag)
-        {
-            var result = new List<IInputListener>();
-            //result.Add(new QuitListener());
-            //switch(view)
-            //{
-            //    case ChoiceView choiceView:
+        var mainView = main.GetView();
+        var inputListeners = mainView.GetListeners();
 
-            //}
-            return result;
+        ConsoleManager.Setup();
+        ConsoleManager.Content = mainView;
+        var exit = false;
+        while (!exit)
+        {
+            Thread.Sleep(10);
+            ConsoleManager.ReadInput(mainView.GetListeners());
         }
+        // do final stuff
     }
+}
 
-    public class ViewProvider
-    {
-        public ViewProvider()
+public static class StepExtensions
+{
+    public static QuitListener quitListener = new QuitListener();
+
+    public static SimpleControl GetView(this Step step) =>
+        step switch
         {
-        }
+            MainStep main => new MainView(main),
+            ChoiceStep choice => new ChoiceView(choice),
+            InputStep input => new InputView(input),
+            SeriesStep series => new SeriesView(series),
+            TimerStep timer => new TimerView(timer),
+            _
+              => throw new NotSupportedException(
+                  $"Step type {step.GetType()} does not have a corresponding view"
+              )
+        };
 
-        public SimpleControl GetView(Step value)
+    public static List<IInputListener> GetListeners(this SimpleControl stepView) =>
+        stepView switch
         {
-            switch (value)
-            {
-                case Choice choice:
-                    return new ChoiceView(choice);
-                case Series series:
-                    return new SeriesView(series);
-                default: throw new System.NotImplementedException();
-            }
-        }
-    }
-
-    public class NextFlag
-    {
-        public bool MoveNext { get; set; } = true;
-    }
+            ChoiceView choiceView
+              => new List<IInputListener> { new ChoiceListener(choiceView), quitListener },
+            _
+              => throw new NotSupportedException(
+                  $"View type {stepView.GetType()} doesn't support listeners"
+              )
+        };
 }
