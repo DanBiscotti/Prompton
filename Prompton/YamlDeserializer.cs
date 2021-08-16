@@ -6,99 +6,98 @@ using System.IO;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace Prompton
+namespace Prompton;
+
+public interface IYamlDeserializer
 {
-    public interface IYamlDeserializer
+    Dictionary<string, Step> GetStepDictionary(params string[] filepaths);
+    Main GetMain(params string[] filepaths);
+}
+
+public class YamlDeserializer : IYamlDeserializer
+{
+    private IDeserializer validator;
+    private IDeserializer deserializer;
+    private static Dictionary<string, Type> TagMappings =
+        new()
+        {
+            { "!main", typeof(Main) },
+            { "!choice", typeof(Choice) },
+            { "!input", typeof(Input) },
+            { "!series", typeof(Series) },
+            { "!timer", typeof(Timer) },
+            { "!stepref", typeof(StepReference) },
+            { "!regex", typeof(Regex) },
+            { "!timespan", typeof(TimeSpan) }
+        };
+
+    public YamlDeserializer()
     {
-        Dictionary<string, Step> GetStepDictionary(params string[] filepaths);
-        Main GetMain(params string[] filepaths);
+        validator = BuildValidator();
+        deserializer = BuildDeserializer();
     }
 
-    public class YamlDeserializer : IYamlDeserializer
+    public ValidationError[] Validate(string[] filepaths)
     {
-        private IDeserializer validator;
-        private IDeserializer deserializer;
-        private static Dictionary<string, Type> TagMappings =
-            new()
-            {
-                { "!main", typeof(Main) },
-                { "!choice", typeof(Choice) },
-                { "!input", typeof(Input) },
-                { "!series", typeof(Series) },
-                { "!timer", typeof(Timer) },
-                { "!stepref", typeof(StepReference) },
-                { "!regex", typeof(Regex) },
-                { "!timespan", typeof(TimeSpan) }
-            };
-
-        public YamlDeserializer()
+        var errors = new List<ValidationError>();
+        foreach (var filepath in filepaths)
         {
-            validator = BuildValidator();
-            deserializer = BuildDeserializer();
+            var exists = true; // TODO
+            if (exists)
+                errors.AddRange(Validate(filepath));
         }
-
-        public ValidationError[] Validate(string[] filepaths)
-        {
-            var errors = new List<ValidationError>();
-            foreach (var filepath in filepaths)
-            {
-                var exists = true; // TODO
-                if (exists)
-                    errors.AddRange(Validate(filepath));
-            }
-            return errors.ToArray();
-        }
-
-        public ValidationError[] Validate(string filepath)
-        {
-            var yaml = File.ReadAllText(filepath);
-            var reader = new StringReader(yaml);
-            //Todo
-            return Array.Empty<ValidationError>();
-        }
-
-        public Dictionary<string, Step> GetStepDictionary(params string[] filepaths)
-        {
-            return new Dictionary<string, Step>();
-        }
-
-        public Main GetMain(params string[] filepaths)
-        {
-            return new Main();
-        }
-
-        public Step Deserialize(string filepath)
-        {
-            var yaml = File.ReadAllText(filepath);
-            var reader = new StringReader(yaml);
-            return deserializer.Deserialize<Step>(reader);
-        }
-        private IDeserializer BuildValidator()
-        {
-            var builder = new DeserializerBuilder();
-            foreach (var mapping in TagMappings)
-            {
-                builder = builder.WithTagMapping(mapping.Key, mapping.Value);
-            }
-            return builder.Build();
-        }
-
-        private IDeserializer BuildDeserializer()
-        {
-            var builder = new DeserializerBuilder().WithTypeConverter(new RegexConverter())
-                .WithTypeConverter(new StepRefConverter())
-                .WithTypeConverter(new TimeSpanConverter());
-            foreach (var mapping in TagMappings)
-            {
-                builder = builder.WithTagMapping(mapping.Key, mapping.Value);
-            }
-            return builder.Build();
-        }
+        return errors.ToArray();
     }
 
-    public class ValidationError
+    public ValidationError[] Validate(string filepath)
     {
-        public string Message { get; set; }
-        public string Location { get; set; }
+        var yaml = File.ReadAllText(filepath);
+        var reader = new StringReader(yaml);
+        //Todo
+        return Array.Empty<ValidationError>();
     }
+
+    public Dictionary<string, Step> GetStepDictionary(params string[] filepaths)
+    {
+        return new Dictionary<string, Step>();
+    }
+
+    public Main GetMain(params string[] filepaths)
+    {
+        return new Main();
+    }
+
+    public Step Deserialize(string filepath)
+    {
+        var yaml = File.ReadAllText(filepath);
+        var reader = new StringReader(yaml);
+        return deserializer.Deserialize<Step>(reader);
+    }
+    private IDeserializer BuildValidator()
+    {
+        var builder = new DeserializerBuilder();
+        foreach (var mapping in TagMappings)
+        {
+            builder = builder.WithTagMapping(mapping.Key, mapping.Value);
+        }
+        return builder.Build();
+    }
+
+    private IDeserializer BuildDeserializer()
+    {
+        var builder = new DeserializerBuilder().WithTypeConverter(new RegexConverter())
+            .WithTypeConverter(new StepRefConverter())
+            .WithTypeConverter(new TimeSpanConverter());
+        foreach (var mapping in TagMappings)
+        {
+            builder = builder.WithTagMapping(mapping.Key, mapping.Value);
+        }
+        return builder.Build();
+    }
+}
+
+public class ValidationError
+{
+    public string Message { get; set; }
+    public string Location { get; set; }
 }

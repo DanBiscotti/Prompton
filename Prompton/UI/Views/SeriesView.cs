@@ -1,14 +1,14 @@
 ﻿using ConsoleGUI.UserDefined;
 using Prompton.Models;
 
-namespace Prompton.UI.Views
+namespace Prompton.UI.Views;
+
+public class SeriesView : SimpleControl
 {
-    public class SeriesView : SimpleControl
+    private readonly SeriesStep series;
+
+    public SeriesView(SeriesStep series)
     {
-        private readonly Series _series;
-        public SeriesView(Series series)
-        {
-            _series = series;
-        }
+        this.series = series;
     }
 }
