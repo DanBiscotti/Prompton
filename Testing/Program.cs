@@ -5,7 +5,7 @@ using Prompton.UI;
 var step = new MainStep
 {
     Id = "main",
-    Name = "Test Main",
+    Name = "Recommended Routine",
     Prompt = "Welcome to Test",
     Repeats = 2,
     Steps = new List<Step>() { }

@@ -1,6 +1,5 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Controls;
-using ConsoleGUI.Data;
 using ConsoleGUI.Space;
 using ConsoleGUI.UserDefined;
 using Prompton.Steps;
@@ -10,70 +9,87 @@ namespace Prompton.UI.Views;
 public class MainView : SimpleControl
 {
     private MainStep main;
+    public Margin ViewArea { get; }
 
     public MainView(MainStep main)
     {
-        this.main = main; 
-		var textBox1 = new TextBox { Text = "Hello world" };
-		var textBox2 = new TextBox { Text = "Test" };
-		var textBlock = new TextBlock();
+        this.main = main;
 
-		var button = new Button { Content = new Margin { Offset = new Offset(4, 1, 4, 1), Content = new TextBlock { Text = "Button" } } };
+        ViewArea = new Margin
+        {
+            Offset = new Offset(5, 2, 5, 2)
+        };
 
-		Content = new Background
-		{
-			Color = new Color(100, 0, 0),
-			Content = new Margin
-			{
-				Offset = new Offset(5, 2, 5, 2),
-				Content = new VerticalStackPanel
-				{
-					Children = new IControl[]
-						{
-							textBlock,
-							new HorizontalSeparator(),
-							new TextBlock { Text = "Simple text box" },
-							new Background{
-								Color = Color.Black,
-								Content = textBox1
-							},
-							new HorizontalSeparator(),
-							new TextBlock { Text = "Wrapped text box" },
-							new Boundary
-							{
-								Width = 10,
-								Content = new Background
-								{
-									Color = new Color(0, 100, 0),
-									Content = new WrapPanel { Content = new Boundary{ MinWidth = 10, Content = textBox2 } }
-								}
-							},
-							new HorizontalSeparator(),
-							new Boundary
-							{
-								Height = 1,
-								Content = new HorizontalStackPanel
-								{
-									Children = new IControl[]
-									{
-										new TextBlock {Text = "Check box: "},
-										new CheckBox {
-											TrueCharacter = new Character('Y', new Color(0, 255, 0)),
-											FalseCharacter = new Character('N', new Color(255, 0, 0))
-										}
-									}
-								}
-							},
-							new HorizontalSeparator(),
-							new Box { Content = button }
-						}
-				}
-			}
-		};
-	}
+        ViewArea.Content = BuildMainView();
 
-    public void ChangeView(SimpleControl view)
+        Content = new Background
+        {
+            Content = new Border
+            {
+                Content = ViewArea
+            }
+        };
+    }
+
+    private VerticalStackPanel BuildMainView()
     {
-        Content = view;
+        var children = new List<IControl>();
+
+        if (main.Name is not null or "")
+            children.Add(BuildTitle());
+
+        if (main.Prompt is not null or "")
+            children.Add(BuildPrompt());
+
+        children.Add(new HorizontalSeparator());
+        children.Add(BuildPressEnter());
+
+        return new VerticalStackPanel { Children = children };
+    }
+
+    private Box BuildPrompt()
+    {
+        return new Box
+        {
+            Content = new TextBlock
+            {
+                Text = main.Prompt
+            }
+        };
+    }
+
+    private Box BuildTitle()
+    {
+        var figgle = Figgle.FiggleFonts.Standard.Render(main.Name);
+        var width = figgle.IndexOf('\n') + 1;
+        var title = new TextBlock { Text = figgle };
+        return new Box
+        {
+            Content = new Boundary
+            {
+                Width = width,
+                Content = new Background
+                {
+                    Content = new WrapPanel
+                    {
+                        Content = new Boundary
+                        {
+                            MinWidth = width,
+                            Content = title
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private Box BuildPressEnter()
+    {
+        return new Box
+        {
+            Content = new TextBlock { Text = "Press enter to begin" },
+            HorizontalContentPlacement = Box.HorizontalPlacement.Center,
+            VerticalContentPlacement = Box.VerticalPlacement.Center
+        };
     }
 }
