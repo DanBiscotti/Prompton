@@ -1,4 +1,5 @@
-﻿using Prompton.Steps;
+﻿using Prompton.Serialization;
+using Prompton.Steps;
 using Xunit;
 
 namespace Prompton.Test.Deserialization

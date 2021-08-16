@@ -1,9 +1,6 @@
 ﻿using ConsoleGUI;
-using ConsoleGUI.Input;
-using ConsoleGUI.UserDefined;
-using Prompton.Steps;
-using Prompton.UI.Listeners;
-using Prompton.UI.Views;
+using Prompton.Serialization;
+using Prompton.UI;
 
 namespace Prompton;
 
@@ -34,34 +31,4 @@ public class App
         }
         // do final stuff
     }
-}
-
-public static class StepExtensions
-{
-    public static QuitListener quitListener = new QuitListener();
-
-    public static SimpleControl GetView(this Step step) =>
-        step switch
-        {
-            MainStep main => new MainView(main),
-            ChoiceStep choice => new ChoiceView(choice),
-            InputStep input => new InputView(input),
-            SeriesStep series => new SeriesView(series),
-            TimerStep timer => new TimerView(timer),
-            _
-              => throw new NotSupportedException(
-                  $"Step type {step.GetType()} does not have a corresponding view"
-              )
-        };
-
-    public static List<IInputListener> GetListeners(this SimpleControl stepView) =>
-        stepView switch
-        {
-            ChoiceView choiceView
-              => new List<IInputListener> { new ChoiceListener(choiceView), quitListener },
-            _
-              => throw new NotSupportedException(
-                  $"View type {stepView.GetType()} doesn't support listeners"
-              )
-        };
 }

@@ -1,9 +1,9 @@
-﻿using Prompton.Converters;
+﻿using Prompton.Serialization.Converters;
 using Prompton.Steps;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace Prompton;
+namespace Prompton.Serialization;
 
 public interface IYamlDeserializer
 {
@@ -85,10 +85,12 @@ public class YamlDeserializer : IYamlDeserializer
         var builder = new DeserializerBuilder().WithTypeConverter(new RegexConverter())
             .WithTypeConverter(new StepRefConverter())
             .WithTypeConverter(new TimeSpanConverter());
+
         foreach (var mapping in TagMappings)
         {
             builder = builder.WithTagMapping(mapping.Key, mapping.Value);
         }
+
         return builder.Build();
     }
 }
