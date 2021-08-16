@@ -1,22 +1,22 @@
-﻿using Prompton.Models;
+﻿using Prompton.Steps;
 using Prompton;
 using System.Collections.Generic;
 
 
 // Deserialize & Validate
-var main = new Main
+var main = new MainStep
 {
     Id = "test-main",
     Name = "Test Routine",
     Prompt = "Welcome to the Test Routine"
 };
-var series = new Series
+var series = new SeriesStep
 {
     Id = "test-series",
     Name = "Test Series",
     Prompt = "You are now in a series"
 };
-var choice = new Choice
+var choice = new ChoiceStep
 {
     Id = "test-choice",
     Name = "Test Choice",

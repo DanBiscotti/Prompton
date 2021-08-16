@@ -1,8 +1,5 @@
 ﻿using Prompton.Converters;
-using Prompton.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using Prompton.Steps;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
@@ -11,7 +8,7 @@ namespace Prompton;
 public interface IYamlDeserializer
 {
     Dictionary<string, Step> GetStepDictionary(params string[] filepaths);
-    Main GetMain(params string[] filepaths);
+    MainStep GetMain(params string[] filepaths);
 }
 
 public class YamlDeserializer : IYamlDeserializer
@@ -21,11 +18,11 @@ public class YamlDeserializer : IYamlDeserializer
     private static Dictionary<string, Type> TagMappings =
         new()
         {
-            { "!main", typeof(Main) },
-            { "!choice", typeof(Choice) },
-            { "!input", typeof(Input) },
-            { "!series", typeof(Series) },
-            { "!timer", typeof(Timer) },
+            { "!main", typeof(MainStep) },
+            { "!choice", typeof(ChoiceStep) },
+            { "!input", typeof(InputStep) },
+            { "!series", typeof(SeriesStep) },
+            { "!timer", typeof(TimerStep) },
             { "!stepref", typeof(StepReference) },
             { "!regex", typeof(Regex) },
             { "!timespan", typeof(TimeSpan) }
@@ -62,9 +59,9 @@ public class YamlDeserializer : IYamlDeserializer
         return new Dictionary<string, Step>();
     }
 
-    public Main GetMain(params string[] filepaths)
+    public MainStep GetMain(params string[] filepaths)
     {
-        return new Main();
+        return new MainStep();
     }
 
     public Step Deserialize(string filepath)

@@ -1,12 +1,9 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Input;
 using ConsoleGUI.UserDefined;
-using Prompton.Models;
-using Prompton.UI.Views;
+using Prompton.Steps;
 using Prompton.UI.Listeners;
-using System;
-using System.Collections.Generic;
-using System.Threading;
+using Prompton.UI.Views;
 
 namespace Prompton;
 

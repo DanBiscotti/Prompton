@@ -1,4 +1,4 @@
-﻿using Prompton.Models;
+﻿using Prompton.Steps;
 using Xunit;
 
 namespace Prompton.Test.Deserialization
@@ -18,8 +18,8 @@ namespace Prompton.Test.Deserialization
         {
             var data = deserializer.Deserialize(InputFilePath);
 
-            Assert.IsType<Input>(data);
-            var input = (Input)data;
+            Assert.IsType<InputStep>(data);
+            var input = (InputStep)data;
             Assert.True(input.TextArea);
             Assert.True(input.Validate);
             Assert.Equal("test-regex", input.ValidationRegex.ToString());

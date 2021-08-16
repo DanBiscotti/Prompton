@@ -1,14 +1,13 @@
-using Prompton.Models;
-using System.Collections.Generic;
+using Prompton.Steps;
 
 namespace Prompton
 {
     public class MockDeserializer : IYamlDeserializer
     {
         private Dictionary<string, Step> dicToReturn;
-        private Main mainToReturn;
+        private MainStep mainToReturn;
 
-        public MockDeserializer(Dictionary<string, Step> dicToReturn, Main mainToReturn)
+        public MockDeserializer(Dictionary<string, Step> dicToReturn, MainStep mainToReturn)
         {
             this.dicToReturn = dicToReturn;
             this.mainToReturn = mainToReturn;
@@ -18,7 +17,7 @@ namespace Prompton
         {
             return dicToReturn;
         }
-        public Main GetMain(params string[] filepaths)
+        public MainStep GetMain(params string[] filepaths)
         {
             return mainToReturn;
         }

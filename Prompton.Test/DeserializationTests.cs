@@ -1,4 +1,4 @@
-﻿using Prompton.Models;
+﻿using Prompton.Steps;
 using Xunit;
 
 namespace Prompton.Test
@@ -21,8 +21,8 @@ namespace Prompton.Test
         {
             var data = deserializer.Deserialize(SeriesFilePath);
 
-            Assert.IsType<Series>(data);
-            var series = (Series)data;
+            Assert.IsType<SeriesStep>(data);
+            var series = (SeriesStep)data;
             Assert.Equal(3, series.Repeats);
         }
 
@@ -39,7 +39,7 @@ namespace Prompton.Test
         {
             var data = deserializer.Deserialize(TimerFilePath);
 
-            Assert.IsType<Timer>(data);
+            Assert.IsType<TimerStep>(data);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Prompton.Models;
+﻿using Prompton.Steps;
 using Xunit;
 
 namespace Prompton.Test.Deserialization
@@ -18,9 +18,9 @@ namespace Prompton.Test.Deserialization
         {
             var data = deserializer.Deserialize(ChoiceFilePath);
 
-            Assert.IsType<Choice>(data);
+            Assert.IsType<ChoiceStep>(data);
 
-            var choices = ((Choice)data).GetDisplayNames();
+            var choices = ((ChoiceStep)data).GetDisplayNames();
             Assert.Equal("yes", choices[0]);
             Assert.Equal("no", choices[1]);
         }

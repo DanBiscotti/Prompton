@@ -1,5 +1,4 @@
-﻿using Prompton.Models;
-using System;
+﻿using Prompton.Steps;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 

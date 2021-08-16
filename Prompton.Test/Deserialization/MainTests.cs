@@ -1,4 +1,4 @@
-﻿using Prompton.Models;
+﻿using Prompton.Steps;
 using Xunit;
 
 namespace Prompton.Test.Deserialization
@@ -18,9 +18,9 @@ namespace Prompton.Test.Deserialization
         {
             var data = deserializer.Deserialize(MainFilePath);
 
-            Assert.IsType<Main>(data);
+            Assert.IsType<MainStep>(data);
 
-            var Main = ((Main)data);
+            var Main = ((MainStep)data);
         }
     }
 }

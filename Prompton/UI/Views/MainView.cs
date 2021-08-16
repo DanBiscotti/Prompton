@@ -1,6 +1,6 @@
 ﻿using ConsoleGUI.Controls;
 using ConsoleGUI.UserDefined;
-using Prompton.Models;
+using Prompton.Steps;
 
 namespace Prompton.UI.Views;
 
