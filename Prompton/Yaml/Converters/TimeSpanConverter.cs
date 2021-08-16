@@ -2,7 +2,7 @@
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
-namespace Prompton.Serialization.Converters;
+namespace Prompton.Yaml.Converters;
 
 public class TimeSpanConverter : IYamlTypeConverter
 {

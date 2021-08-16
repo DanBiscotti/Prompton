@@ -1,5 +1,5 @@
 ﻿using Prompton;
-using Prompton.Serialization;
+using Prompton.Yaml;
 
 
 // Deserialize & Validate

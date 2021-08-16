@@ -1,9 +1,9 @@
-﻿using Prompton.Serialization.Converters;
+﻿using Prompton.Yaml.Converters;
 using Prompton.Steps;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 
-namespace Prompton.Serialization;
+namespace Prompton.Yaml;
 
 public interface IYamlDeserializer
 {

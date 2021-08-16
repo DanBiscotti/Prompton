@@ -1,5 +1,5 @@
 ﻿using ConsoleGUI;
-using Prompton.Serialization;
+using Prompton.Yaml;
 using Prompton.UI;
 
 namespace Prompton;

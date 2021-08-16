@@ -1,4 +1,4 @@
-﻿using Prompton.Serialization;
+﻿using Prompton.Yaml;
 using Prompton.Steps;
 using Xunit;
 
@@ -21,7 +21,7 @@ namespace Prompton.Test.Deserialization
 
             Assert.IsType<MainStep>(data);
 
-            var Main = ((MainStep)data);
+            var Main = (MainStep)data;
         }
     }
 }

@@ -2,7 +2,7 @@
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
-namespace Prompton.Serialization.Converters;
+namespace Prompton.Yaml.Converters;
 
 public class StepRefConverter : IYamlTypeConverter
 {
