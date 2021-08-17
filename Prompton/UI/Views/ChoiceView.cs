@@ -1,17 +1,16 @@
 ﻿using ConsoleGUI.Controls;
-using ConsoleGUI.UserDefined;
 using Prompton.Steps;
-using System;
-using System.Collections.Generic;
 
 namespace Prompton.UI.Views;
-public class ChoiceView : SimpleControl
+public class ChoiceView : StepView
 {
     private ChoiceStep choice;
     private int selected = 0;
     private List<string> displayText;
 
-    public ChoiceView(ChoiceStep choice)
+    private VerticalStackPanel viewStack;
+
+    public ChoiceView(ChoiceStep choice) : base(choice)
     {
         this.choice = choice;
         displayText = choice.Choices.Keys.ToList();
@@ -27,7 +26,7 @@ public class ChoiceView : SimpleControl
         Refresh();
     }
 
-    public object GetSelected()
+    public Step GetSelected()
     {
         return choice.Choices[displayText[selected]];
     }

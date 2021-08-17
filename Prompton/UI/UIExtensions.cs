@@ -11,7 +11,7 @@ public static class UIExtensions
 {
     private static QuitListener quitListener = new();
 
-    public static SimpleControl GetView(this Step step) =>
+    public static StepView GetView(this Step step) =>
         step switch
         {
             ChoiceStep choice => new ChoiceView(choice),
@@ -25,7 +25,7 @@ public static class UIExtensions
               )
         };
 
-    public static List<IInputListener> GetListeners(this SimpleControl stepView, Flag flag, Margin viewArea) =>
+    public static List<IInputListener> GetListeners(this StepView stepView, Flag flag, Margin viewArea) =>
         stepView switch
         {
             ChoiceView choiceView

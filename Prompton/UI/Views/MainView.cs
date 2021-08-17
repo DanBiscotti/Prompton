@@ -1,20 +1,16 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Controls;
-using ConsoleGUI.Input;
-using ConsoleGUI.Space;
-using ConsoleGUI.UserDefined;
 using Prompton.Steps;
 
 namespace Prompton.UI.Views;
 
-public class MainView : SimpleControl
+public class MainView : StepView
 {
     public MainStep Main { get; }
 
-    public MainView(MainStep main)
+    public MainView(MainStep main) : base(main)
     {
         Main = main;
-
         Content = BuildMainView();
     }
 
@@ -32,17 +28,6 @@ public class MainView : SimpleControl
         children.Add(BuildPressEnter());
 
         return new VerticalStackPanel { Children = children };
-    }
-
-    private Box BuildPrompt()
-    {
-        return new Box
-        {
-            Content = new TextBlock
-            {
-                Text = Main.Prompt
-            }
-        };
     }
 
     private Box BuildTitle()
