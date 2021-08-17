@@ -1,2 +1,2 @@
 # Prompton
-A YAML configured prompting utility
+A YAML configured prompting TUI
