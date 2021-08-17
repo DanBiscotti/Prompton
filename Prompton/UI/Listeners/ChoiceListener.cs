@@ -7,10 +7,12 @@ namespace Prompton.UI.Listeners;
 public class ChoiceListener : IInputListener
 {
     private readonly ChoiceView view;
+    private readonly Flag flag;
 
-    public ChoiceListener(ChoiceView view)
+    public ChoiceListener(ChoiceView view, Flag flag)
     {
         this.view = view;
+        this.flag = flag;
     }
 
     public void OnInput(InputEvent inputEvent)

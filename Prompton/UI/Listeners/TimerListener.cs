@@ -7,7 +7,7 @@ public class TimerListener : IInputListener
 {
     private readonly TimerView timerView;
 
-    public TimerListener(TimerView timerView)
+    public TimerListener(TimerView timerView, Flag flag)
     {
         this.timerView = timerView;
     }

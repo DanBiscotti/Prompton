@@ -1,4 +1,5 @@
-﻿using ConsoleGUI.Input;
+﻿using ConsoleGUI.Controls;
+using ConsoleGUI.Input;
 using ConsoleGUI.UserDefined;
 using Prompton.Steps;
 using Prompton.UI.Listeners;
@@ -24,19 +25,19 @@ public static class UIExtensions
               )
         };
 
-    public static List<IInputListener> GetListeners(this SimpleControl stepView) =>
+    public static List<IInputListener> GetListeners(this SimpleControl stepView, Flag flag, Margin viewArea) =>
         stepView switch
         {
             ChoiceView choiceView
-              => new List<IInputListener> { new ChoiceListener(choiceView), quitListener },
+              => new List<IInputListener> { new ChoiceListener(choiceView, flag), quitListener },
             InputView inputView
-              => new List<IInputListener> { new InputListener(inputView), quitListener },
+              => new List<IInputListener> { new InputListener(inputView, flag), quitListener },
             MainView mainView
-              => new List<IInputListener> { new MainListener(mainView), quitListener },
+              => new List<IInputListener> { new MainListener(mainView, flag, viewArea), quitListener },
             SeriesView seriesView
-              => new List<IInputListener> { new SeriesListener(seriesView), quitListener },
+              => new List<IInputListener> { new SeriesListener(seriesView, flag, viewArea), quitListener },
             TimerView timerView
-              => new List<IInputListener> { new TimerListener(timerView), quitListener },
+              => new List<IInputListener> { new TimerListener(timerView, flag), quitListener },
             _
               => throw new NotSupportedException(
                   $"View type {stepView.GetType()} doesn't support listeners"

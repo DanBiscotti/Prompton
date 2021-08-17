@@ -1,4 +1,4 @@
-﻿using Prompton.Serialization;
+﻿using Prompton.Yaml;
 using Prompton.Steps;
 using Xunit;
 

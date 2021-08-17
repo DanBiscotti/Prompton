@@ -1,16 +1,17 @@
 using ConsoleGUI.Input;
 using Prompton.UI.Views;
-using System;
 
 namespace Prompton.UI.Listeners;
 
 public class InputListener : IInputListener
 {
     private readonly InputView view;
+    private readonly Flag flag;
 
-    public InputListener(InputView view)
+    public InputListener(InputView view, Flag flag)
     {
         this.view = view;
+        this.flag = flag;
     }
 
     public void OnInput(InputEvent inputEvent)

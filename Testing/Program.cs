@@ -1,8 +1,10 @@
 ﻿using ConsoleGUI;
+using ConsoleGUI.Controls;
+using ConsoleGUI.Space;
 using Prompton.Steps;
 using Prompton.UI;
 
-var step = new MainStep
+var main = new MainStep
 {
     Id = "main",
     Name = "Recommended Routine",
@@ -11,13 +13,24 @@ var step = new MainStep
     Steps = new List<Step>() { }
 };
 
-var view = step.GetView();
-var listeners = view.GetListeners();
-
+var viewArea = new Margin
+{
+    Offset = new Offset(5, 2, 5, 2)
+};
+var view = main.GetView();
+viewArea.Content = view;
 ConsoleManager.Setup();
-ConsoleManager.Content = view;
+ConsoleManager.Content = new Background
+{
+    Content = new Border
+    {
+        Content = viewArea
+    }
+};
 
-while (true)
+var flag = new Flag { Next = false, Quit = false };
+var listeners = view.GetListeners(flag, viewArea);
+while (!flag.Next && !flag.Quit)
 {
     Thread.Sleep(10);
     ConsoleManager.ReadInput(listeners);

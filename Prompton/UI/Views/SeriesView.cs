@@ -5,10 +5,10 @@ namespace Prompton.UI.Views;
 
 public class SeriesView : SimpleControl
 {
-    private readonly SeriesStep series;
+    public SeriesStep Series;
 
     public SeriesView(SeriesStep series)
     {
-        this.series = series;
+        Series = series;
     }
 }

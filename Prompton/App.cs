@@ -18,16 +18,17 @@ public class App
         var stepDict = deserializer.GetStepDictionary();
         var main = deserializer.GetMain();
 
-        var mainView = main.GetView();
-        var inputListeners = mainView.GetListeners();
+        var flag = new Flag { Next = false, Quit = false };
+        var view = main.GetView();
+        var listeners = view.GetListeners(flag, null);
 
         ConsoleManager.Setup();
-        ConsoleManager.Content = mainView;
-        var exit = false;
-        while (!exit)
+        ConsoleManager.Content = view;
+
+        while (!flag.Next && !flag.Quit)
         {
             Thread.Sleep(10);
-            ConsoleManager.ReadInput(mainView.GetListeners());
+            ConsoleManager.ReadInput(listeners);
         }
         // do final stuff
     }
