@@ -21,7 +21,7 @@ namespace Prompton.Test.Deserialization
 
             Assert.IsType<ChoiceStep>(data);
 
-            var choices = ((ChoiceStep)data).GetDisplayNames();
+            var choices = ((ChoiceStep)data).Choices.Keys.ToList();
             Assert.Equal("yes", choices[0]);
             Assert.Equal("no", choices[1]);
         }

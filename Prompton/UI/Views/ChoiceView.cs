@@ -14,7 +14,7 @@ public class ChoiceView : SimpleControl
     public ChoiceView(ChoiceStep choice)
     {
         this.choice = choice;
-        displayText = choice.GetDisplayNames();
+        displayText = choice.Choices.Keys.ToList();
         Refresh();
     }
 
@@ -29,7 +29,7 @@ public class ChoiceView : SimpleControl
 
     public object GetSelected()
     {
-        return choice.Choices[selected];
+        return choice.Choices[displayText[selected]];
     }
 
     private void Refresh()

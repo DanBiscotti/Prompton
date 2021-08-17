@@ -2,5 +2,5 @@
 !choice
 id: test
 choices: 
-  - "yes"
-  - "no"
+  "yes": null
+  "no": null

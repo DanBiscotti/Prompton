@@ -4,13 +4,21 @@ using ConsoleGUI.Space;
 using Prompton.Steps;
 using Prompton.UI;
 
+var choice = new ChoiceStep
+{
+    Id = "choice",
+    Name = "Choice",
+    Prompt = "What is the capital of England?",
+    Choices = new Dictionary<string, Step> { { "London", null }, { "Paris", null }, { "Skegness", null } }
+};
+
 var main = new MainStep
 {
     Id = "main",
     Name = "Recommended Routine",
     Prompt = "Welcome to Test",
     Repeats = 2,
-    Steps = new List<Step>() { }
+    Steps = new List<Step>() { choice }
 };
 
 var viewArea = new Margin
