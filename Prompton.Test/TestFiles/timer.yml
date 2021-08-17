@@ -1,0 +1,5 @@
+﻿---
+!timer
+id: test
+countdown: true
+limit: !timespan 00:00:11
