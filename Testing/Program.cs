@@ -25,7 +25,10 @@ var viewArea = new Margin
 {
     Offset = new Offset(5, 2, 5, 2)
 };
-var view = main.GetView();
+
+var stepDict = new Dictionary<string, Step>();
+
+var view = main.GetView(stepDict);
 viewArea.Content = view;
 ConsoleManager.Setup();
 ConsoleManager.Content = new Background
@@ -37,7 +40,7 @@ ConsoleManager.Content = new Background
 };
 
 var flag = new Flag { Next = false, Quit = false };
-var listeners = view.GetListeners(flag, viewArea);
+var listeners = view.GetListeners(flag, viewArea, stepDict);
 while (!flag.Next && !flag.Quit)
 {
     Thread.Sleep(10);

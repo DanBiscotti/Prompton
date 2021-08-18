@@ -2,5 +2,5 @@
 
 public class StepReference : Step
 {
-    public Step Step { get; set; }
+    public string ReferredStepId { get; set; }
 }

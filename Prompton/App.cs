@@ -1,6 +1,8 @@
 ﻿using ConsoleGUI;
 using Prompton.Yaml;
 using Prompton.UI;
+using ConsoleGUI.Controls;
+using ConsoleGUI.Space;
 
 namespace Prompton;
 
@@ -18,12 +20,24 @@ public class App
         var stepDict = deserializer.GetStepDictionary();
         var main = deserializer.GetMain();
 
-        var flag = new Flag { Next = false, Quit = false };
-        var view = main.GetView();
-        var listeners = view.GetListeners(flag, null);
+        var viewArea = new Margin
+        {
+            Offset = new Offset(5, 2, 5, 2)
+        };
 
+        var view = main.GetView(stepDict);
+        viewArea.Content = view;
         ConsoleManager.Setup();
-        ConsoleManager.Content = view;
+        ConsoleManager.Content = new Background
+        {
+            Content = new Border
+            {
+                Content = viewArea
+            }
+        };
+
+        var flag = new Flag { Next = false, Quit = false };
+        var listeners = view.GetListeners(flag, viewArea, stepDict);
 
         while (!flag.Next && !flag.Quit)
         {

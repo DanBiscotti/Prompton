@@ -1,21 +1,24 @@
 using ConsoleGUI;
 using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
+using Prompton.Steps;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
 public class MainListener : IInputListener
 {
-    public readonly MainView view;
+    private readonly MainView main;
     private readonly Flag flag;
     private readonly Margin viewArea;
+    private readonly Dictionary<string, Step> stepDict;
 
-    public MainListener(MainView view, Flag flag, Margin viewArea)
+    public MainListener(MainView main, Flag flag, Margin viewArea, Dictionary<string, Step> stepDict)
     {
-        this.view = view;
+        this.main = main;
         this.flag = flag;
         this.viewArea = viewArea;
+        this.stepDict = stepDict;
     }
 
     public void OnInput(InputEvent inputEvent)
@@ -24,12 +27,13 @@ public class MainListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in view.Main.Steps)
+                    foreach (var step in main.Main.Steps)
                     {
-                        viewArea.Content = step.GetView();
-                        var listeners = view.GetListeners(flag, viewArea);
+                        var view = step.GetView(stepDict);
+                        viewArea.Content = view;
+                        var listeners = view.GetListeners(flag, viewArea, stepDict);
                         flag.Next = false;
-                        while(!flag.Next && !flag.Quit)
+                        while (!flag.Next && !flag.Quit)
                         {
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listeners);

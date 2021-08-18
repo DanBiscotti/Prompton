@@ -1,17 +1,23 @@
+using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
+using Prompton.Steps;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
 public class InputListener : IInputListener
 {
-    private readonly InputView view;
+    private readonly InputView inputView;
     private readonly Flag flag;
+    private readonly Margin viewArea;
+    private readonly Dictionary<string, Step> stepDict;
 
-    public InputListener(InputView view, Flag flag)
+    public InputListener(InputView inputView, Flag flag, Margin viewArea, Dictionary<string, Step> stepDict)
     {
-        this.view = view;
+        this.inputView = inputView;
         this.flag = flag;
+        this.viewArea = viewArea;
+        this.stepDict = stepDict;
     }
 
     public void OnInput(InputEvent inputEvent)
