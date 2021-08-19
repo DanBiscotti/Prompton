@@ -21,6 +21,6 @@ public class MainTests
 
         Assert.IsType<MainStep>(data);
 
-        var Main = (MainStep)data;
+        var step = data as MainStep;
     }
 }

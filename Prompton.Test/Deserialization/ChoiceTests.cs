@@ -20,8 +20,8 @@ public class ChoiceTests
         var data = deserializer.Deserialize(ChoiceFilePath);
 
         Assert.IsType<ChoiceStep>(data);
-
-        var choices = ((ChoiceStep)data).Choices.Keys.ToList();
+        var step = data as ChoiceStep;
+        var choices = step.Choices.Keys.ToList();
         Assert.Equal("yes", choices[0]);
         Assert.Equal("no", choices[1]);
     }

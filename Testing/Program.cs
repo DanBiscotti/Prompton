@@ -7,7 +7,6 @@ using Prompton.UI;
 var choice = new ChoiceStep
 {
     Id = "choice",
-    Name = "Choice",
     Prompt = "What is the capital of England?",
     Choices = new Dictionary<string, Step> { { "London", null }, { "Paris", null }, { "Skegness", null } }
 };

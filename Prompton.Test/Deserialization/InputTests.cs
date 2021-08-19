@@ -20,7 +20,7 @@ public class InputTests
         var data = deserializer.Deserialize(InputFilePath);
 
         Assert.IsType<InputStep>(data);
-        var input = (InputStep)data;
+        var input = data as InputStep;
         Assert.True(input.TextArea);
         Assert.True(input.Validate);
         Assert.Equal("test-regex", input.ValidationRegex.ToString());
