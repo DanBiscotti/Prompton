@@ -1,46 +1,45 @@
-﻿using Prompton.Yaml;
-using Prompton.Steps;
+﻿using Prompton.Steps;
+using Prompton.Yaml;
 using Xunit;
 
-namespace Prompton.Test
+namespace Prompton.Test;
+
+public class DeserializationTests
 {
-    public class DeserializationTests
+    private const string SeriesFilePath = "TestFiles/series.yml";
+    private const string StepRefFilePath = "TestFiles/stepref.yml";
+    private const string TimerFilePath = "TestFiles/timer.yml";
+
+    private YamlDeserializer deserializer;
+
+    public DeserializationTests()
     {
-        private const string SeriesFilePath = "TestFiles/series.yml";
-        private const string StepRefFilePath = "TestFiles/stepref.yml";
-        private const string TimerFilePath = "TestFiles/timer.yml";
-        
-        private YamlDeserializer deserializer;
+        deserializer = new YamlDeserializer();
+    }
 
-        public DeserializationTests()
-        {
-            deserializer = new YamlDeserializer();
-        }
+    [Fact]
+    public void SeriesDeserializes()
+    {
+        var data = deserializer.Deserialize(SeriesFilePath);
 
-        [Fact]
-        public void SeriesDeserializes()
-        {
-            var data = deserializer.Deserialize(SeriesFilePath);
+        Assert.IsType<SeriesStep>(data);
+        var series = (SeriesStep)data;
+        Assert.Equal(3, series.Repeats);
+    }
 
-            Assert.IsType<SeriesStep>(data);
-            var series = (SeriesStep)data;
-            Assert.Equal(3, series.Repeats);
-        }
+    [Fact]
+    public void StepRefDeserializes()
+    {
+        var data = deserializer.Deserialize(StepRefFilePath);
 
-        [Fact]
-        public void StepRefDeserializes()
-        {
-            var data = deserializer.Deserialize(StepRefFilePath);
+        Assert.IsType<StepReference>(data);
+    }
 
-            Assert.IsType<StepReference>(data);
-        }
+    [Fact]
+    public void TimerDeserializes()
+    {
+        var data = deserializer.Deserialize(TimerFilePath);
 
-        [Fact]
-        public void TimerDeserializes()
-        {
-            var data = deserializer.Deserialize(TimerFilePath);
-
-            Assert.IsType<TimerStep>(data);
-        }
+        Assert.IsType<TimerStep>(data);
     }
 }

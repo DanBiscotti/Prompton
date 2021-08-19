@@ -1,27 +1,26 @@
-﻿using Prompton.Yaml;
-using Prompton.Steps;
+﻿using Prompton.Steps;
+using Prompton.Yaml;
 using Xunit;
 
-namespace Prompton.Test.Deserialization
+namespace Prompton.Test.Deserialization;
+
+public class MainTests
 {
-    public class MainTests
+    private const string MainFilePath = "TestFiles/Main/valid-main.yml";
+    private YamlDeserializer deserializer;
+
+    public MainTests()
     {
-        private const string MainFilePath = "TestFiles/Main/valid-main.yml";
-        private YamlDeserializer deserializer;
+        deserializer = new YamlDeserializer();
+    }
 
-        public MainTests()
-        {
-            deserializer = new YamlDeserializer();
-        }
+    [Fact]
+    public void ValidMainDeserializes()
+    {
+        var data = deserializer.Deserialize(MainFilePath);
 
-        [Fact]
-        public void ValidMainDeserializes()
-        {
-            var data = deserializer.Deserialize(MainFilePath);
+        Assert.IsType<MainStep>(data);
 
-            Assert.IsType<MainStep>(data);
-
-            var Main = (MainStep)data;
-        }
+        var Main = (MainStep)data;
     }
 }
