@@ -1,24 +1,19 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
-using Prompton.Steps;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
 public class ChoiceListener : IInputListener
 {
-    private readonly ChoiceView choice;
-    private readonly Flag flag;
-    private readonly Margin viewArea;
-    private readonly Dictionary<string, Step> stepDict;
+    private readonly ChoiceView choiceView;
+    private readonly UIProvider ui;
 
-    public ChoiceListener(ChoiceView choice, Flag flag, Margin viewArea, Dictionary<string, Step> stepDict)
+    public ChoiceListener(ChoiceView choiceView, UIProvider ui)
     {
-        this.choice = choice;
-        this.flag = flag;
-        this.viewArea = viewArea;
-        this.stepDict = stepDict;
+        this.choiceView = choiceView;
+        this.ui = ui;
     }
 
     public void OnInput(InputEvent inputEvent)
@@ -27,22 +22,26 @@ public class ChoiceListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    var step = choice.GetSelected();
-                    var view = step.GetView(stepDict);
-                    var listeners = view.GetListeners(flag, viewArea, stepDict);
-                    while (!flag.Next && !flag.Quit)
+                    var step = choiceView.GetSelected();
+                    if (step is not null)
                     {
-                        Thread.Sleep(10);
-                        ConsoleManager.ReadInput(listeners);
+                        var view = ui.GetView(step);
+                        var listeners = ui.GetListeners(view);
+                        ui.ViewArea.Content = view;
+                        while (!ui.Flag.Next && !ui.Flag.Quit)
+                        {
+                            Thread.Sleep(10);
+                            ConsoleManager.ReadInput(listeners);
+                        }
                     }
-                    flag.Next = true;
+                    ui.Flag.Next = true;
                     inputEvent.Handled = true;
                     return;
                 }
             case ConsoleKey.J
             or ConsoleKey.K:
                 {
-                    choice.Scroll(inputEvent.Key.Key == ConsoleKey.K);
+                    choiceView.Scroll(inputEvent.Key.Key == ConsoleKey.K);
                     inputEvent.Handled = true;
                     return;
                 }

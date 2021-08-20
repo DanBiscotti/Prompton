@@ -8,17 +8,13 @@ namespace Prompton.UI.Listeners;
 
 public class MainListener : IInputListener
 {
-    private readonly MainView main;
-    private readonly Flag flag;
-    private readonly Margin viewArea;
-    private readonly Dictionary<string, Step> stepDict;
+    private readonly MainView mainView;
+    private readonly UIProvider ui;
 
-    public MainListener(MainView main, Flag flag, Margin viewArea, Dictionary<string, Step> stepDict)
+    public MainListener(MainView mainView, UIProvider ui)
     {
-        this.main = main;
-        this.flag = flag;
-        this.viewArea = viewArea;
-        this.stepDict = stepDict;
+        this.mainView = mainView;
+        this.ui = ui;
     }
 
     public void OnInput(InputEvent inputEvent)
@@ -27,19 +23,19 @@ public class MainListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in main.Main.Steps)
+                    foreach (var step in mainView.Main.Steps)
                     {
-                        var view = step.GetView(stepDict);
-                        viewArea.Content = view;
-                        var listeners = view.GetListeners(flag, viewArea, stepDict);
-                        flag.Next = false;
-                        while (!flag.Next && !flag.Quit)
+                        var view = ui.GetView(step);
+                        ui.ViewArea.Content = view;
+                        var listeners = ui.GetListeners(view);
+                        ui.Flag.Next = false;
+                        while (!ui.Flag.Next && !ui.Flag.Quit)
                         {
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listeners);
                         }
                     }
-                    flag.Next = true;
+                    ui.Flag.Next = true;
                     inputEvent.Handled = true;
                     return;
                 }

@@ -19,28 +19,17 @@ var main = new MainStep
     Repeats = 2,
     Steps = new List<Step>() { choice }
 };
-
-var viewArea = new Margin
-{
-    Offset = new Offset(5, 2, 5, 2)
-};
-
 var stepDict = new Dictionary<string, Step>();
 
-var view = main.GetView(stepDict);
-viewArea.Content = view;
-ConsoleManager.Setup();
-ConsoleManager.Content = new Background
-{
-    Content = new Border
-    {
-        Content = viewArea
-    }
-};
+var viewFactory = new ViewFactory(stepDict);
+var listenerFactory = new ListenerFactory();
+var ui = new UIProvider(viewFactory, listenerFactory);
+var view = ui.GetView(main);
+ui.ViewArea.Content = view;
+var listeners = ui.GetListeners(view);
 
-var flag = new Flag { Next = false, Quit = false };
-var listeners = view.GetListeners(flag, viewArea, stepDict);
-while (!flag.Next && !flag.Quit)
+ui.Init();
+while (!ui.Flag.Next && !ui.Flag.Quit)
 {
     Thread.Sleep(10);
     ConsoleManager.ReadInput(listeners);

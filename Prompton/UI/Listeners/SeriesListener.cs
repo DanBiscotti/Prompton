@@ -8,17 +8,13 @@ using System;
 namespace Prompton.UI.Listeners;
 public class SeriesListener : IInputListener
 {
-    private readonly SeriesView series;
-    private readonly Flag flag;
-    private readonly Margin viewArea;
-    private readonly Dictionary<string, Step> stepDict;
+    private readonly SeriesView seriesView;
+    private readonly UIProvider ui;
 
-    public SeriesListener(SeriesView series, Flag flag, Margin viewArea, Dictionary<string, Step> stepDict)
+    public SeriesListener(SeriesView seriesView, UIProvider ui)
     {
-        this.series = series;
-        this.flag = flag;
-        this.viewArea = viewArea;
-        this.stepDict = stepDict;
+        this.seriesView = seriesView;
+        this.ui = ui;
     }
 
     public void OnInput(InputEvent inputEvent)
@@ -27,19 +23,19 @@ public class SeriesListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in series.Series.Steps)
+                    foreach (var step in seriesView.Series.Steps)
                     {
-                        var view = step.GetView(stepDict);
-                        var listeners = view.GetListeners(flag, viewArea, stepDict);
-                        viewArea.Content = view;
-                        flag.Next = false;
-                        while (!flag.Next && !flag.Quit)
+                        var view = ui.GetView(step);
+                        var listeners = ui.GetListeners(view);
+                        ui.ViewArea.Content = view;
+                        ui.Flag.Next = false;
+                        while (!ui.Flag.Next && !ui.Flag.Quit)
                         {
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listeners);
                         }
                     }
-                    flag.Next = true;
+                    ui.Flag.Next = true;
                     inputEvent.Handled = true;
                     return;
                 }
