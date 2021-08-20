@@ -2,6 +2,7 @@
 using Prompton.Steps;
 
 namespace Prompton.UI.Views;
+
 public class ChoiceView : StepView
 {
     private ChoiceStep choice;
@@ -9,12 +10,23 @@ public class ChoiceView : StepView
     private List<string> displayText;
 
     private VerticalStackPanel viewStack;
+    private Border options;
 
     public ChoiceView(ChoiceStep choice) : base(choice)
     {
         this.choice = choice;
         displayText = choice.Choices.Keys.ToList();
+        
+        viewStack = new VerticalStackPanel();
+        options = new Border();
+
+        if (choice.Prompt is not null or "")
+            viewStack.Add(BuildPrompt());
+        viewStack.Add(new HorizontalSeparator());
+        viewStack.Add(options);
         Refresh();
+
+        Content = viewStack;
     }
 
     public void Scroll(bool up)
@@ -46,6 +58,6 @@ public class ChoiceView : StepView
                 }
             });
         }
-        Content = stack;
+        options.Content = stack;
     }
 }
