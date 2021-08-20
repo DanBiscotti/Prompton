@@ -49,6 +49,9 @@ public class UIProvider
 
     public List<IInputListener> GetListeners(StepView view)
     {
-        return new List<IInputListener> { listenerFactory.Create(view, this) };
+        var listeners = new List<IInputListener> { listenerFactory.Create(view, this) };
+        if (view is InputView i)
+            listeners.Add(i.TextBox);
+        return listeners;
     }
 }

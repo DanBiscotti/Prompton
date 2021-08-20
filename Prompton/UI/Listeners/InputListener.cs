@@ -1,6 +1,4 @@
-using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
-using Prompton.Steps;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
@@ -8,12 +6,12 @@ namespace Prompton.UI.Listeners;
 public class InputListener : IInputListener
 {
     private readonly InputView inputView;
-    private readonly UIProvider provider;
+    private readonly UIProvider ui;
 
-    public InputListener(InputView inputView, UIProvider provider)
+    public InputListener(InputView inputView, UIProvider ui)
     {
         this.inputView = inputView;
-        this.provider = provider;
+        this.ui = ui;
     }
 
     public void OnInput(InputEvent inputEvent)
@@ -21,16 +19,12 @@ public class InputListener : IInputListener
         switch (inputEvent.Key.Key)
         {
             case ConsoleKey.Enter:
-            {
-                inputEvent.Handled = true;
-                return;
-            }
-            case ConsoleKey.J
-            or ConsoleKey.K:
-            {
-                inputEvent.Handled = true;
-                return;
-            }
+                {
+                    // validate!
+                    ui.Flag.Next = true;
+                    inputEvent.Handled = true;
+                    return;
+                }
         }
     }
 }

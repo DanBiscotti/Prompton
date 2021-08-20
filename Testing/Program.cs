@@ -1,6 +1,4 @@
 ﻿using ConsoleGUI;
-using ConsoleGUI.Controls;
-using ConsoleGUI.Space;
 using Prompton.Steps;
 using Prompton.UI;
 
@@ -11,13 +9,20 @@ var choice = new ChoiceStep
     Choices = new Dictionary<string, Step> { { "London", null }, { "Paris", null }, { "Skegness", null } }
 };
 
+var input = new InputStep
+{
+    Id = "input",
+    Prompt = "How are you today?",
+    TextArea = true
+};
+
 var main = new MainStep
 {
     Id = "main",
     Name = "Recommended Routine",
     Prompt = "Welcome to Test",
     Repeats = 2,
-    Steps = new List<Step>() { choice }
+    Steps = new List<Step>() { input }
 };
 var stepDict = new Dictionary<string, Step>();
 

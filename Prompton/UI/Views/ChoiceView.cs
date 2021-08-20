@@ -5,7 +5,7 @@ namespace Prompton.UI.Views;
 
 public class ChoiceView : StepView
 {
-    private ChoiceStep choice;
+    private readonly ChoiceStep choice;
     private int selected = 0;
     private List<string> displayText;
 
@@ -17,9 +17,9 @@ public class ChoiceView : StepView
         this.choice = choice;
         displayText = choice.Choices.Keys.ToList();
         
-        viewStack = new VerticalStackPanel();
         options = new Border();
 
+        viewStack = new VerticalStackPanel();
         if (choice.Prompt is not null or "")
             viewStack.Add(BuildPrompt());
         viewStack.Add(new HorizontalSeparator());
