@@ -59,7 +59,7 @@ public class UIProvider
     public void DisplayPopup(string message)
     {
         var popup = viewFactory.CreatePopupView(message);
-        var width = message.Length + 6;
+        var width = message.Length + 20;
         var height = 10;
         var left = ((ConsoleManager.WindowSize.Width - 2) / 2) - (width / 2);
         var top = ((ConsoleManager.WindowSize.Height - 2) / 2) - (height / 2);

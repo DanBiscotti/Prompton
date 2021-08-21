@@ -10,7 +10,7 @@ public class Popup : SimpleControl
     private HorizontalStackPanel buttonArea;
     private int selectedButton;
 
-    public bool Complete {  get; set; }
+    public bool Complete { get; set; }
 
     public Popup(string message, params string[] options)
     {
@@ -19,20 +19,25 @@ public class Popup : SimpleControl
         {
             Content = new Border
             {
-                Content = new Box
+                Content = new VerticalStackPanel
                 {
-                    HorizontalContentPlacement = Box.HorizontalPlacement.Center,
-                    VerticalContentPlacement = Box.VerticalPlacement.Center,
-                    Content = new VerticalStackPanel
-                    {
-                        Children = new IControl[]
+                    Children = new IControl[]
                         {
                             new TextBlock { Text = message },
                             new HorizontalSeparator(),
                             buttonArea
                         }
-                    }
                 }
+                //Color = new Color(10, 40, 10),
+                //Content = new Border
+                //{
+                //    Content = new Box
+                //    {
+                //        HorizontalContentPlacement = Box.HorizontalPlacement.Center,
+                //        VerticalContentPlacement = Box.VerticalPlacement.Center,
+                //        Content = new TextBlock { Text = "Popup 2" }
+                //    }
+                //}
             }
         };
         Refresh();
