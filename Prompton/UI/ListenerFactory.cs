@@ -1,6 +1,4 @@
-﻿using ConsoleGUI.Controls;
-using ConsoleGUI.Input;
-using Prompton.Steps;
+﻿using ConsoleGUI.Input;
 using Prompton.UI.Listeners;
 using Prompton.UI.Views;
 
@@ -25,4 +23,6 @@ public class ListenerFactory
               $"View type {stepView.GetType()} doesn't support listeners"
           )
     };
+
+    public IInputListener CreatePopupListener(Popup popup) => new PopupListener(popup);
 }

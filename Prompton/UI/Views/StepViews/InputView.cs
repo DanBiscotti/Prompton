@@ -21,12 +21,12 @@ public class InputView : StepView
         viewStack.Add(new HorizontalSeparator());
 
         TextBox = new TextBox();
-        var border = new Border { };
-        if (input.TextArea)
-            border.Content = new BreakPanel { Content = TextBox };
-        else
-            border.Content = TextBox;
+        var border = new Border { Content = new BreakPanel { Content = TextBox } };
         viewStack.Add(border);
         Content = viewStack;
     }
+
+    public bool IsValid() => input.ValidationRegex.IsMatch(TextBox.Text);
+
+    public string ValidationMessage => input.ValidationMessage;
 }

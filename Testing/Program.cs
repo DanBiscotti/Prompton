@@ -1,6 +1,7 @@
 ﻿using ConsoleGUI;
 using Prompton.Steps;
 using Prompton.UI;
+using System.Text.RegularExpressions;
 
 var choice = new ChoiceStep
 {
@@ -13,7 +14,8 @@ var input = new InputStep
 {
     Id = "input",
     Prompt = "How are you today?",
-    TextArea = true
+    ValidationRegex = new Regex(@"/[0-9]*/"),
+    ValidationMessage = "Must be a number"
 };
 
 var main = new MainStep
@@ -34,7 +36,7 @@ ui.ViewArea.Content = view;
 var listeners = ui.GetListeners(view);
 
 ui.Init();
-while (!ui.Flag.Next && !ui.Flag.Quit)
+while (!view.Complete)
 {
     Thread.Sleep(10);
     ConsoleManager.ReadInput(listeners);

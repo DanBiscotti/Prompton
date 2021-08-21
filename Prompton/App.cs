@@ -26,7 +26,7 @@ public class App
         var listeners = ui.GetListeners(view);
 
         ui.Init();
-        while (!ui.Flag.Next && !ui.Flag.Quit)
+        while (!view.Complete)
         {
             Thread.Sleep(10);
             ConsoleManager.ReadInput(listeners);

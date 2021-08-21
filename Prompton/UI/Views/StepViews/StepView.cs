@@ -8,6 +8,8 @@ namespace Prompton.UI.Views
     {
         private Step step;
 
+        public bool Complete { get; set; }
+
         protected StepView(Step step)
         {
             this.step = step;

@@ -1,4 +1,6 @@
-﻿using Prompton.Steps;
+﻿using ConsoleGUI;
+using ConsoleGUI.Controls;
+using Prompton.Steps;
 using Prompton.UI.Views;
 
 namespace Prompton.UI;
@@ -26,4 +28,9 @@ public class ViewFactory
                   $"Step type {step.GetType()} does not have a corresponding view"
               )
         };
+
+    public Popup CreatePopupView(string message, params string[] options) 
+    {
+        return new Popup(message, options);
+    }
 }

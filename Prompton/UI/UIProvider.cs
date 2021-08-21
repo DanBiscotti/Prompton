@@ -14,16 +14,16 @@ public class UIProvider
     private readonly ListenerFactory listenerFactory;
     private readonly QuitListener quitListener;
 
-    public Flag Flag { get; set; }
-    public Margin ViewArea { get; set; }
+    private readonly Canvas canvas;
+
+    public Margin ViewArea { get; }
 
     public UIProvider(ViewFactory viewFactory, ListenerFactory listenerFactory)
     {
         this.viewFactory = viewFactory;
         this.listenerFactory = listenerFactory;
 
-        Flag = new Flag { Next = false, Quit = false };
-
+        canvas = new Canvas();
         ViewArea = new Margin
         {
             Offset = new Offset(5, 2, 5, 2)
@@ -32,12 +32,13 @@ public class UIProvider
 
     public void Init()
     {
+        canvas.Add(ViewArea, new Rect(0, 0, ConsoleManager.WindowSize.Width - 2, ConsoleManager.WindowSize.Height - 2));
         ConsoleManager.Setup();
         ConsoleManager.Content = new Background
         {
             Content = new Border
             {
-                Content = ViewArea
+                Content = canvas
             }
         };
     }
@@ -53,5 +54,22 @@ public class UIProvider
         if (view is InputView i)
             listeners.Add(i.TextBox);
         return listeners;
+    }
+
+    public void DisplayPopup(string message)
+    {
+        var popup = viewFactory.CreatePopupView(message);
+        var width = message.Length + 6;
+        var height = 10;
+        var left = ((ConsoleManager.WindowSize.Width - 2) / 2) - (width / 2);
+        var top = ((ConsoleManager.WindowSize.Height - 2) / 2) - (height / 2);
+
+        canvas.Add(popup, new Rect(left, top, width, height));
+        var listener = listenerFactory.CreatePopupListener(popup);
+        while (!popup.Complete)
+        {
+            Thread.Sleep(10);
+            ConsoleManager.ReadInput(new[] { listener });
+        }
     }
 }

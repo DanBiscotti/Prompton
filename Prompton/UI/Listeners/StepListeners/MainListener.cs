@@ -1,19 +1,19 @@
-﻿using ConsoleGUI;
+using ConsoleGUI;
 using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
 using Prompton.Steps;
 using Prompton.UI.Views;
-using System;
 
 namespace Prompton.UI.Listeners;
-public class SeriesListener : IInputListener
+
+public class MainListener : IInputListener
 {
-    private readonly SeriesView seriesView;
+    private readonly MainView mainView;
     private readonly UIProvider ui;
 
-    public SeriesListener(SeriesView seriesView, UIProvider ui)
+    public MainListener(MainView mainView, UIProvider ui)
     {
-        this.seriesView = seriesView;
+        this.mainView = mainView;
         this.ui = ui;
     }
 
@@ -23,19 +23,18 @@ public class SeriesListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in seriesView.Series.Steps)
+                    foreach (var step in mainView.Main.Steps)
                     {
                         var view = ui.GetView(step);
-                        var listeners = ui.GetListeners(view);
                         ui.ViewArea.Content = view;
-                        ui.Flag.Next = false;
-                        while (!ui.Flag.Next && !ui.Flag.Quit)
+                        var listeners = ui.GetListeners(view);
+                        while (!view.Complete)
                         {
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listeners);
                         }
                     }
-                    ui.Flag.Next = true;
+                    mainView.Complete = true;
                     inputEvent.Handled = true;
                     return;
                 }

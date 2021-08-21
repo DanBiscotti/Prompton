@@ -27,13 +27,13 @@ public class ChoiceListener : IInputListener
                         var view = ui.GetView(step);
                         var listeners = ui.GetListeners(view);
                         ui.ViewArea.Content = view;
-                        while (!ui.Flag.Next && !ui.Flag.Quit)
+                        while (!view.Complete)
                         {
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listeners);
                         }
                     }
-                    ui.Flag.Next = true;
+                    choiceView.Complete = true;
                     inputEvent.Handled = true;
                     return;
                 }

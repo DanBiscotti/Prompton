@@ -20,8 +20,12 @@ public class InputListener : IInputListener
         {
             case ConsoleKey.Enter:
                 {
-                    // validate!
-                    ui.Flag.Next = true;
+                    if(!inputView.IsValid())
+                    {
+                        ui.DisplayPopup(inputView.ValidationMessage);
+                    }
+
+                    inputView.Complete = true;
                     inputEvent.Handled = true;
                     return;
                 }
