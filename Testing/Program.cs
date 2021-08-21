@@ -14,7 +14,7 @@ var input = new InputStep
 {
     Id = "input",
     Prompt = "How are you today?",
-    ValidationRegex = new Regex(@"/[0-9]*/"),
+    ValidationRegex = new Regex(@"[0-9]*$"),
     ValidationMessage = "Must be a number"
 };
 

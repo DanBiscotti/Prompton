@@ -35,7 +35,8 @@ public class InputView : StepView
         }
         if (input.ValidationRegex.IsMatch(TextBox.Text))
         {
-            viewStack.Remove(validationMessage);
+            if (viewStack.Children.Contains(validationMessage))
+                viewStack.Remove(validationMessage);
             return true;
         }
         if(!viewStack.Children.Contains(validationMessage))
