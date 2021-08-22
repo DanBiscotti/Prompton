@@ -11,13 +11,13 @@ using System.Text.RegularExpressions;
 //string time1;
 //string time2;
 
-//foreach(var font in list)
+//foreach (var font in list)
 //{
 //    time1 = font(timestring1);
 //    time2 = font(timestring2);
 //    var width1 = time1.IndexOf('\n') + 1;
 //    var width2 = time2.IndexOf('\n') + 1;
-//    if(width1 == width2)
+//    if (width1 == width2)
 //    {
 //        Console.Write(time2);
 //        Console.WriteLine(list.IndexOf(font));

@@ -20,6 +20,12 @@ public class TimerListener : IInputListener
     {
         switch (inputEvent.Key.Key)
         {
+            case ConsoleKey.Spacebar:
+                {
+                    timerView.StopStart();
+                    inputEvent.Handled = true;
+                    return;
+                }
             case ConsoleKey.Enter:
                 {
                     break;

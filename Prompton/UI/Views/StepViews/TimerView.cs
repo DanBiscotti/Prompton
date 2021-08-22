@@ -1,4 +1,3 @@
-using ConsoleGUI;
 using ConsoleGUI.Controls;
 using Figgle;
 using Prompton.Steps;
@@ -14,31 +13,41 @@ public class TimerView : StepView
     private VerticalStackPanel viewStack;
     private TextBlock timerArea;
     private TimeSpan timerTime;
+    private bool active;
+    private bool isCountdown;
+    private Box countdownText = new Box { Content = new TextBlock { Text = "Countdown!" } };
 
     public TimerView(TimerStep timerStep) : base(timerStep)
     {
         this.timerStep = timerStep;
         var countdown = timerStep.Countdown;
-        timerTime = countdown > TimeSpan.Zero ? -countdown : timerStep.Countup ? TimeSpan.Zero : timerStep.Limit;
+        timerTime = countdown > TimeSpan.Zero ? countdown : timerStep.Countup ? TimeSpan.Zero : timerStep.Limit;
         format = timerStep.Limit >= TimeSpan.FromHours(1) ? @"hh\:mm\:ss" : @"mm\:ss";
-
+        isCountdown = timerStep.Countdown > TimeSpan.Zero;
 
         var displayTime = GetTimeDisplayText(timerTime);
         var width = displayTime.IndexOf('\n') + 1;
-        timerArea = new TextBlock { Text = displayTime };
+        timerArea = new TextBlock
+        {
+            Text = displayTime,
+            Color = isCountdown ? ConsoleColor.Yellow : ConsoleColor.White
+        };
         var box = new Box
         {
-            Content = new Boundary
+            Content = new Border
             {
-                Width = width,
-                Content = new Background
+                Content = new Boundary
                 {
-                    Content = new WrapPanel
+                    Width = width,
+                    Content = new Background
                     {
-                        Content = new Boundary
+                        Content = new WrapPanel
                         {
-                            MinWidth = width,
-                            Content = timerArea
+                            Content = new Boundary
+                            {
+                                MinWidth = width,
+                                Content = timerArea
+                            }
                         }
                     }
                 }
@@ -49,30 +58,50 @@ public class TimerView : StepView
         viewStack.Add(BuildPrompt());
         viewStack.Add(new HorizontalSeparator());
         viewStack.Add(box);
+        if (isCountdown)
+            viewStack.Add(countdownText);
 
         Content = viewStack;
     }
 
     public void Start()
     {
+        active = true;
         timer = new Timer(MoveTimer, null, 0, 1000);
     }
 
     public void Stop()
     {
+        active = false;
         timer.Dispose();
+    }
+
+    public void StopStart()
+    {
+        if (active)
+            Stop();
+        else
+            Start();
     }
 
     private void MoveTimer(Object _)
     {
-        if (timerTime < TimeSpan.Zero)
-            timerTime += TimeSpan.FromSeconds(1);
-        else if (timerTime == TimeSpan.FromSeconds(-1))
+        if(isCountdown)
         {
-            if (!timerStep.Countup)
-                timerTime = timerStep.Limit;
+            if (timerTime == TimeSpan.FromSeconds(1))
+            {
+                if (!timerStep.Countup)
+                    timerTime = timerStep.Limit;
+                else
+                    timerTime += TimeSpan.FromSeconds(1);
+                timerArea.Color = ConsoleColor.White;
+                isCountdown = false;
+                viewStack.Remove(countdownText);
+            }
             else
-                timerTime += TimeSpan.FromSeconds(1);
+            {
+                timerTime -= TimeSpan.FromSeconds(1);
+            }
         }
         else if (timerTime == TimeSpan.Zero && !timerStep.Countup)
         {
@@ -92,5 +121,5 @@ public class TimerView : StepView
         timerArea.Text = GetTimeDisplayText(timerTime);
     }
 
-    private string GetTimeDisplayText(TimeSpan time) => FiggleFonts.ThreeByFive.Render(time.ToString(format));
+    private string GetTimeDisplayText(TimeSpan time) => FiggleFonts.Blocks.Render(time.ToString(format));
 }
