@@ -1,6 +1,9 @@
 ﻿using ConsoleGUI;
 using Prompton.Steps;
+using Prompton.Steps.StepResults;
 using Prompton.UI;
+using Prompton.UI.Listeners;
+using Prompton.Yaml;
 using System.Text.RegularExpressions;
 
 //var timestring1 = TimeSpan.FromSeconds(37).ToString(@"hh\:mm\:ss");
@@ -78,5 +81,10 @@ ui.Init();
 while (!view.Complete)
 {
     Thread.Sleep(10);
-    ConsoleManager.ReadInput(listeners);
+    ConsoleManager.ReadInput(listeners.Select(x => x.Value).ToArray());
 }
+var listener = listeners["step-listener"] as StepListener;
+var result = listener.GetResult() as MainResult;
+
+var serializer = new YamlSerializer();
+var yaml = serializer.Serialize(result);

@@ -6,7 +6,6 @@ namespace Prompton.UI.Views;
 
 public class TimerView : StepView
 {
-
     private readonly TimerStep timerStep;
     private readonly string format;
     private Timer timer;
@@ -64,6 +63,11 @@ public class TimerView : StepView
         Content = viewStack;
     }
 
+    public void StoreResult()
+    {
+        throw new NotImplementedException();
+    }
+
     public void Start()
     {
         active = true;
@@ -86,7 +90,7 @@ public class TimerView : StepView
 
     private void MoveTimer(Object _)
     {
-        if(isCountdown)
+        if (isCountdown)
         {
             if (timerTime == TimeSpan.FromSeconds(1))
             {
@@ -121,5 +125,5 @@ public class TimerView : StepView
         timerArea.Text = GetTimeDisplayText(timerTime);
     }
 
-    private string GetTimeDisplayText(TimeSpan time) => FiggleFonts.Blocks.Render(time.ToString(format));
+    private string GetTimeDisplayText(TimeSpan time) => FiggleFonts.Blocks.Render(time.ToString(format)); // Also ThreeByFive works and takes up less space
 }

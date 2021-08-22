@@ -5,5 +5,4 @@ name: main
 steps:
   - !series
     id: test-step
-    name: test-name
     steps: []

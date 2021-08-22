@@ -24,12 +24,13 @@ public class App
         var view = ui.GetView(main);
         ui.ViewArea.Content = view;
         var listeners = ui.GetListeners(view);
+        var listenersList = listeners.Select(x => x.Value).ToArray();
 
         ui.Init();
         while (!view.Complete)
         {
             Thread.Sleep(10);
-            ConsoleManager.ReadInput(listeners);
+            ConsoleManager.ReadInput(listenersList);
         }
 
         // do final stuff

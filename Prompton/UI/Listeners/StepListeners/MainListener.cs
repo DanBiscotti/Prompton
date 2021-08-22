@@ -1,37 +1,48 @@
 using ConsoleGUI;
-using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
-using Prompton.Steps;
+using Prompton.Steps.StepResults;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
-public class MainListener : IInputListener
+public class MainListener : StepListener
 {
     private readonly MainView mainView;
+    private readonly MainResult mainResult;
     private readonly UIProvider ui;
 
     public MainListener(MainView mainView, UIProvider ui)
     {
         this.mainView = mainView;
         this.ui = ui;
+        mainResult = mainView.Main.GetResult();
     }
 
-    public void OnInput(InputEvent inputEvent)
+    public override StepResult GetResult()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void OnInput(InputEvent inputEvent)
     {
         switch (inputEvent.Key.Key)
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in mainView.Main.Steps)
+                    for(int i = 0; i < mainView.Main.Repeats; i++)
                     {
-                        var view = ui.GetView(step);
-                        ui.ViewArea.Content = view;
-                        var listeners = ui.GetListeners(view);
-                        while (!view.Complete)
+                        foreach (var step in mainView.Main.Steps)
                         {
-                            Thread.Sleep(10);
-                            ConsoleManager.ReadInput(listeners);
+                            var view = ui.GetView(step);
+                            ui.ViewArea.Content = view;
+                            var listeners = ui.GetListeners(view);
+                            var listenerList = listeners.Select(x => x.Value).ToArray();
+                            while (!view.Complete)
+                            {
+                                Thread.Sleep(10);
+                                ConsoleManager.ReadInput(listenerList);
+                            }
+
                         }
                     }
                     mainView.Complete = true;

@@ -48,11 +48,11 @@ public class UIProvider
         return viewFactory.Create(step);
     }
 
-    public List<IInputListener> GetListeners(StepView view)
+    public Dictionary<string, IInputListener> GetListeners(StepView view)
     {
-        var listeners = new List<IInputListener> { listenerFactory.Create(view, this) };
+        var listeners = new Dictionary<string, IInputListener> { { "step-listener", listenerFactory.Create(view, this) } };
         if (view is InputView i)
-            listeners.Add(i.TextBox);
+            listeners["textbox"] = i.TextBox;
         return listeners;
     }
 

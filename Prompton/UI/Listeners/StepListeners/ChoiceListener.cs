@@ -1,10 +1,11 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Input;
+using Prompton.Steps.StepResults;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
-public class ChoiceListener : IInputListener
+public class ChoiceListener : StepListener
 {
     private readonly ChoiceView choiceView;
     private readonly UIProvider ui;
@@ -15,7 +16,12 @@ public class ChoiceListener : IInputListener
         this.ui = ui;
     }
 
-    public void OnInput(InputEvent inputEvent)
+    public override StepResult GetResult()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void OnInput(InputEvent inputEvent)
     
     {
         switch (inputEvent.Key.Key)
@@ -27,11 +33,12 @@ public class ChoiceListener : IInputListener
                     {
                         var view = ui.GetView(step);
                         var listeners = ui.GetListeners(view);
+                        var listenerList = listeners.Select(x => x.Value).ToArray();
                         ui.ViewArea.Content = view;
                         while (!view.Complete)
                         {
                             Thread.Sleep(10);
-                            ConsoleManager.ReadInput(listeners);
+                            ConsoleManager.ReadInput(listenerList);
                         }
                     }
                     choiceView.Complete = true;

@@ -17,7 +17,7 @@ public class ListenerFactory
         SeriesView seriesView
           => new SeriesListener(seriesView, provider),
         TimerView timerView
-          => new TimerListener(timerView, provider),
+          => new TimerListener(timerView),
         _
           => throw new NotSupportedException(
               $"View type {stepView.GetType()} doesn't support listeners"

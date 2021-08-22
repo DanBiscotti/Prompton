@@ -1,22 +1,23 @@
-using ConsoleGUI.Controls;
 using ConsoleGUI.Input;
-using Prompton.Steps;
+using Prompton.Steps.StepResults;
 using Prompton.UI.Views;
-using System;
 
 namespace Prompton.UI.Listeners;
-public class TimerListener : IInputListener
+public class TimerListener : StepListener
 {
     private readonly TimerView timerView;
-    private readonly UIProvider ui;
 
-    public TimerListener(TimerView timerView, UIProvider ui)
+    public TimerListener(TimerView timerView)
     {
         this.timerView = timerView;
-        this.ui = ui;
     }
 
-    public void OnInput(InputEvent inputEvent)
+    public override StepResult GetResult()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void OnInput(InputEvent inputEvent)
     {
         switch (inputEvent.Key.Key)
         {
@@ -28,7 +29,10 @@ public class TimerListener : IInputListener
                 }
             case ConsoleKey.Enter:
                 {
-                    break;
+                    timerView.StoreResult();
+                    timerView.Complete = true;
+                    inputEvent.Handled = true;
+                    return;
                 }
         }
     }

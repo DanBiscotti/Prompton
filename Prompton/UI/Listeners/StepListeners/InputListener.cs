@@ -1,9 +1,10 @@
 using ConsoleGUI.Input;
+using Prompton.Steps.StepResults;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
-public class InputListener : IInputListener
+public class InputListener : StepListener
 {
     private readonly InputView inputView;
     private readonly UIProvider ui;
@@ -14,7 +15,12 @@ public class InputListener : IInputListener
         this.ui = ui;
     }
 
-    public void OnInput(InputEvent inputEvent)
+    public override StepResult GetResult()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void OnInput(InputEvent inputEvent)
     {
         switch (inputEvent.Key.Key)
         {
