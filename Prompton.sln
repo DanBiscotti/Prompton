@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prompton", "Prompton\Prompt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prompton.Test", "Prompton.Test\Prompton.Test.csproj", "{8F211607-6AFB-437D-A438-79E81122A79F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{7E2DF3B7-7A91-443F-B1BE-517E4BEEE1C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{7E2DF3B7-7A91-443F-B1BE-517E4BEEE1C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

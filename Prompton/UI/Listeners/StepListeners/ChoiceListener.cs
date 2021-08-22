@@ -16,6 +16,7 @@ public class ChoiceListener : IInputListener
     }
 
     public void OnInput(InputEvent inputEvent)
+    
     {
         switch (inputEvent.Key.Key)
         {
@@ -38,9 +39,11 @@ public class ChoiceListener : IInputListener
                     return;
                 }
             case ConsoleKey.J
-            or ConsoleKey.K:
+            or ConsoleKey.K
+            or ConsoleKey.DownArrow
+            or ConsoleKey.UpArrow:
                 {
-                    choiceView.Scroll(inputEvent.Key.Key == ConsoleKey.K);
+                    choiceView.Scroll(inputEvent.Key.Key is ConsoleKey.K or ConsoleKey.UpArrow);
                     inputEvent.Handled = true;
                     return;
                 }
