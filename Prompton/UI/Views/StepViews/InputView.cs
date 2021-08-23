@@ -5,13 +5,13 @@ namespace Prompton.UI.Views;
 
 public class InputView : StepView
 {
-    private readonly InputStep input;
+    private readonly Input input;
     private readonly VerticalStackPanel viewStack;
     private readonly TextBlock validationMessage;
 
     public TextBox TextBox { get; }
 
-    public InputView(InputStep input) : base(input)
+    public InputView(Input input) : base(input)
     {
         this.input = input;
         validationMessage = new TextBlock { Text = input.ValidationMessage, Color = ConsoleColor.Red };

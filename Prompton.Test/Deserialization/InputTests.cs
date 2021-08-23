@@ -7,11 +7,11 @@ namespace Prompton.Test.Deserialization;
 public class InputTests
 {
     private const string InputFilePath = "TestFiles/Input/valid-input.yml";
-    private YamlDeserializer deserializer;
+    private StepSerializer deserializer;
 
     public InputTests()
     {
-        deserializer = new YamlDeserializer();
+        deserializer = new StepSerializer();
     }
 
     [Fact]
@@ -19,8 +19,8 @@ public class InputTests
     {
         var data = deserializer.Deserialize(InputFilePath);
 
-        Assert.IsType<InputStep>(data);
-        var input = data as InputStep;
+        Assert.IsType<Input>(data);
+        var input = data as Input;
         Assert.Equal("test-regex", input.ValidationRegex.ToString());
         Assert.Equal("test-validation-message", input.ValidationMessage);
     }

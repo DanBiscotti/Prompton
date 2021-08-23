@@ -6,9 +6,9 @@ namespace Prompton.UI.Views;
 
 public class MainView : StepView
 {
-    public MainStep Main { get; }
+    public Main Main { get; }
 
-    public MainView(MainStep main) : base(main)
+    public MainView(Main main) : base(main)
     {
         Main = main;
         Content = BuildMainView();

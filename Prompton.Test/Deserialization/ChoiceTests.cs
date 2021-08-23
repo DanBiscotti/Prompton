@@ -7,11 +7,11 @@ namespace Prompton.Test.Deserialization;
 public class ChoiceTests
 {
     private const string ChoiceFilePath = "TestFiles/Choice/valid-choice.yml";
-    private YamlDeserializer deserializer;
+    private StepSerializer deserializer;
 
     public ChoiceTests()
     {
-        deserializer = new YamlDeserializer();
+        deserializer = new StepSerializer();
     }
 
     [Fact]
@@ -19,10 +19,10 @@ public class ChoiceTests
     {
         var data = deserializer.Deserialize(ChoiceFilePath);
 
-        Assert.IsType<ChoiceStep>(data);
-        var step = data as ChoiceStep;
+        Assert.IsType<Choice>(data);
+        var step = data as Choice;
         var choices = step.Choices.Keys.ToList();
-        Assert.Equal("yes", choices[0]);
-        Assert.Equal("no", choices[1]);
+        Assert.Equal("Yes", choices[0]);
+        Assert.Equal("No", choices[1]);
     }
 }

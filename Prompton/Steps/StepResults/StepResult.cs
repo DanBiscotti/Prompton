@@ -1,6 +1,7 @@
 ﻿namespace Prompton.Steps.StepResults
 {
-    public class StepResult
+    public abstract class StepResult
     {
+
     }
 }

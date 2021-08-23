@@ -5,14 +5,14 @@ namespace Prompton.UI.Views;
 
 public class ChoiceView : StepView
 {
-    private readonly ChoiceStep choice;
+    private readonly Choice choice;
     private int selected = 0;
     private List<string> displayText;
 
     private VerticalStackPanel viewStack;
     private Border options;
 
-    public ChoiceView(ChoiceStep choice) : base(choice)
+    public ChoiceView(Choice choice) : base(choice)
     {
         this.choice = choice;
         displayText = choice.Choices.Keys.ToList();

@@ -7,11 +7,11 @@ namespace Prompton.Test.Deserialization;
 public class MainTests
 {
     private const string MainFilePath = "TestFiles/Main/valid-main.yml";
-    private YamlDeserializer deserializer;
+    private StepSerializer deserializer;
 
     public MainTests()
     {
-        deserializer = new YamlDeserializer();
+        deserializer = new StepSerializer();
     }
 
     [Fact]
@@ -19,8 +19,8 @@ public class MainTests
     {
         var data = deserializer.Deserialize(MainFilePath);
 
-        Assert.IsType<MainStep>(data);
+        Assert.IsType<Main>(data);
 
-        var step = data as MainStep;
+        var step = data as Main;
     }
 }

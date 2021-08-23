@@ -28,7 +28,7 @@ using System.Text.RegularExpressions;
 //    }
 //}
 
-var input = new InputStep
+var input = new Input
 {
     Id = "input",
     Prompt = "How are you today?",
@@ -36,7 +36,7 @@ var input = new InputStep
     ValidationMessage = "Must be a number"
 };
 
-var timer = new TimerStep
+var timer = new Prompton.Steps.Timer
 {
     Id = "timer",
     Prompt = "Timing!",
@@ -51,17 +51,17 @@ var stepDict = new Dictionary<string, Step>
     { "timer", timer }
 };
 
-var choice = new ChoiceStep
+var choice = new Choice
 {
     Id = "choice",
     Prompt = "What type of step would you like to test?",
     Choices = new Dictionary<string, Step> { 
-        { "Input", new StepReference { ReferredStepId = "input" } }, 
-        { "Timer", new StepReference { ReferredStepId = "timer" } }, 
+        { "Input", new Ref { ReferredStepId = "input" } }, 
+        { "Timer", new Ref { ReferredStepId = "timer" } }, 
         { "Display", null } }
 };
 
-var main = new MainStep
+var main = new Main
 {
     Id = "main",
     Name = "Recommended Routine",
@@ -86,5 +86,5 @@ while (!view.Complete)
 var listener = listeners["step-listener"] as StepListener;
 var result = listener.GetResult() as MainResult;
 
-var serializer = new YamlSerializer();
+var serializer = new ReportSerializer();
 var yaml = serializer.Serialize(result);

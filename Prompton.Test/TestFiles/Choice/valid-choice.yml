@@ -1,6 +1,6 @@
 ﻿---
-!choice
-id: test
-choices: 
-  "yes": null
-  "no": null
+!Choice
+Id: test
+Choices: 
+  Yes: null
+  No: null

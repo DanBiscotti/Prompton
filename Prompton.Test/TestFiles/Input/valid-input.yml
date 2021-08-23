@@ -1,6 +1,6 @@
 ﻿---
-!input
-id: test-id
-prompt: "test-prompt"
-validationRegex: "test-regex"
-validationMessage: "test-validation-message"
+!Input
+Id: test-id
+Prompt: "test-prompt"
+ValidationRegex: !Regex "test-regex"
+ValidationMessage: "test-validation-message"

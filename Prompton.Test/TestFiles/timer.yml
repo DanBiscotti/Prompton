@@ -1,6 +1,6 @@
 ﻿---
-!timer
-id: test
-countup: true
-countdown: !timespan 00:00:10
-limit: !timespan 00:00:11
+!Timer
+Id: test
+Countup: true
+Countdown: !TimeSpan 00:00:10
+Limit: !TimeSpan 00:00:11

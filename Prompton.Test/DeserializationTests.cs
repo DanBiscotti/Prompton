@@ -10,11 +10,11 @@ public class DeserializationTests
     private const string StepRefFilePath = "TestFiles/stepref.yml";
     private const string TimerFilePath = "TestFiles/timer.yml";
 
-    private YamlDeserializer deserializer;
+    private StepSerializer deserializer;
 
     public DeserializationTests()
     {
-        deserializer = new YamlDeserializer();
+        deserializer = new StepSerializer();
     }
 
     [Fact]
@@ -22,8 +22,8 @@ public class DeserializationTests
     {
         var data = deserializer.Deserialize(SeriesFilePath);
 
-        Assert.IsType<SeriesStep>(data);
-        var series = data as SeriesStep;
+        Assert.IsType<Series>(data);
+        var series = data as Series;
         Assert.Equal(3, series.Repeats);
     }
 
@@ -32,8 +32,8 @@ public class DeserializationTests
     {
         var data = deserializer.Deserialize(StepRefFilePath);
 
-        Assert.IsType<StepReference>(data);
-        var stepRef = data as StepReference;
+        Assert.IsType<Ref>(data);
+        var stepRef = data as Ref;
         Assert.Equal("test-ref", stepRef.ReferredStepId);
     }
 
@@ -42,7 +42,7 @@ public class DeserializationTests
     {
         var data = deserializer.Deserialize(TimerFilePath);
 
-        Assert.IsType<TimerStep>(data);
-        var timer = data as TimerStep;
+        Assert.IsType<Steps.Timer>(data);
+        var timer = data as Steps.Timer;
     }
 }

@@ -7,16 +7,24 @@ namespace Prompton.Yaml.Converters;
 
 public class StepRefConverter : IYamlTypeConverter
 {
+    List<string> ids;
+
+    public StepRefConverter(List<string> ids)
+    {
+        this.ids = ids;
+    }
+
     public bool Accepts(Type type)
     {
-        return type == typeof(StepReference);
+        return type == typeof(Ref);
     }
 
     public object ReadYaml(IParser parser, Type type)
     {
         var referredStepId = parser.Current as Scalar;
         parser.MoveNext();
-        return new StepReference { ReferredStepId = referredStepId.Value };
+        ids.Add(referredStepId.Value);
+        return new Ref { ReferredStepId = referredStepId.Value };
     }
 
     public void WriteYaml(IEmitter emitter, object value, Type type)

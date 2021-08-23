@@ -1,7 +1,8 @@
 ﻿namespace Prompton.Steps.StepResults;
 
-public class ChoiceResult
+public class ChoiceResult : StepResult
 {
-    public string ChoiceString { get; set; }
-    public StepResult ChoiceStep { get; set; }
+    public string Prompt { get; set; }
+    public string Choice { get; set; }
+    public StepResult Result { get; set; }
 }

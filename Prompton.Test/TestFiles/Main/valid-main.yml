@@ -1,8 +1,8 @@
 ﻿---
-!main
-id: test-main
-name: main
-steps:
-  - !series
-    id: test-step
-    steps: []
+!Main
+Id: test-main
+Name: main
+Steps:
+  - !Series
+    Id: test-step
+    Steps: []

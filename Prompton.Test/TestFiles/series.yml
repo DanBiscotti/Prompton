@@ -1,5 +1,5 @@
 ﻿---
-!series
-id: test
-repeats: 3
-steps: []
+!Series
+Id: test
+Repeats: 3
+Steps: []

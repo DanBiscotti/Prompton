@@ -15,7 +15,7 @@ public class MainListener : StepListener
     {
         this.mainView = mainView;
         this.ui = ui;
-        mainResult = mainView.Main.GetResult();
+        mainResult = MainResult.Create(mainView.Main.Name);
     }
 
     public override StepResult GetResult()

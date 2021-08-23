@@ -4,9 +4,9 @@ namespace Prompton.UI.Views;
 
 public class SeriesView : StepView
 {
-    public SeriesStep Series;
+    public Series Series;
 
-    public SeriesView(SeriesStep series) : base(series)
+    public SeriesView(Series series) : base(series)
     {
         Series = series;
     }

@@ -6,9 +6,9 @@ namespace Prompton.UI.Views;
 
 public class TimerView : StepView
 {
-    private readonly TimerStep timerStep;
+    private readonly Steps.Timer timerStep;
     private readonly string format;
-    private Timer timer;
+    private System.Threading.Timer timer;
     private VerticalStackPanel viewStack;
     private TextBlock timerArea;
     private TimeSpan timerTime;
@@ -16,7 +16,7 @@ public class TimerView : StepView
     private bool isCountdown;
     private Box countdownText = new Box { Content = new TextBlock { Text = "Countdown!" } };
 
-    public TimerView(TimerStep timerStep) : base(timerStep)
+    public TimerView(Steps.Timer timerStep) : base(timerStep)
     {
         this.timerStep = timerStep;
         var countdown = timerStep.Countdown;
@@ -71,7 +71,7 @@ public class TimerView : StepView
     public void Start()
     {
         active = true;
-        timer = new Timer(MoveTimer, null, 0, 1000);
+        timer = new System.Threading.Timer(this.MoveTimer, null, 0, 1000);
     }
 
     public void Stop()
