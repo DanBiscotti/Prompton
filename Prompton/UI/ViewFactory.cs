@@ -22,7 +22,7 @@ public class ViewFactory
             Main main => new MainView(main),
             Series series => new SeriesView(series),
             Ref stepRef => Create(stepDict[stepRef.ReferredStepId]),
-            Steps.Timer timer => new TimerView(timer),
+            Steps.Time timer => new TimerView(timer),
             _
               => throw new NotSupportedException(
                   $"Step type {step.GetType()} does not have a corresponding view"

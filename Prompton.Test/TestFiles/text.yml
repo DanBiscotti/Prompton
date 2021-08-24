@@ -1,5 +1,5 @@
 ﻿---
-!Input
+!Text
 Id: test-id
 Prompt: "test-prompt"
 ValidationRegex: !Regex "test-regex"

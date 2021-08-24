@@ -1,12 +1,13 @@
 using ConsoleGUI.Controls;
 using Figgle;
 using Prompton.Steps;
+using Time = Prompton.Steps.Time;
 
 namespace Prompton.UI.Views;
 
 public class TimerView : StepView
 {
-    private readonly Steps.Timer timerStep;
+    private readonly Time timerStep;
     private readonly string format;
     private System.Threading.Timer timer;
     private VerticalStackPanel viewStack;
@@ -16,7 +17,7 @@ public class TimerView : StepView
     private bool isCountdown;
     private Box countdownText = new Box { Content = new TextBlock { Text = "Countdown!" } };
 
-    public TimerView(Steps.Timer timerStep) : base(timerStep)
+    public TimerView(Time timerStep) : base(timerStep)
     {
         this.timerStep = timerStep;
         var countdown = timerStep.Countdown;

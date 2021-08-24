@@ -2,13 +2,12 @@
 using Prompton.Yaml;
 using Xunit;
 
-namespace Prompton.Test.Serialization;
+namespace Prompton.Test;
 
 public class ReportSerializerTests
 {
-    ReportSerializer deserializer;
+    ReportSerializer serializer;
     private static string nl = Environment.NewLine;
-
     private const string testName = "Test Main";
     private static DateOnly testDate = new DateOnly(2020, 02, 22);
     private static TimeOnly testTime = new TimeOnly(14, 10, 7);
@@ -17,7 +16,7 @@ public class ReportSerializerTests
 
     public ReportSerializerTests()
     {
-        deserializer = new ReportSerializer();
+        serializer = new ReportSerializer();
         main = GetMainResult();
     }
 
@@ -45,7 +44,7 @@ public class ReportSerializerTests
         var expected = GetMainExpectedString(main);
         expected += $" []{nl}";
 
-        var result = deserializer.Serialize(main);
+        var result = serializer.Serialize(main);
 
         Assert.Equal(expected, result);
     }
@@ -73,7 +72,7 @@ public class ReportSerializerTests
         expected += $"      {nameof(choice2.Choice)}: {testChoiceString2}{nl}";
         expected += $"      {nameof(choice.Result)}: {nl}";
 
-        var result = deserializer.Serialize(main);
+        var result = serializer.Serialize(main);
 
         Assert.Equal(expected, result);
     }
@@ -110,7 +109,7 @@ public class ReportSerializerTests
         expected += $"        {nameof(series2.Prompt)}: {testPrompt2}{nl}";
         expected += $"        {nameof(series2.Result)}: []{nl}";
 
-        var result = deserializer.Serialize(main);
+        var result = serializer.Serialize(main);
 
         Assert.Equal(expected, result);
     }
@@ -131,7 +130,7 @@ public class ReportSerializerTests
         expected += $"    {nameof(text.Prompt)}: {testPrompt}{nl}";
         expected += $"    {nameof(text.Result)}: {testResult}{nl}";
 
-        var result = deserializer.Serialize(main);
+        var result = serializer.Serialize(main);
 
         Assert.Equal(expected, result);
     }

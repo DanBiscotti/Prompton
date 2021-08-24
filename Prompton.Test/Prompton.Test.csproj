@@ -24,7 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\Main\valid-main.yml">
+    <None Update="TestFiles\random.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\number.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\main.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\stepref.yml">
@@ -33,10 +39,10 @@
     <None Update="TestFiles\timer.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Input\valid-input.yml">
+    <None Update="TestFiles\text.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Choice\valid-choice.yml">
+    <None Update="TestFiles\choice.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\series.yml">

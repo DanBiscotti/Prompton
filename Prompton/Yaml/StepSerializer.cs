@@ -21,7 +21,9 @@ public class StepSerializer : IYamlDeserializer
         typeof(Choice),
         typeof(Text),
         typeof(Series),
-        typeof(Steps.Timer),
+        typeof(Number),
+        typeof(Steps.Random),
+        typeof(Steps.Time),
         typeof(Ref),
         typeof(Regex),
         typeof(TimeSpan)
@@ -43,11 +45,9 @@ public class StepSerializer : IYamlDeserializer
         return new Main();
     }
 
-    public Step Deserialize(string filepath)
+    public Step Deserialize(string yaml)
     {
-        var yaml = File.ReadAllText(filepath);
-        var reader = new StringReader(yaml);
-        return deserializer.Deserialize<Step>(reader);
+        return deserializer.Deserialize<Step>(yaml);
     }
 
     private IDeserializer BuildDeserializer()

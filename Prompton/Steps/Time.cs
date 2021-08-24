@@ -1,6 +1,6 @@
 ﻿namespace Prompton.Steps;
 
-public class Timer : Step
+public class Time : Step
 {
     public bool Countup { get; set; }
     public TimeSpan Countdown { get; set; }
