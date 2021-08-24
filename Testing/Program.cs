@@ -28,7 +28,7 @@ using System.Text.RegularExpressions;
 //    }
 //}
 
-var input = new Input
+var input = new Text
 {
     Id = "input",
     Prompt = "How are you today?",

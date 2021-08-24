@@ -19,8 +19,8 @@ public class InputTests
     {
         var data = deserializer.Deserialize(InputFilePath);
 
-        Assert.IsType<Input>(data);
-        var input = data as Input;
+        Assert.IsType<Text>(data);
+        var input = data as Text;
         Assert.Equal("test-regex", input.ValidationRegex.ToString());
         Assert.Equal("test-validation-message", input.ValidationMessage);
     }

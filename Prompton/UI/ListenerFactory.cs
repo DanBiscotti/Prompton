@@ -10,8 +10,8 @@ public class ListenerFactory
     {
         ChoiceView choiceView
           => new ChoiceListener(choiceView, provider),
-        InputView inputView
-          => new InputListener(inputView, provider),
+        TextView inputView
+          => new TextListener(inputView, provider),
         MainView mainView
           => new MainListener(mainView, provider),
         SeriesView seriesView

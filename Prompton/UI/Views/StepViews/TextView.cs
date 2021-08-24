@@ -3,15 +3,15 @@ using Prompton.Steps;
 
 namespace Prompton.UI.Views;
 
-public class InputView : StepView
+public class TextView : StepView
 {
-    private readonly Input input;
+    private readonly Text input;
     private readonly VerticalStackPanel viewStack;
     private readonly TextBlock validationMessage;
 
     public TextBox TextBox { get; }
 
-    public InputView(Input input) : base(input)
+    public TextView(Text input) : base(input)
     {
         this.input = input;
         validationMessage = new TextBlock { Text = input.ValidationMessage, Color = ConsoleColor.Red };

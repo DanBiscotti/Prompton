@@ -18,7 +18,7 @@ public class ViewFactory
         step switch
         {
             Choice choice => new ChoiceView(choice),
-            Input input => new InputView(input),
+            Text input => new TextView(input),
             Main main => new MainView(main),
             Series series => new SeriesView(series),
             Ref stepRef => Create(stepDict[stepRef.ReferredStepId]),

@@ -1,6 +1,4 @@
-﻿using Prompton.Steps.StepResults;
-
-namespace Prompton.Steps;
+﻿namespace Prompton.Steps;
 
 public class Main : Series
 {

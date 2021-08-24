@@ -4,14 +4,14 @@ using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
 
-public class InputListener : StepListener
+public class TextListener : StepListener
 {
-    private readonly InputView inputView;
+    private readonly TextView textView;
     private readonly UIProvider ui;
 
-    public InputListener(InputView inputView, UIProvider ui)
+    public TextListener(TextView textView, UIProvider ui)
     {
-        this.inputView = inputView;
+        this.textView = textView;
         this.ui = ui;
     }
 
@@ -26,9 +26,9 @@ public class InputListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    if(inputView.Validate())
+                    if(textView.Validate())
                     {
-                        inputView.Complete = true;
+                        textView.Complete = true;
                     }
                     inputEvent.Handled = true;
                     return;

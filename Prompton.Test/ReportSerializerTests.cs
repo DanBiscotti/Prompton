@@ -81,10 +81,10 @@ public class ReportSerializerTests
     [Fact]
     public void SeriesResultSerializes()
     {
-        var testName2 = "Test Series 2";
-        var series2 = new SeriesResult { Prompt = testName2, Result = new List<List<StepResult>>() };
-        var testName = "Test Series";
-        var series = new SeriesResult { Prompt = testName, Result = new List<List<StepResult>>() };
+        var testPrompt2 = "Test Series 2";
+        var series2 = new SeriesResult { Prompt = testPrompt2, Result = new List<List<StepResult>>() };
+        var testPrompt = "Test Series";
+        var series = new SeriesResult { Prompt = testPrompt, Result = new List<List<StepResult>>() };
 
         var main = GetMainResult();
         var innerList = new List<StepResult> { series2, series2 };
@@ -95,20 +95,41 @@ public class ReportSerializerTests
 
         var expected = GetMainExpectedString(main) + nl;
         expected += $"- - !{typeof(SeriesResult).Name}{nl}";
-        expected += $"    {nameof(series.Prompt)}: {testName}{nl}";
+        expected += $"    {nameof(series.Prompt)}: {testPrompt}{nl}";
         expected += $"    {nameof(series.Result)}:{nl}";
         expected += $"    - - !{typeof(SeriesResult).Name}{nl}";
-        expected += $"        {nameof(series2.Prompt)}: {testName2}{nl}";
+        expected += $"        {nameof(series2.Prompt)}: {testPrompt2}{nl}";
         expected += $"        {nameof(series2.Result)}: []{nl}";
         expected += $"      - !{typeof(SeriesResult).Name}{nl}";
-        expected += $"        {nameof(series2.Prompt)}: {testName2}{nl}";
+        expected += $"        {nameof(series2.Prompt)}: {testPrompt2}{nl}";
         expected += $"        {nameof(series2.Result)}: []{nl}";
         expected += $"    - - !{typeof(SeriesResult).Name}{nl}";
-        expected += $"        {nameof(series2.Prompt)}: {testName2}{nl}";
+        expected += $"        {nameof(series2.Prompt)}: {testPrompt2}{nl}";
         expected += $"        {nameof(series2.Result)}: []{nl}";
         expected += $"      - !{typeof(SeriesResult).Name}{nl}";
-        expected += $"        {nameof(series2.Prompt)}: {testName2}{nl}";
+        expected += $"        {nameof(series2.Prompt)}: {testPrompt2}{nl}";
         expected += $"        {nameof(series2.Result)}: []{nl}";
+
+        var result = deserializer.Serialize(main);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void TextResultSerializes()
+    {
+        var testPrompt = "Please input your name";
+        var testResult = "Daniel";
+        var text = new TextResult { Prompt = testPrompt, Result = testResult };
+
+        var main = GetMainResult();
+        var innerList = new List<StepResult> { text };
+        main.Result.Add(innerList);
+
+        var expected = GetMainExpectedString(main) + nl;
+        expected += $"- - !{typeof(TextResult).Name}{nl}";
+        expected += $"    {nameof(text.Prompt)}: {testPrompt}{nl}";
+        expected += $"    {nameof(text.Result)}: {testResult}{nl}";
 
         var result = deserializer.Serialize(main);
 

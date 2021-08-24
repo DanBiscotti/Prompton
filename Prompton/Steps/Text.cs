@@ -2,7 +2,7 @@
 
 namespace Prompton.Steps;
 
-public class Input : Step
+public class Text : Step
 {
     public Regex ValidationRegex { get; set; }
     public string ValidationMessage { get; set; }

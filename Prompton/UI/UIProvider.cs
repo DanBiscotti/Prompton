@@ -51,7 +51,7 @@ public class UIProvider
     public Dictionary<string, IInputListener> GetListeners(StepView view)
     {
         var listeners = new Dictionary<string, IInputListener> { { "step-listener", listenerFactory.Create(view, this) } };
-        if (view is InputView i)
+        if (view is TextView i)
             listeners["textbox"] = i.TextBox;
         return listeners;
     }

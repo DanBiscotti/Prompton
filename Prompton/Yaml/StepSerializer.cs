@@ -19,7 +19,7 @@ public class StepSerializer : IYamlDeserializer
     {
         typeof(Main),
         typeof(Choice),
-        typeof(Input),
+        typeof(Text),
         typeof(Series),
         typeof(Steps.Timer),
         typeof(Ref),
