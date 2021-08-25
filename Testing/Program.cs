@@ -11,16 +11,21 @@ var mainYamlString = File.ReadAllText(mainFilePath);
 var stepSerializer = new StepSerializer();
 var main = stepSerializer.Deserialize(mainYamlString) as Main;
 
-var filenames = Directory.GetFiles(main.DefinitionsDir);
-var yamlStrings = filenames.Select(x => File.ReadAllText(x)).ToList(); var steps = yamlStrings.Select(x => stepSerializer.Deserialize(x)).ToList();
-var stepDict = steps.ToDictionary(k => k.Id, v => v);
+Dictionary<string, Step> stepDict = default;
+if(main.DefinitionsDir is not null or "")
+{
+
+    var filenames = Directory.GetFiles(main.DefinitionsDir);
+    var yamlStrings = filenames.Select(x => File.ReadAllText(x)).ToList(); var steps = yamlStrings.Select(x => stepSerializer.Deserialize(x)).ToList();
+    stepDict = steps.ToDictionary(k => k.Id, v => v);
+}
 
 var viewFactory = new ViewFactory(stepDict);
 var listenerFactory = new ListenerFactory();
 var ui = new UIProvider(viewFactory, listenerFactory);
 var view = ui.GetView(main);
-ui.ViewArea.Content = view;
 var listeners = ui.GetListeners(view);
+ui.ViewArea.Content = view;
 
 ui.Init();
 while (!view.Complete)
