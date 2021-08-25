@@ -10,4 +10,6 @@ public class SeriesView : StepView
     {
         Series = series;
     }
+
+    // TODO: add a view which just shows Prompt
 }

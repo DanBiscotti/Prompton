@@ -20,6 +20,8 @@ if(main.DefinitionsDir is not null or "")
     stepDict = steps.ToDictionary(k => k.Id, v => v);
 }
 
+
+
 var viewFactory = new ViewFactory(stepDict);
 var listenerFactory = new ListenerFactory();
 var ui = new UIProvider(viewFactory, listenerFactory);
@@ -33,6 +35,7 @@ while (!view.Complete)
     Thread.Sleep(10);
     ConsoleManager.ReadInput(listeners.Select(x => x.Value).ToArray());
 }
+
 var listener = listeners["step-listener"] as StepListener;
 var result = listener.GetResult() as MainResult;
 

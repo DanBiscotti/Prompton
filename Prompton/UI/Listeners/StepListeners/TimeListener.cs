@@ -3,11 +3,11 @@ using Prompton.Steps.StepResults;
 using Prompton.UI.Views;
 
 namespace Prompton.UI.Listeners;
-public class TimerListener : StepListener
+public class TimeListener : StepListener
 {
     private readonly TimerView timerView;
 
-    public TimerListener(TimerView timerView)
+    public TimeListener(TimerView timerView)
     {
         this.timerView = timerView;
     }
@@ -34,6 +34,7 @@ public class TimerListener : StepListener
                     inputEvent.Handled = true;
                     return;
                 }
+                // TODO: add up down arrows to change time whilst paused
         }
     }
 }
