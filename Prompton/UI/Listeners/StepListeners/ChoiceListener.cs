@@ -9,17 +9,16 @@ public class ChoiceListener : StepListener
 {
     private readonly ChoiceView choiceView;
     private readonly UIProvider ui;
+    private readonly ChoiceResult result;
 
     public ChoiceListener(ChoiceView choiceView, UIProvider ui)
     {
         this.choiceView = choiceView;
         this.ui = ui;
+        result = new ChoiceResult { Prompt = choiceView.Choice.Prompt };
     }
 
-    public override StepResult GetResult()
-    {
-        throw new NotImplementedException();
-    }
+    public override StepResult GetResult() => result;
 
     public override void OnInput(InputEvent inputEvent)
     
@@ -28,7 +27,8 @@ public class ChoiceListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    var step = choiceView.GetSelected();
+                    result.Choice = choiceView.GetSelectedString();
+                    var step = choiceView.GetSelectedStep(result.Choice);
                     if (step is not null)
                     {
                         var view = ui.GetView(step);
@@ -40,6 +40,8 @@ public class ChoiceListener : StepListener
                             Thread.Sleep(10);
                             ConsoleManager.ReadInput(listenerList);
                         }
+                        var listener = listeners[Constants.StepListenerKey] as StepListener;
+                        result.Result = listener.GetResult();
                     }
                     choiceView.Complete = true;
                     inputEvent.Handled = true;

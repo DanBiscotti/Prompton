@@ -8,8 +8,8 @@ public class QuitListener : StepListener
 
     public override StepResult GetResult()
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); // TODO: E implement
     }
 
-    public override void OnInput(InputEvent inputEvent) { }
+    public override void OnInput(InputEvent inputEvent) { } // TODO: D implement
 }

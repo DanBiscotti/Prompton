@@ -6,7 +6,7 @@ using Prompton.UI;
 using Prompton.UI.Listeners;
 using Prompton.Yaml;
 
-var mainFilePath = args[0];
+var mainFilePath = "test.yml";
 var mainYamlString = File.ReadAllText(mainFilePath);
 
 var stepSerializer = new StepSerializer();
@@ -22,7 +22,7 @@ if (main.DefinitionsDir is not null or "")
 }
 
 var validator =new StepValidator();
-// TODO: exit if invalid
+// TODO: A exit if invalid
 
 var viewFactory = new ViewFactory(stepDict);
 var listenerFactory = new ListenerFactory();
@@ -43,3 +43,10 @@ var result = listener.GetResult() as MainResult;
 
 var serializer = new ReportSerializer();
 var yaml = serializer.Serialize(result);
+
+// TODO: 1 timer result inverted
+// TODO: 2 when timer is countup seems to start at 2
+// TODO: 3 Prompt missing on text and input
+// TODO: 4 step which just displays some text
+
+var x = 1;

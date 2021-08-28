@@ -6,26 +6,20 @@ namespace Prompton.UI.Views
 {
     public class StepView : SimpleControl
     {
-        private Step step;
-
         public bool Complete { get; set; }
 
-        protected StepView(Step step)
-        {
-            this.step = step;
-        }
-
-        protected Box BuildPrompt()
+        protected static Box BuildTextBox(string text, ConsoleColor colour = ConsoleColor.White)
         {
             return new Box
             {
                 Content = new TextBlock
                 {
-                    Text = step.Prompt
-                }
+                    Text = text,
+                    Color = colour,
+                },
+                VerticalContentPlacement = Box.VerticalPlacement.Center,
+                HorizontalContentPlacement = Box.HorizontalPlacement.Center,
             };
         }
-
-
     }
 }

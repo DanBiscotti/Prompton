@@ -21,6 +21,6 @@ public class RegexConverter : IYamlTypeConverter
 
     public void WriteYaml(IEmitter emitter, object value, Type type)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); // TODO: implement
     }
 }

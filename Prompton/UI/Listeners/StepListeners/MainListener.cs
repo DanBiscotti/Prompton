@@ -18,10 +18,7 @@ public class MainListener : StepListener
         mainResult = MainResult.Create(mainView.Main.Name);
     }
 
-    public override StepResult GetResult()
-    {
-        throw new NotImplementedException();
-    }
+    public override StepResult GetResult() => mainResult;
 
     public override void OnInput(InputEvent inputEvent)
     {
@@ -29,21 +26,25 @@ public class MainListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    for(int i = 0; i < mainView.Main.Repeats; i++)
+                    StepListener listener;
+                    for (int i = 0; i < mainView.Main.Repeats; i++)
                     {
+                        var list = new List<StepResult>();
                         foreach (var step in mainView.Main.Steps)
                         {
                             var view = ui.GetView(step);
-                            ui.ViewArea.Content = view;
                             var listeners = ui.GetListeners(view);
                             var listenerList = listeners.Select(x => x.Value).ToArray();
+                            ui.ViewArea.Content = view;
                             while (!view.Complete)
                             {
                                 Thread.Sleep(10);
                                 ConsoleManager.ReadInput(listenerList);
                             }
-
+                            listener = listeners[Constants.StepListenerKey] as StepListener;
+                            list.Add(listener.GetResult());
                         }
+                        mainResult.Result.Add(list);
                     }
                     mainView.Complete = true;
                     inputEvent.Handled = true;

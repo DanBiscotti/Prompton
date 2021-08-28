@@ -10,18 +10,17 @@ namespace Prompton.UI.Listeners;
 public class SeriesListener : StepListener
 {
     private readonly SeriesView seriesView;
+    private readonly SeriesResult seriesResult;
     private readonly UIProvider ui;
 
     public SeriesListener(SeriesView seriesView, UIProvider ui)
     {
         this.seriesView = seriesView;
         this.ui = ui;
+        seriesResult = new SeriesResult { Result = new List<List<StepResult>>() };
     }
 
-    public override StepResult GetResult()
-    {
-        throw new NotImplementedException();
-    }
+    public override StepResult GetResult() => seriesResult;
 
     public override void OnInput(InputEvent inputEvent)
     {
@@ -29,17 +28,27 @@ public class SeriesListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    foreach (var step in seriesView.Series.Steps)
+                    seriesResult.Prompt = seriesView.Series.Prompt;
+
+                    StepListener listener;
+                    for (int i = 0; i < seriesView.Series.Repeats; i++)
                     {
-                        var view = ui.GetView(step);
-                        var listeners = ui.GetListeners(view);
-                        var listenerList = listeners.Select(x => x.Value).ToArray();
-                        ui.ViewArea.Content = view;
-                        while (!view.Complete)
+                        var list = new List<StepResult>();
+                        foreach (var step in seriesView.Series.Steps)
                         {
-                            Thread.Sleep(10);
-                            ConsoleManager.ReadInput(listenerList);
+                            var view = ui.GetView(step);
+                            var listeners = ui.GetListeners(view);
+                            var listenerList = listeners.Select(x => x.Value).ToArray();
+                            ui.ViewArea.Content = view;
+                            while (!view.Complete)
+                            {
+                                Thread.Sleep(10);
+                                ConsoleManager.ReadInput(listenerList);
+                            }
+                            listener = listeners[Constants.StepListenerKey] as StepListener;
+                            list.Add(listener.GetResult());
                         }
+                        seriesResult.Result.Add(list);
                     }
                     seriesView.Complete = true;
                     inputEvent.Handled = true;

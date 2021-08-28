@@ -14,9 +14,11 @@ public class ListenerFactory
           => new TextListener(inputView, provider),
         MainView mainView
           => new MainListener(mainView, provider),
+        NumberView numberView
+          => new NumberListener(numberView, provider),
         SeriesView seriesView
           => new SeriesListener(seriesView, provider),
-        TimerView timerView
+        TimeView timerView
           => new TimeListener(timerView),
         _
           => throw new NotSupportedException(

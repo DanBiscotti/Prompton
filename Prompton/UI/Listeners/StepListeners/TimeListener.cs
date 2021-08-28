@@ -5,17 +5,16 @@ using Prompton.UI.Views;
 namespace Prompton.UI.Listeners;
 public class TimeListener : StepListener
 {
-    private readonly TimerView timerView;
+    private readonly TimeView timeView;
+    private readonly TimerResult result;
 
-    public TimeListener(TimerView timerView)
+    public TimeListener(TimeView timeView)
     {
-        this.timerView = timerView;
+        this.timeView = timeView;
+        result = new TimerResult();
     }
 
-    public override StepResult GetResult()
-    {
-        throw new NotImplementedException();
-    }
+    public override StepResult GetResult() => result;
 
     public override void OnInput(InputEvent inputEvent)
     {
@@ -23,18 +22,25 @@ public class TimeListener : StepListener
         {
             case ConsoleKey.Spacebar:
                 {
-                    timerView.StopStart();
+                    timeView.StopStart();
                     inputEvent.Handled = true;
                     return;
                 }
             case ConsoleKey.Enter:
                 {
-                    timerView.StoreResult();
-                    timerView.Complete = true;
+                    result.Result = timeView.TimerTime;
+                    timeView.Complete = true;
                     inputEvent.Handled = true;
                     return;
                 }
-                // TODO: add up down arrows to change time whilst paused
+            case ConsoleKey.J
+            or ConsoleKey.K
+            or ConsoleKey.DownArrow
+            or ConsoleKey.UpArrow:
+                {
+                    timeView.MoveTimer(inputEvent.Key.Key is ConsoleKey.K or ConsoleKey.UpArrow);
+                    break;
+                }
         }
     }
 }

@@ -17,6 +17,7 @@ public class ReportSerializer : IYamlSerializer
         typeof(MainResult),
         typeof(ChoiceResult),
         typeof(TextResult),
+        typeof(NumberResult),
         typeof(SeriesResult),
         typeof(TimerResult),
         typeof(DateOnly),

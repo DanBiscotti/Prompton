@@ -8,7 +8,7 @@ public class MainView : StepView
 {
     public Main Main { get; }
 
-    public MainView(Main main) : base(main)
+    public MainView(Main main)
     {
         Main = main;
         Content = BuildMainView();
@@ -22,10 +22,10 @@ public class MainView : StepView
             children.Add(BuildTitle());
 
         if (Main.Prompt is not null or "")
-            children.Add(BuildPrompt());
+            children.Add(BuildTextBox(Main.Prompt));
 
         children.Add(new HorizontalSeparator());
-        children.Add(BuildPressEnter());
+        children.Add(BuildTextBox("Press enter to begin"));
 
         return new VerticalStackPanel { Children = children };
     }
@@ -52,16 +52,6 @@ public class MainView : StepView
                     }
                 }
             }
-        };
-    }
-
-    private Box BuildPressEnter()
-    {
-        return new Box
-        {
-            Content = new TextBlock { Text = "Press enter to begin" },
-            HorizontalContentPlacement = Box.HorizontalPlacement.Center,
-            VerticalContentPlacement = Box.VerticalPlacement.Center
         };
     }
 }

@@ -20,9 +20,10 @@ public class ViewFactory
             Choice choice => new ChoiceView(choice),
             Text input => new TextView(input),
             Main main => new MainView(main),
+            Number number => new NumberView(number),
             Series series => new SeriesView(series),
             Ref stepRef => Create(stepDict[stepRef.ReferredStepId]),
-            Steps.Time timer => new TimerView(timer),
+            Steps.Time timer => new TimeView(timer),
             _
               => throw new NotSupportedException(
                   $"Step type {step.GetType()} does not have a corresponding view"

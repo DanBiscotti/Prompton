@@ -5,23 +5,23 @@ namespace Prompton.UI.Views;
 
 public class ChoiceView : StepView
 {
-    private readonly Choice choice;
+    public Choice Choice { get; set; }
     private int selected = 0;
     private List<string> displayText;
 
     private VerticalStackPanel viewStack;
     private Border options;
 
-    public ChoiceView(Choice choice) : base(choice)
+    public ChoiceView(Choice choice)
     {
-        this.choice = choice;
+        this.Choice = choice;
         displayText = choice.Choices.Keys.ToList();
         
         options = new Border();
 
         viewStack = new VerticalStackPanel();
         if (choice.Prompt is not null or "")
-            viewStack.Add(BuildPrompt());
+            viewStack.Add(BuildTextBox(choice.Prompt));
         viewStack.Add(new HorizontalSeparator());
         viewStack.Add(options);
         Refresh();
@@ -33,20 +33,25 @@ public class ChoiceView : StepView
     {
         if (up && selected > 0)
             selected--;
-        if (!up && selected < choice.Choices.Count - 1)
+        if (!up && selected < Choice.Choices.Count - 1)
             selected++;
         Refresh();
     }
 
-    public Step GetSelected()
+    public string GetSelectedString()
     {
-        return choice.Choices[displayText[selected]];
+        return displayText[selected];
+    }
+
+    public Step GetSelectedStep(string selection)
+    {
+        return Choice.Choices[selection];
     }
 
     private void Refresh()
     {
         var stack = new VerticalStackPanel();
-        for (int i = 0; i < choice.Choices.Count; i++)
+        for (int i = 0; i < Choice.Choices.Count; i++)
         {
             stack.Add(new Background
             {

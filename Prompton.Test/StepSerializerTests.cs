@@ -12,7 +12,8 @@ public class StepSerializerTests
     private const string ChoiceFilePath = "TestFiles/choice.yml";
     private const string SeriesFilePath = "TestFiles/series.yml";
     private const string StepRefFilePath = "TestFiles/stepref.yml";
-    private const string TimerFilePath = "TestFiles/timer.yml";
+    private const string RandomFilePath = "TestFiles/random.yml";
+    private const string TimeFilePath = "TestFiles/timer.yml";
 
     private StepSerializer deserializer;
 
@@ -46,9 +47,11 @@ public class StepSerializerTests
     }
 
     [Fact]
-    public void TimerDeserializes()
+    public void TimeDeserializes()
     {
-        var data = deserializer.Deserialize(TimerFilePath);
+        var yaml = File.ReadAllText(TimeFilePath);
+
+        var data = deserializer.Deserialize(yaml);
 
         Assert.IsType<Steps.Time>(data);
         var timer = data as Steps.Time;
@@ -57,7 +60,9 @@ public class StepSerializerTests
     [Fact]
     public void ChoiceDeserializes()
     {
-        var data = deserializer.Deserialize(ChoiceFilePath);
+        var yaml = File.ReadAllText(ChoiceFilePath);
+
+        var data = deserializer.Deserialize(yaml);
 
         Assert.IsType<Choice>(data);
         var step = data as Choice;
@@ -69,7 +74,9 @@ public class StepSerializerTests
     [Fact]
     public void MainDeserializes()
     {
-        var data = deserializer.Deserialize(MainFilePath);
+        var yaml = File.ReadAllText(MainFilePath);
+
+        var data = deserializer.Deserialize(yaml);
 
         Assert.IsType<Main>(data);
 
@@ -79,7 +86,9 @@ public class StepSerializerTests
     [Fact]
     public void TextDeserializes()
     {
-        var data = deserializer.Deserialize(TextFilePath);
+        var yaml = File.ReadAllText(TextFilePath);
+
+        var data = deserializer.Deserialize(yaml);
 
         Assert.IsType<Text>(data);
         var input = data as Text;
@@ -90,7 +99,9 @@ public class StepSerializerTests
     [Fact]
     public void NumberDeserializes()
     {
-        var data = deserializer.Deserialize(NumberFilePath);
+        var yaml = File.ReadAllText(NumberFilePath);
+
+        var data = deserializer.Deserialize(yaml);
 
         Assert.IsType<Number>(data);
         var number = data as Number;
@@ -101,11 +112,10 @@ public class StepSerializerTests
     [Fact]
     public void RandomDeserializes()
     {
-        var data = deserializer.Deserialize(NumberFilePath);
+        var yaml = File.ReadAllText(RandomFilePath);
 
-        Assert.IsType<Number>(data);
-        var number = data as Number;
-        Assert.Equal(3, number.Min);
-        Assert.Equal(7, number.Max);
+        var data = deserializer.Deserialize(yaml);
+
+        Assert.IsType<Steps.Random>(data);
     }
 }
