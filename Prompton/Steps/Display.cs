@@ -1,5 +1,5 @@
 ﻿namespace Prompton.Steps;
 
-public class Display
+public class Display : Step
 {
 }

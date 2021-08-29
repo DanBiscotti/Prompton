@@ -6,11 +6,11 @@ namespace Prompton.UI.Views;
 
 public class MainView : StepView
 {
-    public Main Main { get; }
+    public Main Step { get; }
 
-    public MainView(Main main)
+    public MainView(Main step)
     {
-        Main = main;
+        Step = step;
         Content = BuildMainView();
     }
 
@@ -18,11 +18,11 @@ public class MainView : StepView
     {
         var children = new List<IControl>();
 
-        if (Main.Name is not null or "")
+        if (Step.Name is not null or "")
             children.Add(BuildTitle());
 
-        if (Main.Prompt is not null or "")
-            children.Add(BuildTextBox(Main.Prompt));
+        if (Step.Prompt is not null or "")
+            children.Add(BuildTextBox(Step.Prompt));
 
         children.Add(new HorizontalSeparator());
         children.Add(BuildTextBox("Press enter to begin"));
@@ -32,7 +32,7 @@ public class MainView : StepView
 
     private Box BuildTitle()
     {
-        var figgle = Figgle.FiggleFonts.Standard.Render(Main.Name);
+        var figgle = Figgle.FiggleFonts.Standard.Render(Step.Name);
         var width = figgle.IndexOf('\n') + 1;
         var title = new TextBlock { Text = figgle };
         return new Box

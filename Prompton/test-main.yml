@@ -1,0 +1,9 @@
+﻿---
+!Main
+Id: test-main
+Name: Blah
+DefinitionsDir: test-definitions
+Steps:
+- !Ref welcome-screen
+- !Ref friends-question
+- !Ref france-question

@@ -1,0 +1,28 @@
+﻿---
+!Display
+Id: welcome-screen
+Prompt: Welcome to the test!
+---
+!Choice
+Id: friends-question
+Prompt: How many main characters in Friends?
+Choices:
+  3: !Ref incorrect
+  6: !Ref correct
+  8: !Ref incorrect
+---
+!Display
+Id: correct
+Prompt: That's correct!
+---
+!Display
+Id: incorrect
+Prompt: That's not correct :(
+---
+!Choice
+Id: france-question
+Prompt: What's the capital of france?
+Choices:
+  Belgium: !Ref incorrect
+  France: !Ref incorrect
+  Paris: !Ref correct

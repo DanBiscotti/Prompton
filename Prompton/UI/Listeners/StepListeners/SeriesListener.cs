@@ -17,7 +17,11 @@ public class SeriesListener : StepListener
     {
         this.seriesView = seriesView;
         this.ui = ui;
-        seriesResult = new SeriesResult { Result = new List<List<StepResult>>() };
+        seriesResult = new SeriesResult
+        {
+            StepId = seriesView.Step.Id,
+            Result = new List<List<StepResult>>()
+        };
     }
 
     public override StepResult GetResult() => seriesResult;
@@ -28,13 +32,13 @@ public class SeriesListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    seriesResult.Prompt = seriesView.Series.Prompt;
+                    seriesResult.Prompt = seriesView.Step.Prompt;
 
                     StepListener listener;
-                    for (int i = 0; i < seriesView.Series.Repeats; i++)
+                    for (int i = 0; i < seriesView.Step.Repeats; i++)
                     {
                         var list = new List<StepResult>();
-                        foreach (var step in seriesView.Series.Steps)
+                        foreach (var step in seriesView.Step.Steps)
                         {
                             var view = ui.GetView(step);
                             var listeners = ui.GetListeners(view);

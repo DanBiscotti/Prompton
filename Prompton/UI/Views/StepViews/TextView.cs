@@ -5,20 +5,20 @@ namespace Prompton.UI.Views;
 
 public class TextView : StepView
 {
-    public Text TextStep { get; set; }
+    public Text Step { get; set; }
     private readonly VerticalStackPanel viewStack;
     private readonly Box validationMessage;
 
     public TextBox TextBox { get; }
 
-    public TextView(Text input)
+    public TextView(Text step)
     {
-        this.TextStep = input;
-        validationMessage = BuildTextBox(input.ValidationMessage ?? "", ConsoleColor.Red);
+        this.Step = step;
+        validationMessage = BuildTextBox(step.ValidationMessage ?? "", ConsoleColor.Red);
 
         viewStack = new VerticalStackPanel();
-        if (input.Prompt is not null or "")
-            viewStack.Add(BuildTextBox(input.Prompt));
+        if (step.Prompt is not null or "")
+            viewStack.Add(BuildTextBox(step.Prompt));
         viewStack.Add(new HorizontalSeparator());
 
         TextBox = new TextBox();
@@ -29,11 +29,11 @@ public class TextView : StepView
 
     public bool Validate()
     {
-        if (TextStep.ValidationRegex is null || TextStep.ValidationMessage is null or "")
+        if (Step.ValidationRegex is null || Step.ValidationMessage is null or "")
         {
             return true;
         }
-        if (TextStep.ValidationRegex.IsMatch(TextBox.Text))
+        if (Step.ValidationRegex.IsMatch(TextBox.Text))
         {
             if (viewStack.Children.Contains(validationMessage))
                 viewStack.Remove(validationMessage);

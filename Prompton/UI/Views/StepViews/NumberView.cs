@@ -6,21 +6,21 @@ namespace Prompton.UI.Views;
 
 public class NumberView : StepView
 {
-    public Number Number { get; }
+    public Number Step { get; }
     private readonly VerticalStackPanel viewStack;
     private readonly Box validationTextBox;
     private static Regex numberRegex = new(@"^[1-9]\d*(\.\d+)?$");
 
     public TextBox TextBox { get; }
 
-    public NumberView(Number input)
+    public NumberView(Number step)
     {
-        this.Number = input;
-        validationTextBox = BuildTextBox($"Number must be between {Number.Min} and {Number.Max}", ConsoleColor.Red);
+        this.Step = step;
+        validationTextBox = BuildTextBox($"Number must be between {Step.Min} and {Step.Max}", ConsoleColor.Red);
 
         viewStack = new VerticalStackPanel();
-        if (input.Prompt is not null or "")
-            viewStack.Add(BuildTextBox(input.Prompt));
+        if (step.Prompt is not null or "")
+            viewStack.Add(BuildTextBox(step.Prompt));
         viewStack.Add(new HorizontalSeparator());
 
         TextBox = new TextBox();

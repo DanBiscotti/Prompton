@@ -16,8 +16,8 @@ public class TextListener : StepListener
         this.ui = ui;
         result = new TextResult
         {
-            StepId = textView.TextStep.Id,
-            Prompt = textView.TextStep.Prompt
+            StepId = textView.Step.Id,
+            Prompt = textView.Step.Prompt
         };
     }
 

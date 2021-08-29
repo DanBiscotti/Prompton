@@ -15,7 +15,7 @@ public class ChoiceListener : StepListener
     {
         this.choiceView = choiceView;
         this.ui = ui;
-        result = new ChoiceResult { Prompt = choiceView.Choice.Prompt };
+        result = new ChoiceResult { StepId = choiceView.Step.Id, Prompt = choiceView.Step.Prompt };
     }
 
     public override StepResult GetResult() => result;

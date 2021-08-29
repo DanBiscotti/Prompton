@@ -1,6 +1,6 @@
 using ConsoleGUI.Controls;
 using Figgle;
-using Prompton.Steps;
+using NetCoreAudio;
 using Time = Prompton.Steps.Time;
 
 namespace Prompton.UI.Views;
@@ -8,7 +8,7 @@ namespace Prompton.UI.Views;
 public class TimeView : StepView
 {
     public TimeSpan TimerTime { get; set; }
-    public Time TimeStep { get; }
+    public Time Step { get; }
     private readonly string format;
     private Timer timer;
     private VerticalStackPanel viewStack;
@@ -16,14 +16,16 @@ public class TimeView : StepView
     private bool active;
     private bool isCountdown;
     private Box countdownText = BuildTextBox("Countdown!", ConsoleColor.Yellow);
+    private readonly Player player;
 
-    public TimeView(Time timeStep)
+    public TimeView(Time step, Player player)
     {
-        this.TimeStep = timeStep;
-        var countdown = timeStep.Countdown;
-        TimerTime = countdown > TimeSpan.Zero ? countdown : timeStep.Countup ? TimeSpan.Zero : timeStep.Limit;
-        format = timeStep.Limit >= TimeSpan.FromHours(1) ? @"hh\:mm\:ss" : @"mm\:ss";
-        isCountdown = timeStep.Countdown > TimeSpan.Zero;
+        this.Step = step;
+        this.player = player;
+        var countdown = step.Countdown;
+        TimerTime = countdown > TimeSpan.Zero ? countdown : step.Countup ? TimeSpan.Zero : step.Limit;
+        format = step.Limit >= TimeSpan.FromHours(1) ? @"hh\:mm\:ss" : @"mm\:ss";
+        isCountdown = step.Countdown > TimeSpan.Zero;
 
         var displayTime = GetTimeDisplayText(TimerTime);
         var width = displayTime.IndexOf('\n') + 1;
@@ -55,7 +57,7 @@ public class TimeView : StepView
         };
 
         viewStack = new VerticalStackPanel();
-        viewStack.Add(BuildTextBox(timeStep.Prompt));
+        viewStack.Add(BuildTextBox(step.Prompt));
         viewStack.Add(new HorizontalSeparator());
         viewStack.Add(box);
         if (isCountdown)
@@ -74,7 +76,7 @@ public class TimeView : StepView
 
     public void MoveTimer(bool up)
     {
-        if(up)
+        if (up)
             TimerTime += TimeSpan.FromSeconds(1);
         else
             TimerTime -= TimeSpan.FromSeconds(1);
@@ -100,8 +102,9 @@ public class TimeView : StepView
         {
             if (TimerTime == TimeSpan.FromSeconds(1))
             {
-                if (!TimeStep.Countup)
-                    TimerTime = TimeStep.Limit;
+                player.Play("BellSound.wav");
+                if (!Step.Countup)
+                    TimerTime = Step.Limit;
                 else
                     TimerTime = TimeSpan.Zero;
                 timerArea.Color = ConsoleColor.White;
@@ -113,17 +116,19 @@ public class TimeView : StepView
                 TimerTime -= TimeSpan.FromSeconds(1);
             }
         }
-        else if (TimerTime == TimeSpan.Zero && !TimeStep.Countup)
+        else if (TimerTime == TimeSpan.Zero && !Step.Countup)
         {
+            player.Play("BellSound.wav");
             Stop();
         }
-        else if (TimerTime == TimeStep.Limit && TimeStep.Countup)
+        else if (TimerTime == Step.Limit && Step.Countup)
         {
+            player.Play("BellSound.wav");
             Stop();
         }
         else
         {
-            if (TimeStep.Countup)
+            if (Step.Countup)
                 TimerTime += TimeSpan.FromSeconds(1);
             else
                 TimerTime -= TimeSpan.FromSeconds(1);

@@ -4,11 +4,11 @@ using Prompton.Steps;
 
 namespace Prompton.UI.Views;
 
-public class SeriesView : StepView
+public class DisplayView : StepView
 {
-    public Series Step { get; set; }
+    public Display Step { get; set; }
 
-    public SeriesView(Series step)
+    public DisplayView(Display step)
     {
         Step = step;
         Content = new VerticalStackPanel()

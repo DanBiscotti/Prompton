@@ -16,8 +16,8 @@ public class NumberListener : StepListener
         this.ui = ui;
         result = new NumberResult
         {
-            StepId = numberView.Number.Id,
-            Prompt = numberView.Number.Prompt
+            StepId = numberView.Step.Id,
+            Prompt = numberView.Step.Prompt
         };
     }
 

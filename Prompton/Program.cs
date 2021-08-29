@@ -1,4 +1,5 @@
 ﻿using ConsoleGUI;
+using NetCoreAudio;
 using Prompton;
 using Prompton.Steps;
 using Prompton.Steps.StepResults;
@@ -6,7 +7,7 @@ using Prompton.UI;
 using Prompton.UI.Listeners;
 using Prompton.Yaml;
 
-var mainFilePath = "test.yml";
+var mainFilePath = "test-main.yml";
 var mainYamlString = File.ReadAllText(mainFilePath);
 
 var stepSerializer = new StepSerializer();
@@ -17,14 +18,14 @@ if (main.DefinitionsDir is not null or "")
 {
     var filenames = Directory.GetFiles(main.DefinitionsDir);
     var yamlStrings = filenames.Select(x => File.ReadAllText(x)).ToList(); 
-    var steps = yamlStrings.Select(x => stepSerializer.Deserialize(x)).ToList();
+    var steps = yamlStrings.SelectMany(x => stepSerializer.DeserializeMany(x)).ToList();
     stepDict = steps.ToDictionary(k => k.Id, v => v);
 }
 
 var validator =new StepValidator();
 // TODO: A exit if invalid
 
-var viewFactory = new ViewFactory(stepDict);
+var viewFactory = new ViewFactory(stepDict, new Player());
 var listenerFactory = new ListenerFactory();
 var ui = new UIProvider(viewFactory, listenerFactory);
 var view = ui.GetView(main);
@@ -43,9 +44,5 @@ var result = listener.GetResult() as MainResult;
 
 var serializer = new ReportSerializer();
 var yaml = serializer.Serialize(result);
-
-// TODO: 3 Add and asssign ids to result
-// TODO: 4 step which just displays some text
-// TODO: 5 add bell sound to timer
 
 var x = 1;

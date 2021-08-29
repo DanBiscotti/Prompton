@@ -7,8 +7,7 @@ namespace Prompton.Yaml;
 
 public interface IYamlDeserializer
 {
-    Dictionary<string, Step> GetStepDictionary(params string[] filepaths);
-    Main GetMain(params string[] filepaths);
+
 }
 
 public class StepSerializer : IYamlDeserializer
@@ -19,11 +18,12 @@ public class StepSerializer : IYamlDeserializer
     {
         typeof(Main),
         typeof(Choice),
+        typeof(Display),
         typeof(Text),
         typeof(Series),
         typeof(Number),
         typeof(Steps.Random),
-        typeof(Steps.Time),
+        typeof(Time),
         typeof(Ref),
         typeof(Regex),
         typeof(TimeSpan)
@@ -35,19 +35,14 @@ public class StepSerializer : IYamlDeserializer
         deserializer = BuildDeserializer();
     }
 
-    public Dictionary<string, Step> GetStepDictionary(params string[] filepaths)
-    {
-        return new Dictionary<string, Step>();
-    }
-
-    public Main GetMain(params string[] filepaths)
-    {
-        return new Main();
-    }
-
     public Step Deserialize(string yaml)
     {
         return deserializer.Deserialize<Step>(yaml);
+    }
+
+    public IEnumerable<Step> DeserializeMany(string yaml)
+    {
+        return deserializer.DeserializeMany<Step>(yaml);
     }
 
     private IDeserializer BuildDeserializer()

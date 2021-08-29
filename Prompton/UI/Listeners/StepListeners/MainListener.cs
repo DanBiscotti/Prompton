@@ -15,7 +15,7 @@ public class MainListener : StepListener
     {
         this.mainView = mainView;
         this.ui = ui;
-        mainResult = MainResult.Create(mainView.Main.Id, mainView.Main.Name);
+        mainResult = MainResult.Create(mainView.Step.Id, mainView.Step.Name);
     }
 
     public override StepResult GetResult()
@@ -31,10 +31,10 @@ public class MainListener : StepListener
             case ConsoleKey.Enter:
                 {
                     StepListener listener;
-                    for (int i = 0; i < mainView.Main.Repeats; i++)
+                    for (int i = 0; i < mainView.Step.Repeats; i++)
                     {
                         var list = new List<StepResult>();
-                        foreach (var step in mainView.Main.Steps)
+                        foreach (var step in mainView.Step.Steps)
                         {
                             var view = ui.GetView(step);
                             var listeners = ui.GetListeners(view);

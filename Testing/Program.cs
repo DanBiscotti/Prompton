@@ -22,7 +22,7 @@ if(main.DefinitionsDir is not null or "")
 
 
 
-var viewFactory = new ViewFactory(stepDict);
+var viewFactory = new ViewFactory(stepDict, new NetCoreAudio.Player());
 var listenerFactory = new ListenerFactory();
 var ui = new UIProvider(viewFactory, listenerFactory);
 var view = ui.GetView(main);
