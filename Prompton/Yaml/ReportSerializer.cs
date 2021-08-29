@@ -27,7 +27,7 @@ public class ReportSerializer : IYamlSerializer
 
     public ReportSerializer()
     {
-        serializer = BuildDeserializer();
+        serializer = BuildSerializer();
     }
 
     public string Serialize(MainResult main)
@@ -35,13 +35,15 @@ public class ReportSerializer : IYamlSerializer
         return serializer.Serialize(main);
     }
 
-    private ISerializer BuildDeserializer()
+    private ISerializer BuildSerializer()
     {
         var builder = new SerializerBuilder()
             .DisableAliases()
             .EnsureRoundtrip()
             .WithTypeConverter(new DateOnlyConverter())
-            .WithTypeConverter(new TimeOnlyConverter());
+            .WithTypeConverter(new TimeOnlyConverter())
+            .WithTypeConverter(new TimeSpanConverter())
+            .WithTypeInspector(x => new OrderedTypeInspector(x));
 
         foreach (var type in TypesWithTags)
         {

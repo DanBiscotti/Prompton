@@ -15,10 +15,14 @@ public class MainListener : StepListener
     {
         this.mainView = mainView;
         this.ui = ui;
-        mainResult = MainResult.Create(mainView.Main.Name);
+        mainResult = MainResult.Create(mainView.Main.Id, mainView.Main.Name);
     }
 
-    public override StepResult GetResult() => mainResult;
+    public override StepResult GetResult()
+    {
+        mainResult.Duration = DateTime.Now - mainResult.StartDate.ToDateTime(mainResult.StartTime);
+        return mainResult;
+    }
 
     public override void OnInput(InputEvent inputEvent)
     {

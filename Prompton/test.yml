@@ -1,42 +1,11 @@
 ﻿---
 !Main
 Id: test-main
-Name: Welcome to the workout
+Name: Blah
 Steps:
-  - !Series
-    Id: test-step
-    Prompt: Strength work
-    Steps:
-    - !Series
-      Id: test-step
-      Prompt: First pair
-      Repeats: 3
-      Steps:
-      - !Choice
-        Id: pull-ups
-        Prompt: Which Pull up exercise do you want to do?
-        Choices:
-          Scapular pull ups:
-            !Number
-            Id: scap-pulls
-            Prompt: how many Scapular pull ups did you manage?
-          Arch hangs:
-            !Time
-            Id: arch-hangs
-            Prompt: How long can you hold up to 1 min
-            Countup: false
-            Countdown: 00:00:05
-            Limit: 00:01:00
-        
-      - !Choice
-        Id: squats
-        Prompt: Which Squat exercise do you want to do?
-        Choices:
-          Assisted squats:
-            !Number
-            Id: blah-squats
-            Prompt: how many assisted squats ups did you manage?
-          Bulgarian squats:
-            !Number
-            Id: bulg-squats
-            Prompt: how many bulgarian squats ups did you manage?
+- !Time
+  Id: arch-hangs
+  Prompt: Hello there
+  Countup: true
+  Countdown: 00:00:03
+  Limit: 00:01:00

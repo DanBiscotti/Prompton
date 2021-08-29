@@ -14,7 +14,11 @@ public class TextListener : StepListener
     {
         this.textView = textView;
         this.ui = ui;
-        result = new TextResult { Prompt = textView.TextStep.Prompt };
+        result = new TextResult
+        {
+            StepId = textView.TextStep.Id,
+            Prompt = textView.TextStep.Prompt
+        };
     }
 
     public override StepResult GetResult() => result;
@@ -25,7 +29,7 @@ public class TextListener : StepListener
         {
             case ConsoleKey.Enter:
                 {
-                    if(textView.Validate())
+                    if (textView.Validate())
                     {
                         result.Result = textView.TextBox.Text;
                         textView.Complete = true;

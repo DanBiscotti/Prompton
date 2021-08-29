@@ -21,6 +21,6 @@ public class TimeSpanConverter : IYamlTypeConverter
     public void WriteYaml(IEmitter emitter, object value, Type type)
     {
         var duration = (TimeSpan)value;
-        emitter.Emit(new Scalar(duration.ToString("HH:mm:ss")));
+        emitter.Emit(new Scalar(duration.ToString(@"hh\:mm\:ss")));
     }
 }

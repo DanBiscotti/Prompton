@@ -44,9 +44,8 @@ var result = listener.GetResult() as MainResult;
 var serializer = new ReportSerializer();
 var yaml = serializer.Serialize(result);
 
-// TODO: 1 timer result inverted
-// TODO: 2 when timer is countup seems to start at 2
-// TODO: 3 Prompt missing on text and input
+// TODO: 3 Add and asssign ids to result
 // TODO: 4 step which just displays some text
+// TODO: 5 add bell sound to timer
 
 var x = 1;

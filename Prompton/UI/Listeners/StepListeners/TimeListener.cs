@@ -11,7 +11,7 @@ public class TimeListener : StepListener
     public TimeListener(TimeView timeView)
     {
         this.timeView = timeView;
-        result = new TimerResult();
+        result = new TimerResult { Prompt = timeView.TimeStep.Prompt };
     }
 
     public override StepResult GetResult() => result;
@@ -28,7 +28,9 @@ public class TimeListener : StepListener
                 }
             case ConsoleKey.Enter:
                 {
-                    result.Result = timeView.TimerTime;
+                    result.Result = timeView.TimeStep.Countup 
+                        ? timeView.TimerTime 
+                        : timeView.TimeStep.Limit - timeView.TimerTime;
                     timeView.Complete = true;
                     inputEvent.Handled = true;
                     return;
@@ -39,6 +41,7 @@ public class TimeListener : StepListener
             or ConsoleKey.UpArrow:
                 {
                     timeView.MoveTimer(inputEvent.Key.Key is ConsoleKey.K or ConsoleKey.UpArrow);
+                    inputEvent.Handled = true;
                     break;
                 }
         }

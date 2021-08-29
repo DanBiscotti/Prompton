@@ -14,7 +14,11 @@ public class NumberListener : StepListener
     {
         this.numberView = numberView;
         this.ui = ui;
-        result = new NumberResult();
+        result = new NumberResult
+        {
+            StepId = numberView.Number.Id,
+            Prompt = numberView.Number.Prompt
+        };
     }
 
     public override StepResult GetResult() => result;
