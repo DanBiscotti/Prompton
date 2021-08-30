@@ -2,19 +2,16 @@
 using ConsoleGUI.Controls;
 using Prompton.Steps;
 using Prompton.UI.Views;
-using NetCoreAudio;
 
 namespace Prompton.UI;
 
 public class ViewFactory
 {
     private readonly Dictionary<string, Step> stepDict;
-    private readonly Player audioPlayer;
 
-    public ViewFactory(Dictionary<string, Step> stepDict, Player audioPlayer)
+    public ViewFactory(Dictionary<string, Step> stepDict)
     {
         this.stepDict = stepDict;
-        this.audioPlayer = audioPlayer;
     }
 
     public StepView Create(Step step) =>
@@ -27,7 +24,7 @@ public class ViewFactory
             Series series => new SeriesView(series),
             Ref stepRef => Create(stepDict[stepRef.ReferredStepId]),
             Text input => new TextView(input),
-            Time timer => new TimeView(timer, audioPlayer),
+            Time timer => new TimeView(timer),
             _
               => throw new NotSupportedException(
                   $"Step type {step.GetType()} does not have a corresponding view"

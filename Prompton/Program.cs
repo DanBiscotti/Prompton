@@ -1,52 +1,59 @@
 ﻿using ConsoleGUI;
-using NetCoreAudio;
 using Prompton;
 using Prompton.Steps;
 using Prompton.Steps.StepResults;
 using Prompton.UI;
 using Prompton.UI.Listeners;
 using Prompton.Yaml;
+using SharpAudio;
+using SharpAudio.Codec;
 
-var mainFilePath = args[0];
-var mainYamlString = File.ReadAllText(mainFilePath);
+var engine = AudioEngine.CreateDefault();
+var soundStream = new SoundStream(new MemoryStream(Resources.BellSound), engine);
 
-var stepSerializer = new StepSerializer();
-var main = stepSerializer.Deserialize(mainYamlString) as Main;
+soundStream.Volume = 0.5f;
+soundStream.Play();
 
-Dictionary<string, Step> stepDict = default;
-if (main.DefinitionsDir is not null or "")
-{
-    var filenames = Directory.GetFiles(main.DefinitionsDir);
-    var yamlStrings = filenames.Select(x => File.ReadAllText(x)).ToList(); 
-    var steps = yamlStrings.SelectMany(x => stepSerializer.DeserializeMany(x)).ToList();
-    stepDict = steps.ToDictionary(k => k.Id, v => v);
-}
+//var mainFilePath = args[0];
+//var mainYamlString = File.ReadAllText(mainFilePath);
 
-var validator =new StepValidator();
-// TODO: A exit if invalid
+//var stepSerializer = new StepSerializer();
+//var main = stepSerializer.Deserialize(mainYamlString) as Main;
 
-var viewFactory = new ViewFactory(stepDict, new Player());
-var listenerFactory = new ListenerFactory();
-var ui = new UIProvider(viewFactory, listenerFactory);
-var view = ui.GetView(main);
-var listeners = ui.GetListeners(view);
-ui.ViewArea.Content = view;
+//Dictionary<string, Step> stepDict = default;
+//if (main.DefinitionsDir is not null or "")
+//{
+//    var filenames = Directory.GetFiles(main.DefinitionsDir);
+//    var yamlStrings = filenames.Select(x => File.ReadAllText(x)).ToList(); 
+//    var steps = yamlStrings.SelectMany(x => stepSerializer.DeserializeMany(x)).ToList();
+//    stepDict = steps.ToDictionary(k => k.Id, v => v);
+//}
 
-ui.Init();
-while (!view.Complete)
-{
-    Thread.Sleep(10);
-    ConsoleManager.ReadInput(listeners.Select(x => x.Value).ToArray());
-}
+//var validator =new StepValidator();
+//// TODO: A exit if invalid
 
-var listener = listeners["step-listener"] as StepListener;
-var result = listener.GetResult() as MainResult;
+//var viewFactory = new ViewFactory(stepDict);
+//var listenerFactory = new ListenerFactory();
+//var ui = new UIProvider(viewFactory, listenerFactory);
+//var view = ui.GetView(main);
+//var listeners = ui.GetListeners(view);
+//ui.ViewArea.Content = view;
 
-var serializer = new ReportSerializer();
-var resultYaml = serializer.Serialize(result);
+//ui.Init();
+//while (!view.Complete)
+//{
+//    Thread.Sleep(10);
+//    ConsoleManager.ReadInput(listeners.Select(x => x.Value).ToArray());
+//}
+
+//var listener = listeners["step-listener"] as StepListener;
+//var result = listener.GetResult() as MainResult;
+
+//var serializer = new ReportSerializer();
+//var resultYaml = serializer.Serialize(result);
 
 
 
-var datetimeStringForFilename = $"{result.StartDate.ToString("yyyy-MM-dd")}T{result.StartTime.ToString("HH-mm-ss")}Z";
+//var datetimeStringForFilename = $"{result.StartDate.ToString("yyyy-MM-dd")}T{result.StartTime.ToString("HH-mm-ss")}Z";
 
-File.WriteAllText($"{main.ResultsDir}/{datetimeStringForFilename}.yml", resultYaml);
+//File.WriteAllText($"{main.ResultsDir}/{datetimeStringForFilename}.yml", resultYaml);

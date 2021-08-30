@@ -1,6 +1,5 @@
 using ConsoleGUI.Controls;
 using Figgle;
-using NetCoreAudio;
 using Time = Prompton.Steps.Time;
 
 namespace Prompton.UI.Views;
@@ -16,12 +15,10 @@ public class TimeView : StepView
     private TextBlock timerArea;
     private bool active;
     private Box countdownText = BuildTextBox("Countdown!", ConsoleColor.Yellow);
-    private readonly Player player;
 
-    public TimeView(Time step, Player player)
+    public TimeView(Time step)
     {
         this.Step = step;
-        this.player = player;
         var countdown = step.Countdown;
         TimerTime = countdown > TimeSpan.Zero ? countdown : step.Countup ? TimeSpan.Zero : step.Limit;
         format = step.Limit >= TimeSpan.FromHours(1) ? @"hh\:mm\:ss" : @"mm\:ss";
@@ -102,7 +99,7 @@ public class TimeView : StepView
         {
             if (TimerTime == TimeSpan.FromSeconds(1))
             {
-                player.Play("BellSound.wav");
+                //player.Play("BellSound.wav");
                 if (!Step.Countup)
                     TimerTime = Step.Limit;
                 else
@@ -118,12 +115,12 @@ public class TimeView : StepView
         }
         else if (TimerTime == TimeSpan.Zero && !Step.Countup)
         {
-            player.Play("BellSound.wav");
+            //player.Play("BellSound.wav");
             Stop();
         }
         else if (TimerTime == Step.Limit && Step.Countup)
         {
-            player.Play("BellSound.wav");
+            //player.Play();
             Stop();
         }
         else
