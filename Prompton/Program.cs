@@ -47,6 +47,6 @@ var resultYaml = serializer.Serialize(result);
 
 
 
-var datetimeStringForFilename = $"{main.Id}_{result.StartDateUtc:yyyy-MM-dd}T{result.StartTimeUtc:HH-mm-ss}Z";
+var resultFileName = $"{main.Id}_{result.StartDateUtc:yyyy-MM-dd}T{result.StartTimeUtc:HH-mm-ss}Z";
 
-File.WriteAllText($"{main.ResultsDir}/{datetimeStringForFilename}.yml", resultYaml);
+File.WriteAllText($"{main.ResultsDir}/{resultFileName}.yml", resultYaml);
