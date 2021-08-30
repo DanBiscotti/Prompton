@@ -34,6 +34,7 @@ public class TimeListener : StepListener
                 {
                     if(!timeView.IsCountdown)
                     {
+                        timeView.Stop();
                         result.Result = timeView.Step.Countup
                             ? timeView.TimerTime
                             : timeView.Step.Limit - timeView.TimerTime;

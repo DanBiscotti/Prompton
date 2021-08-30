@@ -91,7 +91,7 @@ public class TimeView : StepView
         timer = new Timer(this.MoveTimer, null, 0, 1000);
     }
 
-    private void Stop()
+    public void Stop()
     {
         active = false;
         timer.Dispose();
