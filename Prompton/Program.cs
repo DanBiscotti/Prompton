@@ -9,7 +9,7 @@ using SharpAudio;
 using SharpAudio.Codec;
 
 var engine = AudioEngine.CreateDefault();
-var soundStream = new SoundStream(new MemoryStream(Resources.BellSound), engine);
+var soundStream = new SoundStream(Resources.BellSound, engine);
 
 soundStream.Volume = 0.5f;
 soundStream.Play();
