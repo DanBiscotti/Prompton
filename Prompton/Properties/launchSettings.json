@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Prompton": {
+      "commandName": "Project",
+      "commandLineArgs": "test-main.yml"
+    }
+  }
+}

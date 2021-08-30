@@ -20,7 +20,7 @@ public class MainListener : StepListener
 
     public override StepResult GetResult()
     {
-        mainResult.Duration = DateTime.Now - mainResult.StartDate.ToDateTime(mainResult.StartTime);
+        mainResult.Duration = DateTime.UtcNow - mainResult.StartDate.ToDateTime(mainResult.StartTime, DateTimeKind.Utc);
         return mainResult;
     }
 

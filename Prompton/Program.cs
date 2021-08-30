@@ -7,7 +7,7 @@ using Prompton.UI;
 using Prompton.UI.Listeners;
 using Prompton.Yaml;
 
-var mainFilePath = "test-main.yml";
+var mainFilePath = args[0];
 var mainYamlString = File.ReadAllText(mainFilePath);
 
 var stepSerializer = new StepSerializer();
@@ -43,6 +43,10 @@ var listener = listeners["step-listener"] as StepListener;
 var result = listener.GetResult() as MainResult;
 
 var serializer = new ReportSerializer();
-var yaml = serializer.Serialize(result);
+var resultYaml = serializer.Serialize(result);
 
-var x = 1;
+
+
+var datetimeStringForFilename = $"{result.StartDate.ToString("yyyy-MM-dd")}T{result.StartTime.ToString("HH-mm-ss")}Z";
+
+File.WriteAllText($"./{main.ResultsDir}/{datetimeStringForFilename}.yml", resultYaml);

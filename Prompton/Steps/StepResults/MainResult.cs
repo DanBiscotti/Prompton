@@ -14,8 +14,8 @@ public class MainResult : StepResult
         StepId = id,
         Name = name,
         ResultGuid = Guid.NewGuid(),
-        StartDate = DateOnly.FromDateTime(DateTime.Now),
-        StartTime = TimeOnly.FromDateTime(DateTime.Now),
+        StartDate = DateOnly.FromDateTime(DateTime.UtcNow),
+        StartTime = TimeOnly.FromDateTime(DateTime.UtcNow),
         Result = new List<List<StepResult>>()
     };
 }
