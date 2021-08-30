@@ -2,7 +2,7 @@
   "profiles": {
     "Prompton": {
       "commandName": "Project",
-      "commandLineArgs": "test-main.yml"
+      "commandLineArgs": "recommended-routine/main.yml"
     }
   }
 }

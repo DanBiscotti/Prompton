@@ -1,0 +1,19 @@
+---
+!Time
+Id: support-hold
+Prompt: "Parallel bar support hold (up to 1 min)"
+Countup: false
+Countdown: 00:00:10
+Limit: 00:01:00
+---
+!Number
+Id: negative-dips
+Prompt: "Negative dips"
+---
+!Number
+Id: parallel-bar-dips
+Prompt: "Parallel bar dips"
+---
+!Number
+Id: weighted-dips
+Prompt: "Weighted dips"

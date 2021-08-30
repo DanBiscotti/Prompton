@@ -1,0 +1,27 @@
+---
+!Number
+Id: "assisted-squats"
+Prompt: "Assisted squats"
+---
+!Number
+Id: "squats"
+Prompt: "Squats"
+---
+!Series
+Id: "bulgarian-split-squats"
+Prompt: "Bulgarian split squats"
+Steps:
+- !Number
+  Id: "bulgarian-split-squats-distance-above-floor"
+  Prompt: "Distance above floor in cms"
+- !Number
+  Id: "bulgarian-split-squats-count"
+  Prompt: "How many bulgarian split squats?"
+---
+!Number
+Id: "intermediate-split-squats"
+Prompt: "Intermediate split squats"
+---
+!Number
+Id: "advanced-shrimp-squats"
+Prompt: "Advanced shrimp squats"

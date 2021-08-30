@@ -1,0 +1,27 @@
+---
+!Number
+Id: vertical-push-up
+Prompt: "Vertical push-up"
+---
+!Number
+Id: incline-push-up
+Prompt: "Incline push-up"
+---
+!Series
+Id: full-push-up
+Prompt: "Full push-up"
+Steps:
+- !Number
+  Id: push-up-distance-between-thumbs
+  Prompt: "Distance between thumbs"
+- !Number
+  Id: push-up-count
+  Prompt: "How many push ups?"
+---
+!Number
+Id: diamond-push-up
+Prompt: "Diamond push-up"
+---
+!Number
+Id: pseudo-planche-push-up
+Prompt: "Pseudo planche push-up"

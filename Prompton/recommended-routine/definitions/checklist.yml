@@ -1,0 +1,48 @@
+---
+!Display
+Id: no-meetings
+Prompt: "No meetings?"
+---
+!Display
+Id: rings-on-bar
+Prompt: "Rings are on the pull-up bar?"
+---
+!Display
+Id: bar-on-door
+Prompt: "Pull-up bar is on the door?"
+---
+!Display
+Id: bars-in-living-room
+Prompt: "Parallel bars are in the living room?"
+---
+!Display
+Id: tape-measure-handy
+Prompt: "Tape measure is handy?"
+---
+!Display
+Id: plank-handy
+Prompt: "Plank is handy?"
+---
+!Display
+Id: floor-mat-handy
+Prompt: "Floormat is handy?"
+---
+!Display
+Id: belt-handy
+Prompt: "Belt is handy?"
+---
+!Display
+Id: bedroom-floor-clear
+Prompt: "Bedroom floor is clean?"
+---
+!Display
+Id: laptop-charging
+Prompt: "Laptop is charging?"
+---
+!Display
+Id: shorts-on
+Prompt: "Shorts are on?"
+---
+!Display
+Id: music-on
+Prompt: "Music is on?"

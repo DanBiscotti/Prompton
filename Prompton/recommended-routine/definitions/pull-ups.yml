@@ -1,0 +1,23 @@
+---
+!Number
+Id: "scapular-pull-ups"
+Prompt: "Scapular pull ups"
+---
+!Time
+Id: "arch-hangs"
+Prompt: "Arch hangs"
+Countup: true
+Countdown: 00:00:10
+Limit: 00:01:00
+---
+!Number
+Id: "negative-pull-ups"
+Prompt: "Negative pull ups"
+---
+!Number
+Id: "pull-ups"
+Prompt: "Pull ups"
+---
+!Number
+Id: "weighted-pull-ups"
+Prompt: "Weighted pull ups"
