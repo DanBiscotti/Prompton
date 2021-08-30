@@ -9,12 +9,12 @@ public class TimeView : StepView
 {
     public TimeSpan TimerTime { get; set; }
     public Time Step { get; }
+    public bool IsCountdown { get; set; }
     private readonly string format;
     private Timer timer;
     private VerticalStackPanel viewStack;
     private TextBlock timerArea;
     private bool active;
-    private bool isCountdown;
     private Box countdownText = BuildTextBox("Countdown!", ConsoleColor.Yellow);
     private readonly Player player;
 
@@ -25,14 +25,14 @@ public class TimeView : StepView
         var countdown = step.Countdown;
         TimerTime = countdown > TimeSpan.Zero ? countdown : step.Countup ? TimeSpan.Zero : step.Limit;
         format = step.Limit >= TimeSpan.FromHours(1) ? @"hh\:mm\:ss" : @"mm\:ss";
-        isCountdown = step.Countdown > TimeSpan.Zero;
+        IsCountdown = step.Countdown > TimeSpan.Zero;
 
         var displayTime = GetTimeDisplayText(TimerTime);
         var width = displayTime.IndexOf('\n') + 1;
         timerArea = new TextBlock
         {
             Text = displayTime,
-            Color = isCountdown ? ConsoleColor.Yellow : ConsoleColor.White
+            Color = IsCountdown ? ConsoleColor.Yellow : ConsoleColor.White
         };
         var box = new Box
         {
@@ -60,7 +60,7 @@ public class TimeView : StepView
         viewStack.Add(BuildTextBox(step.Prompt));
         viewStack.Add(new HorizontalSeparator());
         viewStack.Add(box);
-        if (isCountdown)
+        if (IsCountdown)
             viewStack.Add(countdownText);
 
         Content = viewStack;
@@ -98,7 +98,7 @@ public class TimeView : StepView
 
     private void MoveTimer(Object _)
     {
-        if (isCountdown)
+        if (IsCountdown)
         {
             if (TimerTime == TimeSpan.FromSeconds(1))
             {
@@ -108,7 +108,7 @@ public class TimeView : StepView
                 else
                     TimerTime = TimeSpan.Zero;
                 timerArea.Color = ConsoleColor.White;
-                isCountdown = false;
+                IsCountdown = false;
                 viewStack.Remove(countdownText);
             }
             else
