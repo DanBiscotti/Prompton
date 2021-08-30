@@ -1,5 +1,7 @@
 using ConsoleGUI.Controls;
 using Figgle;
+using SharpAudio;
+using SharpAudio.Codec;
 using Time = Prompton.Steps.Time;
 
 namespace Prompton.UI.Views;
@@ -15,9 +17,11 @@ public class TimeView : StepView
     private TextBlock timerArea;
     private bool active;
     private Box countdownText = BuildTextBox("Countdown!", ConsoleColor.Yellow);
+    private AudioEngine audioEngine;
 
-    public TimeView(Time step)
+    public TimeView(Time step, AudioEngine audioEngine)
     {
+        this.audioEngine = audioEngine;
         this.Step = step;
         var countdown = step.Countdown;
         TimerTime = countdown > TimeSpan.Zero ? countdown : step.Countup ? TimeSpan.Zero : step.Limit;
@@ -99,7 +103,7 @@ public class TimeView : StepView
         {
             if (TimerTime == TimeSpan.FromSeconds(1))
             {
-                //player.Play("BellSound.wav");
+                PlaySound();
                 if (!Step.Countup)
                     TimerTime = Step.Limit;
                 else
@@ -115,12 +119,12 @@ public class TimeView : StepView
         }
         else if (TimerTime == TimeSpan.Zero && !Step.Countup)
         {
-            //player.Play("BellSound.wav");
+            PlaySound();
             Stop();
         }
         else if (TimerTime == Step.Limit && Step.Countup)
         {
-            //player.Play();
+            PlaySound();
             Stop();
         }
         else
@@ -131,6 +135,13 @@ public class TimeView : StepView
                 TimerTime -= TimeSpan.FromSeconds(1);
         }
         timerArea.Text = GetTimeDisplayText(TimerTime);
+    }
+
+    private void PlaySound()
+    {
+        var soundStream = new SoundStream(Resources.BellSound, audioEngine);
+        soundStream.Volume = 1f;
+        soundStream.Play();
     }
 
     private string GetTimeDisplayText(TimeSpan time) => FiggleFonts.Blocks.Render(time.ToString(format)); // Also ThreeByFive works and takes up less space
