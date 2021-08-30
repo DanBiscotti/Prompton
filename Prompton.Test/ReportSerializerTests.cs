@@ -23,8 +23,8 @@ public class ReportSerializerTests
     public static MainResult GetMainResult() => new MainResult
     {
         Name = testName,
-        StartDate = testDate,
-        StartTime = testTime,
+        StartDateUtc = testDate,
+        StartTimeUtc = testTime,
         Duration = testDuration,
         Result = new List<List<StepResult>>()
     };
@@ -32,8 +32,8 @@ public class ReportSerializerTests
     public static string GetMainExpectedString(MainResult main) => ""
         + $"!{typeof(MainResult).Name}{nl}"
         + $"{nameof(main.Name)}: {testName}{nl}"
-        + $"{nameof(main.StartDate)}: 2020-02-22{nl}"
-        + $"{nameof(main.StartTime)}: 14:10:07{nl}"
+        + $"{nameof(main.StartDateUtc)}: 2020-02-22{nl}"
+        + $"{nameof(main.StartTimeUtc)}: 14:10:07{nl}"
         + $"{nameof(main.Duration)}: 01:03:43{nl}"
         + $"{nameof(main.Result)}:";
 

@@ -39,7 +39,7 @@ while (!view.Complete)
     ConsoleManager.ReadInput(listeners.Select(x => x.Value).ToArray());
 }
 
-var listener = listeners["step-listener"] as StepListener;
+var listener = listeners[Constants.StepListenerKey] as StepListener;
 var result = listener.GetResult() as MainResult;
 
 var serializer = new ReportSerializer();
@@ -47,6 +47,6 @@ var resultYaml = serializer.Serialize(result);
 
 
 
-var datetimeStringForFilename = $"{main.Id}_{result.StartDate.ToString("yyyy-MM-dd")}T{result.StartTime.ToString("HH-mm-ss")}Z";
+var datetimeStringForFilename = $"{main.Id}_{result.StartDateUtc:yyyy-MM-dd}T{result.StartTimeUtc:HH-mm-ss}Z";
 
 File.WriteAllText($"{main.ResultsDir}/{datetimeStringForFilename}.yml", resultYaml);

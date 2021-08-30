@@ -4,8 +4,8 @@ public class MainResult : StepResult
 {
     public string Name {  get; set; }
     public Guid ResultGuid {  get; set; }
-    public DateOnly StartDate {  get; set; }
-    public TimeOnly StartTime {  get; set; }
+    public DateOnly StartDateUtc {  get; set; }
+    public TimeOnly StartTimeUtc {  get; set; }
     public TimeSpan Duration { get; set; }
     public List<List<StepResult>> Result {  get; set; }
 
@@ -14,8 +14,8 @@ public class MainResult : StepResult
         StepId = id,
         Name = name,
         ResultGuid = Guid.NewGuid(),
-        StartDate = DateOnly.FromDateTime(DateTime.UtcNow),
-        StartTime = TimeOnly.FromDateTime(DateTime.UtcNow),
+        StartDateUtc = DateOnly.FromDateTime(DateTime.UtcNow),
+        StartTimeUtc = TimeOnly.FromDateTime(DateTime.UtcNow),
         Result = new List<List<StepResult>>()
     };
 }
