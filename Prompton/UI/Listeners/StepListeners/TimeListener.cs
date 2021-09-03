@@ -32,15 +32,15 @@ public class TimeListener : StepListener
                 }
             case ConsoleKey.Enter:
                 {
-                    if(!timeView.IsCountdown)
-                    {
-                        timeView.Stop();
-                        result.Result = timeView.Step.Countup
-                            ? timeView.TimerTime
-                            : timeView.Step.Limit - timeView.TimerTime;
-                        timeView.Complete = true;
-                    }
                     inputEvent.Handled = true;
+                    if(timeView.IsCountdown || timeView.IsStarted is false)
+                        return;
+
+                    timeView.Stop();
+                    result.Result = timeView.Step.Countup
+                        ? timeView.TimerTime
+                        : timeView.Step.Limit - timeView.TimerTime;
+                    timeView.Complete = true;
                     return;
                 }
             case ConsoleKey.J

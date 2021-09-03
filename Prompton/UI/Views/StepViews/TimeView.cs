@@ -11,6 +11,7 @@ public class TimeView : StepView
     public TimeSpan TimerTime { get; set; }
     public Time Step { get; }
     public bool IsCountdown { get; set; }
+    public bool IsStarted { get; set; } = false;
     private readonly string format;
     private Timer timer;
     private VerticalStackPanel viewStack;
@@ -88,6 +89,7 @@ public class TimeView : StepView
     private void Start()
     {
         active = true;
+        IsStarted = true;
         timer = new Timer(this.MoveTimer, null, 0, 1000);
     }
 
