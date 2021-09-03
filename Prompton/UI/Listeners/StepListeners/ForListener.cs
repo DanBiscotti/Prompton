@@ -56,6 +56,20 @@ public class ForListener : StepListener
 
                     for (int i = 0; i < repeats; i++)
                     {
+                        if(repeats > 1)
+                        {
+                            var displayStep = new Display { Prompt = $"{forView.Step.Prompt}: round {i + 1}/{repeats}" };
+                            var displayView = ui.GetView(displayStep);
+                            var listeners = ui.GetListeners(displayView);
+                            var listenerList = listeners.Select(x => x.Value).ToArray();
+                            ui.ViewArea.Content = displayView;
+                            while (!displayView.Complete)
+                            {
+                                Thread.Sleep(10);
+                                ConsoleManager.ReadInput(listenerList);
+                            }
+                        }
+
                         foreach (var step in forView.Step.Steps)
                         {
                             var view = ui.GetView(step);

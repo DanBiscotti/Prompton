@@ -5,4 +5,4 @@ Name: Blah
 DefinitionsDir: test-definitions
 ResultsDir: "."
 Steps:
-- !Ref test-while
+- !Ref test-for

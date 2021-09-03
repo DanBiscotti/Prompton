@@ -57,7 +57,7 @@ public class WhileListener : StepListener
                         }
                         var choiceStep = new Choice
                         {
-                            Prompt = $"Would you like to repeat again: {whileView.Step.Prompt}",
+                            Prompt = $"Would you like to repeat again: {whileView.Step.Prompt} (current count: {repeats})",
                             Choices = new() { { "Yes", null }, { "No", null } }
                         };
                         var choiceView = ui.GetView(choiceStep);
