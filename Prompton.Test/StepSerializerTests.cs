@@ -31,7 +31,6 @@ public class StepSerializerTests
 
         Assert.IsType<Series>(data);
         var series = data as Series;
-        Assert.Equal(3, series.Repeats);
     }
 
     [Fact]

@@ -12,6 +12,10 @@ public class ListenerFactory
           => new ChoiceListener(choiceView, provider),
         DisplayView displayView
           => new DisplayListener(displayView, provider),
+        ForView forView
+          => new ForListener(forView, provider),
+        WhileView whileView
+          => new WhileListener(whileView, provider),
         TextView inputView
           => new TextListener(inputView, provider),
         MainView mainView

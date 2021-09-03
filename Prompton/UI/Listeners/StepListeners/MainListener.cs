@@ -31,25 +31,22 @@ public class MainListener : StepListener
             case ConsoleKey.Enter:
                 {
                     StepListener listener;
-                    for (int i = 0; i < mainView.Step.Repeats; i++)
+                    var list = new List<StepResult>();
+                    foreach (var step in mainView.Step.Steps)
                     {
-                        var list = new List<StepResult>();
-                        foreach (var step in mainView.Step.Steps)
+                        var view = ui.GetView(step);
+                        var listeners = ui.GetListeners(view);
+                        var listenerList = listeners.Select(x => x.Value).ToArray();
+                        ui.ViewArea.Content = view;
+                        while (!view.Complete)
                         {
-                            var view = ui.GetView(step);
-                            var listeners = ui.GetListeners(view);
-                            var listenerList = listeners.Select(x => x.Value).ToArray();
-                            ui.ViewArea.Content = view;
-                            while (!view.Complete)
-                            {
-                                Thread.Sleep(10);
-                                ConsoleManager.ReadInput(listenerList);
-                            }
-                            listener = listeners[Constants.StepListenerKey] as StepListener;
-                            list.Add(listener.GetResult());
+                            Thread.Sleep(10);
+                            ConsoleManager.ReadInput(listenerList);
                         }
-                        mainResult.Result.Add(list);
+                        listener = listeners[Constants.StepListenerKey] as StepListener;
+                        list.Add(listener.GetResult());
                     }
+                    mainResult.Result.Add(list);
                     mainView.Complete = true;
                     inputEvent.Handled = true;
                     return;

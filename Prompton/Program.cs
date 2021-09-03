@@ -22,7 +22,7 @@ if (main.DefinitionsDir is not null or "")
     stepDict = steps.ToDictionary(k => k.Id, v => v);
 }
 
-var validator = new StepValidator();
+var validator = new StepValidator(main, stepDict);
 // TODO: A exit if invalid
 
 var viewFactory = new ViewFactory(stepDict, AudioEngine.CreateDefault());
@@ -44,8 +44,6 @@ var result = listener.GetResult() as MainResult;
 
 var serializer = new ReportSerializer();
 var resultYaml = serializer.Serialize(result);
-
-
 
 var resultFileName = $"{main.Id}_{result.StartDateUtc:yyyy-MM-dd}T{result.StartTimeUtc:HH-mm-ss}Z";
 

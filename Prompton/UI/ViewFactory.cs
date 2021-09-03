@@ -22,6 +22,8 @@ public class ViewFactory
         {
             Choice choice => new ChoiceView(choice),
             Display choice => new DisplayView(choice),
+            For forStep => new ForView(forStep),
+            While whileStep => new WhileView(whileStep),
             Main main => new MainView(main),
             Number number => new NumberView(number),
             Series series => new SeriesView(series),

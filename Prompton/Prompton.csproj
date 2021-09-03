@@ -30,37 +30,10 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Update="recommended-routine/main.yml">
+		<None Update="test-main.yml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="recommended-routine/definitions/checklist.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/core.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/dips.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/exercise-groups.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/hinges.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/pull-ups.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/push-ups.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/rows.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/squats.yml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="recommended-routine/definitions/warm-up.yml">
+		<None Update="test-definitions/test-definitions.yml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

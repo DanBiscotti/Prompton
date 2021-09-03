@@ -3,7 +3,6 @@
 Id: test-main
 Name: Blah
 DefinitionsDir: test-definitions
+ResultsDir: "."
 Steps:
-- !Ref welcome-screen
-- !Ref friends-question
-- !Ref france-question
+- !Ref test-while

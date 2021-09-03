@@ -26,3 +26,20 @@ Choices:
   Belgium: !Ref incorrect
   France: !Ref incorrect
   Paris: !Ref correct
+---
+!For
+Id: test-for
+Prompt: This is a test for For
+PromptForRepeats: true
+Steps:
+- !Display
+  Id: blah1
+  Prompt: testing for!!
+---
+!While
+Id: test-while
+Prompt: This is a test for While
+Steps:
+- !Display
+  Id: blah3
+  Prompt: testing while!!
