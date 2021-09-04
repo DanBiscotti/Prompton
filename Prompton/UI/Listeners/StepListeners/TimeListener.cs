@@ -24,7 +24,7 @@ public class TimeListener : StepListener
     {
         switch (inputEvent.Key.Key)
         {
-            case ConsoleKey.Spacebar:
+            case ConsoleKey.Spacebar or ConsoleKey.LeftArrow:
                 {
                     timeView.StopStart();
                     inputEvent.Handled = true;
@@ -33,7 +33,12 @@ public class TimeListener : StepListener
             case ConsoleKey.Enter:
                 {
                     inputEvent.Handled = true;
-                    if(timeView.IsCountdown || timeView.IsStarted is false)
+                    if(timeView.IsStarted is false)
+                    {
+                        timeView.StopStart();
+                        return;
+                    }
+                    if(timeView.IsCountdown)
                         return;
 
                     timeView.Stop();
