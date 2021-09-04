@@ -4,5 +4,4 @@ Id: test-main
 Name: Blah
 DefinitionsDir: test-definitions
 ResultsDir: "."
-Steps:
-- !Ref test-for
+Step: !Ref test-for

@@ -4,5 +4,5 @@ public class ForResult : StepResult
 {
     public string Prompt { get; set; }
     public int Repeats { get; set; }
-    public List<List<StepResult>> Result { get; set; }
+    public List<StepResult> Result { get; set; }
 }

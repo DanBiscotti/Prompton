@@ -8,7 +8,7 @@ public class TimeListener : StepListener
     private readonly TimeView timeView;
     private readonly TimerResult result;
 
-    public TimeListener(TimeView timeView)
+    public TimeListener(TimeView timeView, UIProvider ui) : base(ui)
     {
         this.timeView = timeView;
         result = new TimerResult

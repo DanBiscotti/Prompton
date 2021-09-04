@@ -8,13 +8,11 @@ namespace Prompton.UI.Listeners;
 public class ChoiceListener : StepListener
 {
     private readonly ChoiceView choiceView;
-    private readonly UIProvider ui;
     private readonly ChoiceResult result;
 
-    public ChoiceListener(ChoiceView choiceView, UIProvider ui)
+    public ChoiceListener(ChoiceView choiceView, UIProvider ui) : base(ui)
     {
         this.choiceView = choiceView;
-        this.ui = ui;
         result = new ChoiceResult { StepId = choiceView.Step.Id, Prompt = choiceView.Step.Prompt };
     }
 
@@ -31,17 +29,8 @@ public class ChoiceListener : StepListener
                     var step = choiceView.GetSelectedStep(result.Choice);
                     if (step is not null)
                     {
-                        var view = ui.GetView(step);
-                        var listeners = ui.GetListeners(view);
-                        var listenerList = listeners.Select(x => x.Value).ToArray();
-                        ui.ViewArea.Content = view;
-                        while (!view.Complete)
-                        {
-                            Thread.Sleep(10);
-                            ConsoleManager.ReadInput(listenerList);
-                        }
-                        var listener = listeners[Constants.StepListenerKey] as StepListener;
-                        result.Result = listener.GetResult();
+                        var stepResult = ProcessStep(step);
+                        result.Result = stepResult;
                     }
                     choiceView.Complete = true;
                     inputEvent.Handled = true;

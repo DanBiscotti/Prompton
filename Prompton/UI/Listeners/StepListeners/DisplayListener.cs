@@ -11,12 +11,10 @@ public class DisplayListener : StepListener
 {
     private readonly DisplayView displayView;
     private readonly DisplayResult displayResult;
-    private readonly UIProvider ui;
 
-    public DisplayListener(DisplayView displayView, UIProvider ui)
+    public DisplayListener(DisplayView displayView, UIProvider ui) : base(ui)
     {
         this.displayView = displayView;
-        this.ui = ui;
         displayResult = new DisplayResult
         {
             StepId = displayView.Step.Id,

@@ -7,13 +7,11 @@ namespace Prompton.UI.Listeners;
 public class NumberListener : StepListener
 {
     private readonly NumberView numberView;
-    private readonly UIProvider ui;
     private readonly NumberResult result;
 
-    public NumberListener(NumberView numberView, UIProvider ui)
+    public NumberListener(NumberView numberView, UIProvider ui) : base(ui)
     {
         this.numberView = numberView;
-        this.ui = ui;
         result = new NumberResult
         {
             StepId = numberView.Step.Id,

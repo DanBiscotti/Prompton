@@ -3,5 +3,5 @@
 public class SeriesResult : StepResult
 {
     public string Prompt { get; set; }
-    public List<List<StepResult>> Result { get; set; }
+    public List<StepResult> Result { get; set; }
 }

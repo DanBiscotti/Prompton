@@ -4,7 +4,7 @@ using Prompton.Steps.StepResults;
 namespace Prompton.UI.Listeners;
 public class QuitListener : StepListener
 {
-    public QuitListener() { }
+    public QuitListener(UIProvider ui) : base(ui) { }
 
     public override StepResult GetResult()
     {
