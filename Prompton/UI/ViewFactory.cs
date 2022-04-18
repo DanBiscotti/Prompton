@@ -3,6 +3,7 @@ using ConsoleGUI.Controls;
 using Prompton.Steps;
 using Prompton.UI.Views;
 using SharpAudio;
+using System;
 using System.Collections.Generic;
 
 namespace Prompton.UI;

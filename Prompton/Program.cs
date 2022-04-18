@@ -6,6 +6,10 @@ using Prompton.UI;
 using Prompton.UI.Listeners;
 using Prompton.Yaml;
 using SharpAudio;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
 
 var mainFilePath = args[0];
 var mainYamlString = File.ReadAllText(mainFilePath);

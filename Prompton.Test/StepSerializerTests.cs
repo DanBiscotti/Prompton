@@ -1,5 +1,7 @@
 ﻿using Prompton.Steps;
 using Prompton.Yaml;
+using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace Prompton.Test;
@@ -52,8 +54,8 @@ public class StepSerializerTests
 
         var data = deserializer.Deserialize(yaml);
 
-        Assert.IsType<Steps.Time>(data);
-        var timer = data as Steps.Time;
+        Assert.IsType<Time>(data);
+        var timer = data as Time;
     }
 
     [Fact]

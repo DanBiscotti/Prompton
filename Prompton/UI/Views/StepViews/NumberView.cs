@@ -1,5 +1,7 @@
 ﻿using ConsoleGUI.Controls;
 using Prompton.Steps;
+using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Prompton.UI.Views;

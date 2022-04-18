@@ -1,6 +1,7 @@
 ﻿using ConsoleGUI;
 using ConsoleGUI.Controls;
 using ConsoleGUI.UserDefined;
+using System.Linq;
 
 namespace Prompton.UI.Views;
 

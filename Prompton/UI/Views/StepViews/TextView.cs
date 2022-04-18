@@ -1,5 +1,7 @@
 using ConsoleGUI.Controls;
 using Prompton.Steps;
+using System;
+using System.Linq;
 
 namespace Prompton.UI.Views;
 
