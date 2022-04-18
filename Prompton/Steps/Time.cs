@@ -1,4 +1,6 @@
-﻿namespace Prompton.Steps;
+﻿using System;
+
+namespace Prompton.Steps;
 
 public class Time : Step
 {

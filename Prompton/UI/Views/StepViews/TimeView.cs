@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using ConsoleGUI.Controls;
 using Figgle;
 using SharpAudio;

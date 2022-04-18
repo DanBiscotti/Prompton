@@ -1,4 +1,6 @@
-﻿namespace Prompton.Steps.StepResults;
+﻿using System.Collections.Generic;
+
+namespace Prompton.Steps.StepResults;
 
 public class ForResult : StepResult
 {

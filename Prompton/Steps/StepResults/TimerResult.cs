@@ -1,4 +1,6 @@
-﻿namespace Prompton.Steps.StepResults;
+﻿using System;
+
+namespace Prompton.Steps.StepResults;
 
 public class TimerResult : StepResult
 {

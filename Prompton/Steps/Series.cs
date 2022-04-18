@@ -1,4 +1,6 @@
-﻿namespace Prompton.Steps;
+﻿using System.Collections.Generic;
+
+namespace Prompton.Steps;
 
 public class Series : Step
 {
